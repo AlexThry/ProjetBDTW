@@ -4,7 +4,7 @@
 
 Des trucs à faire :
 
-à venir ...
+ - faire en sorte qu'un admin se log depuis la page admin.php pour aller sur la page admin-dashboard.php
 
 ## Architecture
 

@@ -1,4 +1,6 @@
 <?php
+$categories = Database::get_categories()['label'];
+var_dump($categories);
 
 $genre  = isset( $_GET['genre'] ) && ! empty( $_GET['genre'] ) ? htmlentities( $_GET['genre'] ) : null;
 $start  = isset( $_GET['start'] ) && ! empty( $_GET['start'] ) ? htmlentities( $_GET['start'] ) : 0;
@@ -26,7 +28,7 @@ $random = generate_random_string();
 					<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Toutes catégories</button>
 				</li>
 				<?php
-				$categories = Database::get_all_genre();
+				$categories = Database::get_categories()['label'];
 				foreach ( $categories as $category ) :
 					?>
 

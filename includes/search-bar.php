@@ -26,12 +26,12 @@ $random = generate_random_string();
 					<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Toutes catégories</button>
 				</li>
 				<?php
-				$categories = Database::get_all_genre();
+				$categories = Database::get_categories();
 				foreach ( $categories as $category ) :
 					?>
 
-					<li data-cat="<?php echo $category; ?>">
-						<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><?php echo $category; ?></button>
+					<li data-cat="<?php echo $category['label']; ?>">
+						<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><?php echo $category['label']; ?></button>
 					</li>
 				
 				<?php endforeach; ?>

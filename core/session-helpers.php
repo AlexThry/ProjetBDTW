@@ -37,8 +37,7 @@ function refresh_user(): void {
 		'first_name' => $user['first_name'],
 		'last_name' => $user['last_name'],
 		'password' => $user['password'],
-		'email' => $user['email'],
-		'profile_url' => $user['profile_url']
+		'is_admin' => $user['is_admin']
 	);
 
 	$_SESSION['current_user'] = $new_user;

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   PRIMARY KEY (`id`),
   KEY `fk_id_user` (`id_user`),
   KEY `fk_id_question` (`id_question`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `has_category` (
   `id_question1` int NOT NULL,
   `id_category` int NOT NULL,
   PRIMARY KEY (`id_question1`,`id_category`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `is_nearby` (
   `id_question1` int NOT NULL,
   `id_question2` int NOT NULL,
   PRIMARY KEY (`id_question1`,`id_question2`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `number_likes` int NOT NULL DEFAULT '0',
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `image_url` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_username` (`user_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

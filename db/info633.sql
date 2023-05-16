@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 16 mai 2023 à 14:08
--- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
+-- Généré le : mar. 16 mai 2023 à 16:14
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,93 +24,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `answer`
---
-
-DROP TABLE IF EXISTS `answer`;
-CREATE TABLE IF NOT EXISTS `answer` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `content` text NOT NULL,
-  `raw_html` text NOT NULL,
-  `id_user` int NOT NULL,
-  `id_question` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_id_user` (`id_user`),
-  KEY `fk_id_question` (`id_question`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `category`
---
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `label` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `has_category`
---
-
-DROP TABLE IF EXISTS `has_category`;
-CREATE TABLE IF NOT EXISTS `has_category` (
-  `id_question1` int NOT NULL,
-  `id_category` int NOT NULL,
-  PRIMARY KEY (`id_question1`,`id_category`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `is_nearby`
---
-
-DROP TABLE IF EXISTS `is_nearby`;
-CREATE TABLE IF NOT EXISTS `is_nearby` (
-  `id_question1` int NOT NULL,
-  `id_question2` int NOT NULL,
-  PRIMARY KEY (`id_question1`,`id_question2`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `question`
---
-
-DROP TABLE IF EXISTS `question`;
-CREATE TABLE IF NOT EXISTS `question` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL,
-  `creation_date` date NOT NULL,
-  `number_likes` int NOT NULL DEFAULT '0',
-  `content` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
   `is_admin` tinyint(1) NOT NULL,
   `user_name` varchar(25) NOT NULL,
   `image_url` text NOT NULL,
+  `password` varchar(256) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_username` (`user_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `is_admin`, `user_name`, `image_url`, `password`) VALUES
+(1, 'hugo', 'beaubrun', 1, 'beaubruh', '', '63a9f0ea7bb98050796b649e85481845'),
+(2, 'ronan', 'terras', 1, 'ronang', '', '63a9f0ea7bb98050796b649e85481845'),
+(3, 'carlyne', 'barrachin', 1, 'carlyne', '', '63a9f0ea7bb98050796b649e85481845'),
+(4, 'lois', 'blin', 1, 'lois', '', '63a9f0ea7bb98050796b649e85481845'),
+(5, 'alexis', 'thierry', 1, 'alexis', '', '63a9f0ea7bb98050796b649e85481845'),
+(6, 'arnaud', 'pfundstein', 1, 'arnaud', '', '63a9f0ea7bb98050796b649e85481845'),
+(7, 'ugo', 'tafaro', 1, 'ugo', '', '63a9f0ea7bb98050796b649e85481845'),
+(8, 'lionel', 'valet', 0, 'lionel', '', '63a9f0ea7bb98050796b649e85481845'),
+(9, 'ilham', 'alloui', 0, 'ilham', '', '63a9f0ea7bb98050796b649e85481845');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,8 +3,19 @@
 ## TodoList
 
 Des trucs à faire :
-
- - faire en sorte qu'un admin se log depuis la page admin.php pour aller sur la page admin-dashboard.php
+- Dans account.php, voir toutes **nos** questions
+- Dans index.php, voir toutes les questions (avec pagination)
+- Réutiliser la recherche du projet précédent pour trouver des questions (page search-results.php, méthode Database::search_books et Database::get_sorted_books)
+    - Recherche par texte
+    - Recherche par catégorie
+    - Tri par nombre de likes
+    - Tri par date de création
+- Dans admin-dashboard.php, faire le form pour ajouter une catégorie
+- Dans admin-dashboard.php, faire le form pour supprimer une catégorie
+- Dans admin-dashboard.php, voir les questions non validés
+- Dans admin-dashboard.php, validé une question
+- Dans admin-dashboard.php, voir les questions non répondues
+- Dans admin-dashboard.php, répondre à une question de manière courte (sans html)
 
 ## Architecture
 

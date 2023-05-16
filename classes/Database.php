@@ -219,6 +219,41 @@ if ( ! class_exists( 'Database' ) ) {
 			return $question;
 		}
 		
+
+
+
+
+
+
+
+
+
+
+
+
+		/** INUTILES : ON LES GARDES JUSQU'A LES REMPLACER */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		/**
 		 * Get all books.
 		 *

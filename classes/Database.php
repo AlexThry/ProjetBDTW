@@ -115,7 +115,36 @@ if ( ! class_exists( 'Database' ) ) {
 			return $user;
 		}
 
+		/**
+		 * @param $email
+		 * @param $password
+		 *
+		 * @return bool
+		 */
+		public static function get_questions_by_user_id( $id ) {
+			global $conn;
+			$sql = 'SELECT * FROM question WHERE user_id = ' . $id;
+			$res = mysqli_query( $conn, $sql );
+			$questions = array();
+			foreach( $res as $row ) {
+				$question = array(
+					'id' => $row['id'],
+					'title' => $row['title'],
+					'content' => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes' => $row['number_likes']
+				);
+				array_push( $questions, $question );
+			}
+			return $questions;
+		}
 
+		/**
+		 * @param $email
+		 * @param $password
+		 *
+		 * @return bool
+		 */
 		public static function get_categories() {
 			global $conn;
 			$sql = 'SELECT * FROM category';
@@ -131,7 +160,25 @@ if ( ! class_exists( 'Database' ) ) {
 			return $categories;
 		}
 		
+		public static function get_answer_by_question_id( $id ) {
+			global $conn;
+			$sql = 'SELECT * FROM answer WHERE id_question = ' . $id;
+			$res = mysqli_query( $conn, $sql );
+			$answers = array();
+			foreach( $res as $row ) {
+				$answer = array(
+					'id' => $row['id'],
+					'content' => $row['content'],
+					'id_question' => $row['id_question'],
+					'id_user' => $row['id_user'],
+					'raw_html' => $row['raw_html']
+				);
+				array_push( $answers, $answer );
+			}
+			return $answers;
+		}
 	}
+
 
 }
 

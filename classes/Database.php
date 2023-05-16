@@ -97,6 +97,21 @@ if ( ! class_exists( 'Database' ) ) {
 			return $user;
 		}
 
+
+		public static function get_categories() {
+			global $conn;
+			$sql = 'SELECT * FROM category';
+			$res = mysqli_query( $conn, $sql );
+			$categories = array();
+			foreach( $res as $row ) {
+				$category = array(
+					'id' => $row['id'],
+					'label' => $row['label']
+				);
+				array_push( $categories, $category );
+			}
+			return $categories;
+		}
 		
 	}
 }

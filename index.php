@@ -16,32 +16,8 @@
 					<div aria-hidden="true" class="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl">
 						<div class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
 						<div class="flex items-center space-x-6 lg:space-x-8">
-							<div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-							<div class="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
-								<img src="https://m.media-amazon.com/images/I/916DM68L6cS.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-							<div class="h-64 w-44 overflow-hidden rounded-lg">
-								<img src="https://m.media-amazon.com/images/I/91QAA9JXFJL.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-						</div>
-						<div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-							<div class="h-64 w-44 overflow-hidden rounded-lg">
-								<img src="https://static.fnac-static.com/multimedia/Images/FR/NR/76/ac/e1/14789750/1507-1/tsp20230401085400/Force-de-vie.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-							<div class="h-64 w-44 overflow-hidden rounded-lg">
-								<img src="https://m.media-amazon.com/images/I/71xXrddBk7L.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-							<div class="h-64 w-44 overflow-hidden rounded-lg">
-								<img src="https://m.media-amazon.com/images/I/41ozBdkhBrL._SX316_BO1,204,203,200_.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-							</div>
-							<div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-							<div class="h-64 w-44 overflow-hidden rounded-lg">
-								<img src="https://m.media-amazon.com/images/I/41ozBdkhBrL._SX316_BO1,204,203,200_.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-							<div class="h-64 w-44 overflow-hidden rounded-lg">
-								<img src="https://products-images.di-static.com/image/george-r-r-martin-le-trone-de-fer-a-game-of-thrones-book-1/9780006479888-475x500-1.jpg" alt="" class="h-full w-full object-cover object-center">
-							</div>
+							<div class="rounded-lg sm:opacity-0 lg:opacity-100">
+								<img src="https://img.freepik.com/vecteurs-libre/autogestion-coaching-vie-homme-doutant-interrogeant-brainstorming-crise-identite-delire-confusion-mentale-concept-sentiments-confus_335657-686.jpg?w=2000&t=st=1684596403~exp=1684597003~hmac=eff7995b8ee7c1020b09f53b595d887d3b5f805ee5e40becde09b084b06045c8" alt="" class="h-full w-full object-cover object-center">
 							</div>
 						</div>
 						</div>

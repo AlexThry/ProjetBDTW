@@ -39,19 +39,19 @@ if ( ! class_exists( 'Component' ) ) {
 			<div id="dropdown-single-cercles-book-<?php echo $book_id; ?>" class="z-100 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
 				<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
 					<?php foreach($circles as $circle) : ?>
-					<?php $book_is_in_circle = Database::book_is_in_circle($book_id, $circle['id']); ?>
+					<?php //$book_is_in_circle = Database::book_is_in_circle($book_id, $circle['id']); ?>
 					<?php $change_circle_url = "change-circle-single-question.php?circle-id=".$circle['id']."&book-id=".$book_id."&previous-url=$_SERVER[REQUEST_URI]"; ?>
 					<li>
 						<a href="<?php echo $change_circle_url; ?>" class="whitespace-nowrap inline-flex align-items px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-							<?php if ( $book_is_in_circle ) : ?>
+							<?php //if ( $book_is_in_circle ) : ?>
 							<svg fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 mr-2 -ml-1"© viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 							</svg>
-							<?php else : ?>
+							<?php //else : ?>
 							<svg fill="none" stroke="currentColor" class="w-5 h-5 mr-2 -ml-1" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
 							</svg>
-							<?php endif; ?>
+							<?php //endif; ?>
 							<?php echo $circle['title'] ?>
 						</a>
 					</li>
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Component' ) ) {
 		 * @param array $circles An array of each circles that the book can be added in
 		 * @return void
 		 */
-		public static function display_single_book( $title, $image_url, $author, $id, $score, $circles ) : void {
+		public static function display_single_book( $title, $image_url, $author, $id, $score ) : void {
 			?>
 			<div class="book-card cursor-pointer hover:scale-90 transition ease duration-300 relative">
 				<a href="single-question.php?id=<?php echo htmlentities( $id ); ?>">
@@ -84,19 +84,19 @@ if ( ! class_exists( 'Component' ) ) {
 				<div class="single-book-buttons height-full">
 					<div class="single-book-buttons">
 						<?php $is_connected = get_user() !== false; ?>
-						<?php $has_read = $is_connected ? Database::user_has_read(get_user()['id'], $id) : false; ?>
-						<?php $wants_to_read = $is_connected ? Database::user_wants_to_read(get_user()['id'], $id) : false; ?>
+						<!-- <?php //$has_read = $is_connected ? Database::user_has_read(get_user()['id'], $id) : false; ?>
+						<?php //$wants_to_read = $is_connected ? Database::user_wants_to_read(get_user()['id'], $id) : false; ?> -->
 
-						<?php if ( $has_read ) : ?>
+						<?php //if ( $has_read ) : ?>
 							<a class="whitespace-nowrap disabled text-white bg-green-700 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600">
 								<svg fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 mr-2 -ml-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 								</svg>
 								Lu
 							</a>
-						<?php endif; ?>
+						<?php //endif; ?>
 
-						<?php if ( $wants_to_read && !$has_read ) : ?>
+						<?php //if ( $wants_to_read && !$has_read ) : ?>
 							<a class="whitespace-nowrap	disabled text-white bg-green-700 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600">
 								<svg fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 mr-2 -ml-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path>
@@ -109,18 +109,17 @@ if ( ! class_exists( 'Component' ) ) {
 								</svg>
 								Terminé
 							</a>
-						<?php endif; ?>
+						<?php //endif; ?>
 
-						<?php if ( !$wants_to_read && !$has_read ) : ?>
+						<?php //if ( !$wants_to_read && !$has_read ) : ?>
 							<a href="<?php echo "change-wishlist.php?book_id=$id&previous-url=$_SERVER[REQUEST_URI]" ?>" class="whitespace-nowrap text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 								<svg fill="none" stroke="currentColor" class="w-5 h-5 mr-2 -ml-1" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
 								</svg>
 								Ajouter
 							</a>
-						<?php endif; ?>
+						<?php //endif; ?>
 
-						<?php if ( $circles ) Component::display_book_circle_choices( $id, $circles ); ?>
 					</div>
 				</div>
 			</div>
@@ -137,7 +136,7 @@ if ( ! class_exists( 'Component' ) ) {
 		 */
 		public static function display_books( $books ): void {
 			$circles = array();
-			if(get_user()) $circles = Database::get_user_circles(get_user()['id']);
+			//if(get_user()) $circles = Database::get_user_circles(get_user()['id']);
 			if ( $books ) :
 				?>
 				<div class="grid grid-cols-2 2xl:grid-cols-8 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-4">

@@ -20,11 +20,9 @@ function display_books_grid( $books ): void {
 	?>
 	<div class="grid grid-cols-2 2xl:grid-cols-6 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-4">
 		<?php
-		$circles = array();
-		if(get_user()) $circles = Database::get_user_circles(get_user()['id']);
 
 		foreach ( $books as $book ) {
-			Component::display_single_book( $book['title'], $book['image_url'], $book['author'], $book['id'], $book['score'], $circles );
+			Component::display_single_book( $book['title'], $book['image_url'], $book['author'], $book['id'], $book['score'] );
 		}
 
 		?>
@@ -137,7 +135,7 @@ function display_pagination( $total_books, $genre, $start, $limit, $sort, $order
 							<a href="<?php echo $all_cat_url; ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Toutes catégories</a>
 						</li>
 						<?php
-						$categories = Database::get_all_genre();
+						$categories = Database::get_categories();
 						foreach ( $categories as $category ) :
 							$categories_url = get_home_url() . '?' . http_build_query(
 								array(
@@ -289,10 +287,10 @@ function display_pagination( $total_books, $genre, $start, $limit, $sort, $order
 			try {
 				$args_copy          = $args;
 				$args_copy['limit'] = null;
-				$total_books        = count(Database::get_sorted_books( $args_copy ));
-				$books              = Database::get_sorted_books( $args );
+				$total_books        = count((array)Database::get_questions( $args_copy ));
+				$questions              = Database::get_questions( $args );
 
-				display_books_grid( $books );
+				display_books_grid( $questions );
 				display_pagination( $total_books, $genre, $start, $limit, $sort, $order );
 
 			} catch ( Exception $e ) {

@@ -1,3 +1,5 @@
+@import url("./markdown-editor.css");
+
 html {
   scroll-behavior: smooth;
 }
@@ -51,7 +53,7 @@ form input {
   width: 450px;
 }
 
-.book-card a.disabled{
+.book-card a.disabled {
   cursor: default;
 }
 
@@ -64,10 +66,10 @@ form input {
 }
 
 .book-card:hover > * {
-  opacity: .3;
+  opacity: 0.3;
 }
 
-.single-book-buttons{
+.single-book-buttons {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -124,4 +126,3 @@ form input {
   align-items: center;
   margin-right: 10px;
 }
-

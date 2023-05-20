@@ -55,6 +55,15 @@ require_once 'functions.php';
 		}
 	</script>
 	<link rel="stylesheet" href="assets/css/style.css">
+	
+	<!--include Stacks -->
+	<!-- <link rel="stylesheet" href="assets/css/stacks.min.css" /> -->
+	<!-- include the bundled styles -->
+	<!-- <link
+		rel="stylesheet"
+		href="assets/css/styles.css"
+	/> -->
+
 </head>
 
 <body class="page-<?php echo get_url_basename(); ?> bg-white dark:bg-gray-800">
@@ -167,7 +176,7 @@ require_once 'functions.php';
 						<div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate3d(99px, 0px, 0px);"></div>
 					</div>
 
-					<?php
+						<?php
 						else :
 							$profile_url = $current_user['profile_url'];
 							?>

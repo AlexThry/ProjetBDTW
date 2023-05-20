@@ -1,0 +1,235 @@
+/* Header styling */
+.html-markdown-renderer h1,
+.html-markdown-renderer h2,
+.html-markdown-renderer h3,
+.html-markdown-renderer h4,
+.html-markdown-renderer h5,
+.html-markdown-renderer h6 {
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.html-markdown-renderer h1 {
+  font-size: 28px;
+}
+
+.html-markdown-renderer h2 {
+  font-size: 24px;
+}
+
+.html-markdown-renderer h3 {
+  font-size: 20px;
+}
+
+/* Link styling */
+.html-markdown-renderer a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.html-markdown-renderer a:hover {
+  text-decoration: underline;
+}
+
+/* Paragraph and list styling */
+.html-markdown-renderer p,
+.html-markdown-renderer ul,
+.html-markdown-renderer ol {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.html-markdown-renderer ul,
+.html-markdown-renderer ol {
+  padding-left: 2em;
+}
+
+/* Code block styling */
+.html-markdown-renderer pre {
+  padding: 16px;
+  background-color: #e9f4ff;
+  border-radius: 3px;
+  overflow: auto;
+}
+
+.html-markdown-renderer pre code {
+  display: block;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+}
+
+/* Inline code styling */
+.html-markdown-renderer code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+  padding: 3px 5px;
+  background-color: #e9f4ff;
+  border-radius: 3px;
+}
+
+/* Blockquote styling */
+.html-markdown-renderer blockquote {
+  margin: 0;
+  padding-left: 1em;
+  border-left: 4px solid #dfe2e5;
+  color: #6a737d;
+}
+
+/* Image styling */
+.html-markdown-renderer img {
+  max-width: 100%;
+}
+
+/* Table styling */
+.html-markdown-renderer table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 16px;
+}
+
+.html-markdown-renderer th,
+.html-markdown-renderer td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.html-markdown-renderer th {
+  font-weight: 600;
+  text-align: left;
+  padding: 8px;
+  background-color: #f6f8fa;
+  border: 1px solid #dfe2e5;
+}
+
+/* Miscellaneous styling */
+.html-markdown-renderer hr {
+  height: 0;
+  margin: 15px 0;
+  border: 0;
+  border-top: 1px solid #dfe2e5;
+}
+
+/* ============== DARK MODE ============== */
+
+html.dark .html-markdown-renderer {
+  color: #e7e7e7;
+}
+
+html.dark .html-markdown-renderer pre,
+html.dark .html-markdown-renderer code {
+  color: #151515;
+}
+
+html.dark .html-markdown-renderer h1,
+html.dark .html-markdown-renderer h2,
+html.dark .html-markdown-renderer h3,
+html.dark .html-markdown-renderer h4,
+html.dark .html-markdown-renderer h5,
+html.dark .html-markdown-renderer h6 {
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+html.dark .html-markdown-renderer h1 {
+  font-size: 28px;
+}
+
+html.dark .html-markdown-renderer h2 {
+  font-size: 24px;
+}
+
+html.dark .html-markdown-renderer h3 {
+  font-size: 20px;
+}
+
+/* Link styling */
+html.dark .html-markdown-renderer a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+html.dark .html-markdown-renderer a:hover {
+  text-decoration: underline;
+}
+
+/* Paragraph and list styling */
+html.dark .html-markdown-renderer p,
+html.dark .html-markdown-renderer ul,
+html.dark .html-markdown-renderer ol {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+html.dark .html-markdown-renderer ul,
+html.dark .html-markdown-renderer ol {
+  padding-left: 2em;
+}
+
+/* Code block styling */
+html.dark .html-markdown-renderer pre {
+  padding: 16px;
+  background-color: #e9f4ff;
+  border-radius: 3px;
+  overflow: auto;
+}
+
+html.dark .html-markdown-renderer pre code {
+  display: block;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+}
+
+/* Inline code styling */
+html.dark .html-markdown-renderer code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+  padding: 3px 5px;
+  background-color: #e9f4ff;
+  border-radius: 3px;
+}
+
+/* Blockquote styling */
+html.dark .html-markdown-renderer blockquote {
+  margin: 0;
+  padding-left: 1em;
+  border-left: 4px solid #dfe2e5;
+  color: #6a737d;
+}
+
+/* Image styling */
+html.dark .html-markdown-renderer img {
+  max-width: 100%;
+}
+
+/* Table styling */
+html.dark .html-markdown-renderer table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 16px;
+}
+
+html.dark .html-markdown-renderer th,
+html.dark .html-markdown-renderer td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+html.dark .html-markdown-renderer th {
+  font-weight: 600;
+  text-align: left;
+  padding: 8px;
+  background-color: #282a2c;
+  border: 1px solid #dfe2e5;
+}
+
+/* Miscellaneous styling */
+html.dark .html-markdown-renderer hr {
+  height: 0;
+  margin: 15px 0;
+  border: 0;
+  border-top: 1px solid #dfe2e5;
+}

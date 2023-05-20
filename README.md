@@ -2,20 +2,40 @@
 
 ## TodoList
 
-Des trucs à faire :
-- Dans account.php, voir toutes **nos** questions
-- Dans index.php, voir toutes les questions (avec pagination)
-- Réutiliser la recherche du projet précédent pour trouver des questions (page search-results.php, méthode Database::search_books et Database::get_sorted_books)
-    - Recherche par texte
+- **CHANGER BD pour distinguer questions validés / invalidés**
+- Dans l'espace compte | **`Carlyne Lois`**
+    - Changer ses identifiants
+    - Voir toutes **nos** questions
+    - Voir la réponse ou le message "Pas de réponse, patientez svp"
+    - Voir le contenu additionnel de la réponse
+
+- Dans la page d'accueil | **`Ronan`**
+    - Voir toutes les questions (avec pagination)
+    - Recherche par texte (seulement le texte de la quesiton)
+    - (Recherche par texte (avec le texte des réponses))
     - Recherche par catégorie
     - Tri par nombre de likes
     - Tri par date de création
-- Dans admin-dashboard.php, faire le form pour ajouter une catégorie
-- Dans admin-dashboard.php, faire le form pour supprimer une catégorie
-- Dans admin-dashboard.php, voir les questions non validés
-- Dans admin-dashboard.php, validé une question
-- Dans admin-dashboard.php, voir les questions non répondues
-- Dans admin-dashboard.php, répondre à une question de manière courte (sans html)
+    - Tri répondu / pas répondu
+    - (Tri validés et invalidés (seulement pour l'admin))
+
+- Dans l'espace admin | **`Hugo Ugo`**
+    - Faire le form pour ajouter une catégorie
+    - Faire le form pour supprimer une catégorie
+    - Voir les questions non validés
+    - Validé une question
+    - Voir les questions non répondues
+    - (Tri questions validés et invalidés)
+
+- Dans la page d'une question | **`Arnaud Alexis`**
+    - Voir l'intitulé, la date, etc
+    - Voir le nombre de likes
+    - Voir la réponse ou un message "Pas répondu, patientez plz"
+    - Voir qui a répondu (nom, image de profil, date de la réponse)
+    - (Voir si la question à été édité par l'admin)
+    - Répondre à une question de manière courte
+    - Répondre à une question de manière longue (markdown)
+
 
 ## Architecture
 

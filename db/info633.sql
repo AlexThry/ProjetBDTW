@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 21 mai 2023 à 16:04
+-- Généré le : dim. 21 mai 2023 à 16:15
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -195,15 +195,15 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `is_admin`, `user_name`, `image_url`, `password`) VALUES
-(1, 'hugo', 'beaubrun', 1, 'beaubruh', '', '63a9f0ea7bb98050796b649e85481845'),
-(2, 'ronan', 'terras', 1, 'ronang', '', '63a9f0ea7bb98050796b649e85481845'),
-(3, 'carlyne', 'barrachin', 1, 'carlyne', '', '63a9f0ea7bb98050796b649e85481845'),
-(4, 'lois', 'blin', 1, 'lois', '', '63a9f0ea7bb98050796b649e85481845'),
-(5, 'alexis', 'thierry', 1, 'alexis', '', '63a9f0ea7bb98050796b649e85481845'),
-(6, 'arnaud', 'pfundstein', 1, 'arnaud', '', '63a9f0ea7bb98050796b649e85481845'),
-(7, 'ugo', 'tafaro', 1, 'ugo', '', '63a9f0ea7bb98050796b649e85481845'),
-(8, 'lionel', 'valet', 0, 'lionel', '', '63a9f0ea7bb98050796b649e85481845'),
-(9, 'ilham', 'alloui', 0, 'ilham', '', '63a9f0ea7bb98050796b649e85481845');
+(1, 'hugo', 'beaubrun', 0, 'beaubruh', '', '63a9f0ea7bb98050796b649e85481845'),
+(2, 'ronan', 'terras', 0, 'ronang', '', '63a9f0ea7bb98050796b649e85481845'),
+(3, 'carlyne', 'barrachin', 0, 'carlyne', '', '63a9f0ea7bb98050796b649e85481845'),
+(4, 'lois', 'blin', 0, 'lois', '', '63a9f0ea7bb98050796b649e85481845'),
+(5, 'alexis', 'thierry', 0, 'alexis', '', '63a9f0ea7bb98050796b649e85481845'),
+(6, 'arnaud', 'pfundstein', 0, 'arnaud', '', '63a9f0ea7bb98050796b649e85481845'),
+(7, 'ugo', 'tafaro', 0, 'ugo', '', '63a9f0ea7bb98050796b649e85481845'),
+(8, 'lionel', 'valet', 1, 'lionel', '', '63a9f0ea7bb98050796b649e85481845'),
+(9, 'ilham', 'alloui', 1, 'ilham', '', '63a9f0ea7bb98050796b649e85481845');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

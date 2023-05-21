@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 17 mai 2023 à 09:00
--- Version du serveur :  5.7.31
--- Version de PHP : 7.3.21
+-- Généré le : dim. 21 mai 2023 à 16:04
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,18 +27,17 @@ SET time_zone = "+00:00";
 -- Structure de la table `answer`
 --
 
-
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `raw_html` text NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_question` int(11) NOT NULL,
+  `id_user` int NOT NULL,
+  `id_question` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_user` (`id_user`),
   KEY `fk_id_question` (`id_question`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `answer`
@@ -61,11 +60,11 @@ INSERT INTO `answer` (`id`, `content`, `raw_html`, `id_user`, `id_question`) VAL
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `label` (`label`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `category`
@@ -87,10 +86,10 @@ INSERT INTO `category` (`id`, `label`) VALUES
 
 DROP TABLE IF EXISTS `has_category`;
 CREATE TABLE IF NOT EXISTS `has_category` (
-  `id_question1` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL,
+  `id_question1` int NOT NULL,
+  `id_category` int NOT NULL,
   PRIMARY KEY (`id_question1`,`id_category`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `has_category`
@@ -118,10 +117,10 @@ INSERT INTO `has_category` (`id_question1`, `id_category`) VALUES
 
 DROP TABLE IF EXISTS `is_nearby`;
 CREATE TABLE IF NOT EXISTS `is_nearby` (
-  `id_question1` int(11) NOT NULL,
-  `id_question2` int(11) NOT NULL,
+  `id_question1` int NOT NULL,
+  `id_question2` int NOT NULL,
   PRIMARY KEY (`id_question1`,`id_question2`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `is_nearby`
@@ -143,31 +142,33 @@ INSERT INTO `is_nearby` (`id_question1`, `id_question2`) VALUES
 
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `number_likes` int(11) NOT NULL DEFAULT '0',
+  `number_likes` int NOT NULL DEFAULT '0',
   `content` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `id_user` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_id_user` (`id_user`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `question`
 --
 
-INSERT INTO `question` (`id`, `title`, `creation_date`, `number_likes`, `content`) VALUES
-(1, 'Connexion à la base de donnée en PHP', '2023-02-02 00:00:00', 0, 'J\'ai une erreur quand j\'essaye de connecter mon site à ma base de donnée mysql, j\'obtiens l\'error \"Vous n\'êtes pas qualifié pour parler de mon grand front\".\r\nVoici mon code :\r\n<?php\r\n$serveur = \"localhost\";\r\n$utilisateur = \"jeanlasticot\";\r\n$motdepasse = \"jesuisunasticot joyeux\";\r\n$base_de_donnees =\"aaaaaaugh\";\r\n\r\n$connexion = mysqli_connect($serveur, $utilisateur, $motdepasse, $base_de_donnees);\r\n\r\nif (!$connexion) {\r\n    die(\"Erreur de connexion à la base de données : \" . mysqli_connect_error());\r\n}'),
-(2, 'Transformation d’une association de 1 à 1', '2023-01-29 00:00:00', 4, 'Bonjour, nous avons vu comment passer du schéma entités/associations au schéma relationnel pour des associations de 1 à plusieurs et de plusieurs à plusieurs. Mais pour une association de 1 à 1 comment cela se passe ? On ajoute n\'importe laquelle clé primaire d\'une entité dans la relation de l\'autre entité en tant que clé étrangère ?\r\n'),
-(3, 'Nommage des tables', '2023-01-30 00:00:00', 12, 'Est ce qu\'il existe des conventions de nommages des tables / attributs dans le milieu professionnel de la base de donnés ?'),
-(4, 'Table et relation', '2023-01-30 00:00:00', 1, 'Bonjour, je me demandais quelle est la différence entre une table et une relation ?'),
-(5, 'Nombre de relation', '2023-01-30 00:00:00', 5, 'est-il possible d\'avoir deux ou plusieurs relations entre deux mêmes entités ?'),
-(6, 'tuple et n-tuple', '2023-01-31 00:00:00', 11, 'Que signifie \"tuple\" et \"n-uplet\" d\'un modèle ?'),
-(7, 'Merise et modèle entité association', '2023-01-01 00:00:00', 0, 'Quelles est la différence entre le modèle E/A et le modèle Merise ?\r\n'),
-(8, 'Groupe by et Order by', '2023-02-14 00:00:00', 27, 'Quelle est la différence entre GROUP BY et ORDER BY ?'),
-(9, 'Join et select imbriqué', '2023-02-22 00:00:00', 5, 'Bonjour, \r\n\r\nJe me demandais dans quelle situation il est préférable d\'utiliser un SELECT imbriquée et dans quelle situation il est préférable d\'utiliser un JOIN ?\r\n\r\nCordialement,\r\n\r\nUgo TAFARO'),
-(10, 'Left et right join en SQL', '2023-02-22 00:00:00', 12, 'Bonjour, \r\n\r\nJe souhaiterais savoir à quoi servent les left et right join puisqu\'ils sélectionnent l\'intégralité d\'une seule table (comme un SELECT * FROM table).\r\n\r\nCordialement'),
-(11, 'Jointure et produit cartésien', '2023-02-22 00:00:00', 1, 'Bonjour,\r\n\r\nj\'aimerais connaître la différence entre une jointure et un produit cartésien\r\n\r\nmerci,'),
-(12, 'Usage des vues', '2023-02-27 00:00:00', 5, 'Quels sont les désavantages d\'utiliser une vue au lieu d\'une table ?');
+INSERT INTO `question` (`id`, `title`, `creation_date`, `number_likes`, `content`, `id_user`) VALUES
+(1, 'Connexion à la base de donnée en PHP', '2023-02-02 00:00:00', 0, 'J\'ai une erreur quand j\'essaye de connecter mon site à ma base de donnée mysql, j\'obtiens l\'error \"Vous n\'êtes pas qualifié pour parler de mon grand front\".\r\nVoici mon code :\r\n<?php\r\n$serveur = \"localhost\";\r\n$utilisateur = \"jeanlasticot\";\r\n$motdepasse = \"jesuisunasticot joyeux\";\r\n$base_de_donnees =\"aaaaaaugh\";\r\n\r\n$connexion = mysqli_connect($serveur, $utilisateur, $motdepasse, $base_de_donnees);\r\n\r\nif (!$connexion) {\r\n    die(\"Erreur de connexion à la base de données : \" . mysqli_connect_error());\r\n}', NULL),
+(2, 'Transformation d’une association de 1 à 1', '2023-01-29 00:00:00', 4, 'Bonjour, nous avons vu comment passer du schéma entités/associations au schéma relationnel pour des associations de 1 à plusieurs et de plusieurs à plusieurs. Mais pour une association de 1 à 1 comment cela se passe ? On ajoute n\'importe laquelle clé primaire d\'une entité dans la relation de l\'autre entité en tant que clé étrangère ?\r\n', NULL),
+(3, 'Nommage des tables', '2023-01-30 00:00:00', 12, 'Est ce qu\'il existe des conventions de nommages des tables / attributs dans le milieu professionnel de la base de donnés ?', NULL),
+(4, 'Table et relation', '2023-01-30 00:00:00', 1, 'Bonjour, je me demandais quelle est la différence entre une table et une relation ?', NULL),
+(5, 'Nombre de relation', '2023-01-30 00:00:00', 5, 'est-il possible d\'avoir deux ou plusieurs relations entre deux mêmes entités ?', NULL),
+(6, 'tuple et n-tuple', '2023-01-31 00:00:00', 11, 'Que signifie \"tuple\" et \"n-uplet\" d\'un modèle ?', NULL),
+(7, 'Merise et modèle entité association', '2023-01-01 00:00:00', 0, 'Quelles est la différence entre le modèle E/A et le modèle Merise ?\r\n', NULL),
+(8, 'Groupe by et Order by', '2023-02-14 00:00:00', 27, 'Quelle est la différence entre GROUP BY et ORDER BY ?', NULL),
+(9, 'Join et select imbriqué', '2023-02-22 00:00:00', 5, 'Bonjour, \r\n\r\nJe me demandais dans quelle situation il est préférable d\'utiliser un SELECT imbriquée et dans quelle situation il est préférable d\'utiliser un JOIN ?\r\n\r\nCordialement,\r\n\r\nUgo TAFARO', NULL),
+(10, 'Left et right join en SQL', '2023-02-22 00:00:00', 12, 'Bonjour, \r\n\r\nJe souhaiterais savoir à quoi servent les left et right join puisqu\'ils sélectionnent l\'intégralité d\'une seule table (comme un SELECT * FROM table).\r\n\r\nCordialement', NULL),
+(11, 'Jointure et produit cartésien', '2023-02-22 00:00:00', 1, 'Bonjour,\r\n\r\nj\'aimerais connaître la différence entre une jointure et un produit cartésien\r\n\r\nmerci,', NULL),
+(12, 'Usage des vues', '2023-02-27 00:00:00', 5, 'Quels sont les désavantages d\'utiliser une vue au lieu d\'une table ?', NULL);
 
 -- --------------------------------------------------------
 
@@ -177,7 +178,7 @@ INSERT INTO `question` (`id`, `title`, `creation_date`, `number_likes`, `content
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
   `is_admin` tinyint(1) NOT NULL,
@@ -186,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(256) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_username` (`user_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `user`

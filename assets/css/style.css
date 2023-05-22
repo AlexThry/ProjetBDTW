@@ -126,3 +126,36 @@ form input {
   align-items: center;
   margin-right: 10px;
 }
+
+.like-png{
+  width: 15px;
+  height: 15px;
+}
+
+.question-title{
+  font-weight: bold;
+  color: rgb(29, 78, 216);
+}
+
+.w-650 {
+  width: 650px;
+}
+
+.w-200 {
+  width: 200px;
+}
+
+.cadre {
+  border-left: solid 1px #e5e7eb;
+  border-right: solid 1px #e5e7eb;
+  border-bottom:  solid 1px #e5e7eb;
+  padding: 20px;
+}
+
+.admin-answer {
+  padding-left: 10px;
+}
+
+.admin {
+  font-weight: bold;
+}

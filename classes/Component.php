@@ -127,17 +127,14 @@ if ( ! class_exists( 'Component' ) ) {
 		}
 
 		/**
-		 * Displays a grid of books with there respective cover, title
-		 * the note the current user gave it, and the list of circles that it can be added in.
+		 * Displays a grid of questions
 		 * If theres no book, displays a message and a like to get more books.
 		 *
-		 * @param array $books Array of Books.
+		 * @param array $questions Array of Questions.
 		 * @return void
 		 */
-		public static function display_books( $books ): void {
-			$circles = array();
-			//if(get_user()) $circles = Database::get_user_circles(get_user()['id']);
-			if ( $books ) :
+		public static function display_questions( $questions ): void {
+			if ( $questions ) :
 				?>
 				<div class="grid grid-cols-2 2xl:grid-cols-8 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 gap-4">
 					<?php

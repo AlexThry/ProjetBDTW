@@ -55,6 +55,8 @@ require_once 'functions.php';
 		}
 	</script>
 	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- hightlight theme -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
 </head>
 
 <body class="page-<?php echo get_url_basename(); ?> bg-white dark:bg-gray-800">

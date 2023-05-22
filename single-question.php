@@ -14,10 +14,16 @@ $user = get_user();
 		if ( key_exists( 'new_question', $_GET ) ) {
 			require_once 'includes/new-question-form.php';
 		} elseif ( key_exists( 'id', $_GET ) ) {
-			require_once 'includes/question.php';
-			require_once 'includes/answer.php';
+			// todo: check if question exists and is published (has an answer)
+			$question_published = true;
+			if ( $question_published ) {
+				require_once 'includes/question.php';
+				require_once 'includes/answer.php';
+			} else {
+				AlertManager::display_warning( 'Cette question n\'est pas visible.' );
+			}
 		} else {
-			AlertManager::display_info( 'Aucune question n\'a été sélectionnée' );
+			AlertManager::display_info( 'Aucune question n\'a été sélectionnée.' );
 		}
 
 		?>

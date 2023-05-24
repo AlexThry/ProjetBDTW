@@ -101,54 +101,56 @@ if( $error_message !== null ) {
 					Component::display_books( $books );
 					//mathys est trop beau
 					break;
+
 				case 'interface_admin':
 					?>
-				<section class="bg-white dark:bg-gray-900 ml-">
-					<div class="py-4 ml-2">
-						<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle catégorie</h2>
-						<form action="add_category.php" method="post">
-							<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-								<div class="sm:col-span-2">
-									<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom de la catégorie</label>
-									<input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un nom de catégorie" required="">
+					<!-- Add a category -->
+					<section class="bg-white dark:bg-gray-900 ml-">
+						<div class="py-4 ml-2">
+							<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle catégorie</h2>
+							<form action="add_category.php" method="post">
+								<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+									<div class="sm:col-span-2">
+										<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom de la catégorie</label>
+										<input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un nom de catégorie" required="">
+									</div>
+
+
 								</div>
+								<button type="submit" name="button" class="flex items-center px-2 py-1 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">Soumettre</button>
+
+							</form>
+						</div>
+					</section>
 
 
-							</div>
-							<button type="submit" name="button" class="flex items-center px-2 py-1 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">Soumettre</button>
 
-						</form>
-						<?php if(isset($_GET["error"])){
-							echo $_GET["error"];
-						}
-							?>
-					</div>
-				</section>
-					<!-- Supprimer une catégorie -->
+					<!-- Suppress a category -->
 					<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Supprimer une catégorie</h2>
 					<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Sélectionner une catégorie<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-					<!-- Dropdown menu -->
+
 
 					<form action="suppress_category.php" method="post">
 						<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
 							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-							<?php
+								<?php
 								$categories = Database::get_categories();
-								foreach ( $categories as $category ) {
-									?>
-
+								foreach ( $categories as $category ) :
+								?>
 									<li data-cat="<?php echo $category['label']; ?>">
 										<button type="submit" name="suppress_choice" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" value=<?php echo $category['label']; ?> ><?php echo $category['label']; ?></button>
 									</li>
-								<?php }; ?>
-
+								<?php
+								endforeach;
+								?>
 							</ul>
 						</div>
 					</form>
 
-
-
-
+					<!-- See questions unvalidate -->
+					<h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Les questions invalidées</h2>
+					<textarea id="markdown-editor" required="" name="content" data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ..." disabled>            J'ai une erreur quand j'essaye de connecter mon site à ma base de donnée mysql, j'obtiens l'error "Vous n'êtes pas qualifié pour parler de mon grand front.
+					</textarea>
 
 					<?php
 

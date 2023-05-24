@@ -4,7 +4,7 @@ require_once 'functions.php';
 $name_category  = isset( $_POST['name'] ) && !empty( $_POST['name'] ) ? $_POST['name'] : null;
 $is_admin       = get_user() ? get_user()['is_admin'] : false;
 
-// Check if user is connected an admin
+// Check if user is connected as admin
 if( !$is_admin ) {
     header("Location: admin.php");
     exit();
@@ -30,4 +30,3 @@ Database::create_category($name_category);
 
 header("Location: account.php?tab=interface_admin");
 exit();
-?>

@@ -405,6 +405,15 @@ if ( ! class_exists( 'Database' ) ) {
 			$conn->query($sql);
 		}
 
+		// TODO
+		/**
+		 * Returns the list of all unvalidated questions
+		 *
+		 * @return array
+		 */
+		public static function get_unvalidated_questions(){
+			return [];
+		}
 
 		/**
 		 * Returns the list of books a user wants to read

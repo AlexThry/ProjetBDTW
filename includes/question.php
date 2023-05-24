@@ -138,5 +138,9 @@ if ( isset($_POST['question_title']) && isset($_POST['content']) && isset($_POST
 	}
 	$title = htmlentities($_POST['question_title']);
 	$content = htmlentities($_POST['content']);
-	Database::modify_question( $id, $title, $content, $categories_ids );
+	if (strlen($title) > 50) {
+		AlertManager::display_error( "Le titre de la question ne doit pas dépasser 50 caractères." );
+	} else {
+		Database::modify_question( $id, $title, $content, $categories_ids );
+	}
 }

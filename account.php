@@ -96,38 +96,49 @@ if ( ! get_user() ) {
 
 							
 							</div>
-							<button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800" value="Soumettre">
-							</button>
-
-
+							<button type="submit" name="button" class="flex items-center px-2 py-1 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">Soumettre</button>
+							
 						</form>
-						</div>	
-					</section>
+						<?php if(isset($_GET["error"])){
+							echo $_GET["error"];
+						}
+							?>
+					</div>	
+				</section>
 					<!-- Supprimer une catégorie -->
-					<form class="sm:max-w-lg w-450" action="<?php echo get_home_url(); ?>" method="GET">
-						<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Supprimer une catégorie</h2>
-						<div class="flex search-cat-dropdown-container ml-2">
-							<input type="hidden" name="start" value="0">
-							<input type="hidden" name="limit" value="<?php echo $limit; ?>">
-							<input type="hidden" name="sort" value="<?php echo $sort; ?>">
-							<input type="hidden" name="order" value="<?php echo $order; ?>">
-							<input type="hidden" class="search-hidden-genre" name="genre" value="<?php echo $genre; ?>">
-
-							<button data-dropdown-toggle="dropdown-cat-search-<?php echo $random; ?>" class="dropdown-search-cat-button flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white-100 border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button"><span class="dropdown-cat-value"><?php echo isset( $genre ) ? $genre : 'Sélectionner une valeur à supprimer'; ?></span> <svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-							<div id="dropdown-cat-search-<?php echo $random; ?>" class="dropdown-cat-search z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-								<ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-									<?php
-									$categories = Database::get_categories();
-									foreach ( $categories as $category ) {
-										?>
-										
-										<li data-cat="<?php echo $category['label']; ?>">
-											<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><?php echo $category['label']; ?></button>
-										</li>
+					<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Supprimer une catégorie</h2>
+					<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Sélectionner une catégorie<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+					<!-- Dropdown menu -->
+					
+					<form action="suppress_category.php" method="post">
+						<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+							<?php
+								$categories = Database::get_categories();
+								foreach ( $categories as $category ) {
+									?>
 									
-									<?php }; ?>
-								</ul>
-							</div>
+									<li data-cat="<?php echo $category['label']; ?>">
+										<button type="submit" name="suppress_choice" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" value=<?php echo $category['label']; ?> ><?php echo $category['label']; ?></button>
+									</li>
+									
+									<?php
+									if(isset($_GET["error"])){
+										echo $_GET["error"];
+									}	
+											
+									?>
+									
+								
+								<?php }; ?>
+					
+							</ul>
+						</div>
+					</form>
+
+					
+
+						
 
 					<?php
 					

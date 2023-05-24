@@ -396,7 +396,13 @@ if ( ! class_exists( 'Database' ) ) {
 		public static function create_category($category){
 			global $conn;
 			$sql = "INSERT INTO category(label) VALUES ('$category')";
-			$insert_category = $conn->query($sql);
+			$conn->query($sql);
+		}
+
+		public static function delete_category($category){
+			global $conn;
+			$sql = "DELETE FROM category WHERE label='$category'";
+			$conn->query($sql);
 		}
 
 

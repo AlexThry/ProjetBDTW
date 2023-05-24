@@ -126,6 +126,7 @@ if ( ! class_exists( 'Database' ) ) {
 		/**
 		 * return all the categories linked to the question id
 		 * 
+		 * @param int $id_ The question's id
 		 * @return array all the question's categories
 		 */
 		public static function get_categories_by_id($id) {
@@ -138,6 +139,41 @@ if ( ! class_exists( 'Database' ) ) {
 				$categories[] = $row['label'];
 			}
 			return $categories;
+		}
+
+		/**
+		 * return a display tag for a category
+		 * 
+		 * @param string $category the category's name
+		 * @return string the tag to display
+		 */
+		public static function get_display_categories($category) {
+			$color = "blue";
+			switch ($category){
+				case "git":
+					$color = "pink";
+					break;
+				case "javascript":
+					$color = "yellow";
+					break;
+				case "HTML":
+					$color = "red";
+					break;
+				case "CSS":
+					$color = "blue";
+					break;
+				case "PHP":
+					$color = "indigo";
+					break;
+				case "BD":
+					$color = "green";
+					break;
+				case "BDD":
+					$color = "green";
+					break;
+			}
+			return '<div class="flex flex-wrap mb-4"><a class="bg-'.$color.'-100 text-'.$color.'-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-'.$color.'-200 hover:bg-'.$color.'-200 dark:hover:bg-'.$color.'-300 dark:text-'.$color.'-800 mb-2" href="/blog/tag/flowbite/">'.'#'.$category.'</a></div>';
+			;
 		}
 
 		/**

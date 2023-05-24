@@ -32,7 +32,7 @@
 							<div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 								<div class="overflow-x-auto">
 									<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-										<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+										<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
 											<tr>
 												<th scope="col" class="px-4 py-3">Titre</th>
 												<th scope="col" class="px-4 py-3">Catégorie</th>
@@ -55,7 +55,7 @@
 														<th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'">'.$question["title"].'</a></th>
 														<td class="px-4 py-3">';
 														foreach ($question["categories"] as $category){
-															echo $category.' ';
+															echo Database::get_display_categories($category);
 														}
 													echo '</td>
 														<td class="px-4 py-3">'.$question["creation_date"].'</td>

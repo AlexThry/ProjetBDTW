@@ -10,7 +10,7 @@ if ( ! $user_id ) {
 <div id="accordion-open" data-accordion="open">
 <?php 
 $questions_user = Database::get_user_questions($user_id);
-echo '<ul role="list" class="divide-y divide-gray-100">';
+echo '<ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900">';
 $i = 1;
 
 foreach ($questions_user as $question) :
@@ -32,7 +32,7 @@ foreach ($questions_user as $question) :
 		</h2>
 
         <div id="accordion-open-body-<?php echo $i ?>" class="hidden" aria-labelledby="accordion-open-heading-<?php echo $i ?>">
-            <div class="cadre">
+            <div class="border px-2 py-2 border-gray-200 text-gray-1000 dark:text-gray-100 dark:border-gray-700">
                     <?php
                     if ($answer) {
                         echo "<div class='flex'>";
@@ -65,7 +65,7 @@ foreach ($questions_user as $question) :
 		</h2>
 
         <div id="accordion-open-body-<?php echo $i ?>" class="hidden" aria-labelledby="accordion-open-heading-<?php echo $i ?>">
-            <div class="cadre">
+            <div class="border px-2 py-2 border-gray-200 text-gray-1000 dark:text-gray-100 dark:border-gray-700">
                 <?php
                 if ($answer) {
                     echo "<div class='flex'>";
@@ -83,7 +83,7 @@ foreach ($questions_user as $question) :
         </div>
 
 		<?php else: ?>
-        <h2 id="accordion-open-heading-<?php echo $i ?>">
+        <h2 id="accordion-open-heading-<?php echo $i ?>" class="border-gray-200">
 			<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-open-body-<?php echo $i ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i ?>">
             <h1 class="question-title w-200"> <?php echo $question['title']; ?> </h1>
             <p><?php echo Database::get_categorie_question($question['id']); ?></p>
@@ -94,7 +94,7 @@ foreach ($questions_user as $question) :
             </button>
         </h2>
         <div id="accordion-open-body-<?php echo $i ?>" class="hidden" aria-labelledby="accordion-open-heading-<?php echo $i ?>">
-        <div class="cadre">
+        <div class="border px-2 py-2 border-gray-200 text-gray-1000 dark:text-gray-100 dark:border-gray-700">
             <?php
             if ($answer) {
                 echo "<div class='flex'>";

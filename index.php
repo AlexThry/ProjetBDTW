@@ -15,10 +15,9 @@
 					<!-- Decorative image grid -->
 					<div aria-hidden="true" class="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl">
 						<div class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-							<div class="flex items-center space-x-6 lg:space-x-8">
-								<div class="rounded-lg sm:opacity-0 lg:opacity-100">
-									<!-- <img src="https://img.freepik.com/vecteurs-libre/autogestion-coaching-vie-homme-doutant-interrogeant-brainstorming-crise-identite-delire-confusion-mentale-concept-sentiments-confus_335657-686.jpg?w=2000&t=st=1684596403~exp=1684597003~hmac=eff7995b8ee7c1020b09f53b595d887d3b5f805ee5e40becde09b084b06045c8" alt="" class="h-full w-full object-cover object-center">-->
-								</div>
+						<div class="flex items-center space-x-6 lg:space-x-8">
+							<div class="rounded-lg sm:opacity-0 lg:opacity-100">
+								<img src="assets/images/index-image.svg" alt="" class="h-full w-full object-cover object-center">
 							</div>
 						</div>
 					</div>

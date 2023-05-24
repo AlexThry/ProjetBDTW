@@ -393,6 +393,12 @@ if ( ! class_exists( 'Database' ) ) {
 			return $book;
 		}
 
+		public static function create_category($category){
+			global $conn;
+			$sql = "INSERT INTO category(label) VALUES ('$category')";
+			$insert_category = $conn->query($sql);
+		}
+
 
 		/**
 		 * Returns the list of books a user wants to read

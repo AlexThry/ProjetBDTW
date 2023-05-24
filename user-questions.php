@@ -23,6 +23,7 @@ foreach ($questions_user as $question) :
 			
             <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400" data-accordion-target="#accordion-open-body-<?php echo $i ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i ?>">
 			<h1 class="question-title w-200"> <?php echo $question['title']; ?> </h1>
+            <p><?php echo Database::get_categorie_question($question['id']); ?></p>
             <p><?php echo $question['creation_date']; ?></p>
             <span class="flex items-center"><?php echo "<p>" . $question['number_likes'] . "</p>"; ?><img src="assets/images/like.png" alt="" class="like-png"></span>
             <p class="w-650"><?php echo $question['content']; ?></p>
@@ -55,6 +56,7 @@ foreach ($questions_user as $question) :
 
 			<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-open-body-<?php echo $i ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i ?>">
 			<h1 class="question-title w-200"> <?php echo $question['title']; ?> </h1>
+            <p><?php echo Database::get_categorie_question($question['id']);?></p>
             <p><?php echo $question['creation_date']; ?></p>
             <span class="flex items-center"><?php echo $question['number_likes']; ?><img src="assets/images/like.png" alt="" class="like-png"></span>
             <p class="w-650"><?php echo $question['content']; ?></p> 
@@ -84,6 +86,7 @@ foreach ($questions_user as $question) :
         <h2 id="accordion-open-heading-<?php echo $i ?>">
 			<button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-open-body-<?php echo $i ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i ?>">
             <h1 class="question-title w-200"> <?php echo $question['title']; ?> </h1>
+            <p><?php echo Database::get_categorie_question($question['id']); ?></p>
             <p><?php echo $question['creation_date']; ?></p>
             <span class="flex items-center"><?php echo $question['number_likes']; ?><img src="assets/images/like.png" alt="" class="like-png"></span>
             <p class="w-650"><?php echo $question['content']; ?></p>

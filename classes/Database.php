@@ -219,6 +219,19 @@ if ( ! class_exists( 'Database' ) ) {
 			return $categories;
 		}
 
+		/**
+		 * Returns the category of a question
+		 *
+		 * @return string category
+		 */
+		public static function get_categorie_question(int $question_id) {
+			global $conn;
+			$sql = 'SELECT c.label FROM category c JOIN has_category hc ON hc.id_category = c.id WHERE hc.id_question1 ='.$question_id;
+			$res = mysqli_fetch_assoc($conn->query( $sql ));
+			$category= $res['label'];
+			return $category;
+		}
+
 
 		/**
 		 * Returns the answer of a given question's id
@@ -310,7 +323,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 *              All parameters are optionnal.
 		 * @return array $books Books matching the query.
 		 */
-		public static function get_sorted_books( $args ): array {
+		public static function get_sorted_quest( $args ): array {
 			global $conn;
 
 			$genre  = isset( $args['genre'] ) && ! empty( $args['genre'] ) ? $args['genre'] : null;

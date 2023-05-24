@@ -191,13 +191,7 @@ require_once 'functions.php';
 								<a href="account.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
 							</li>
 							<li>
-								<a href="account.php?tab=user_books" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes livres</a>
-							</li>
-							<li>
-								<a href="account.php?tab=user_wishlist" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ma whishlist</a>
-							</li>
-							<li>
-								<a href="account.php?tab=user_circles" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes cercles</a>
+								<a href="account.php?tab=user_questions" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes questions</a>
 							</li>
 							<li>
 								<a href="logout.php" class="flex items-center p-3 text-sm font-medium text-red-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500">

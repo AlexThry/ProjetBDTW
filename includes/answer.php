@@ -32,7 +32,7 @@ if ( key_exists( 'delete_answer', $_GET ) ) {
 						class="mr-2 w-6 h-6 rounded-full"
 						src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
 						alt="Michael Gough">Michael Gough</p>
-				<?php if ( key_exists( 'creation_date', $answer ) ) : ?>
+				<?php if ( $answer != null && key_exists( 'creation_date', $answer ) ) : ?>
 					<p class="text-sm text-gray-600 dark:text-gray-400">
 						<time class="inline" pubdate datetime="<?php echo htmlentities( $answer['creation_date'] ); ?>" title="<?php echo format_date( $answer['creation_date'] ); ?>"><?php echo format_date( $answer['creation_date'] ); ?></time>
 					</p>
@@ -69,7 +69,11 @@ if ( key_exists( 'delete_answer', $_GET ) ) {
 			<?php endif; ?>
 		</footer>
 		<p class="text-gray-800 dark:text-gray-200">
-			<?php echo html_entity_decode( $answer['content'] ); ?>
+			<?php 
+				if ($answer != null ) {
+					echo html_entity_decode( $answer['content'] ); 
+				}
+			?>
 		</p>
 
 		<!-- Pour aller plus loin. Ajouter bouton répondre -->

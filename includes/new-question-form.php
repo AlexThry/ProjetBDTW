@@ -65,3 +65,5 @@ $categories = Database::get_categories();
 
 	<div id="editor-container"></div>
 </form>
+
+

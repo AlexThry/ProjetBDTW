@@ -35,8 +35,61 @@ if ( key_exists( 'liked', $_GET ) ) {
 
 // *** todo: interactivité edit button
 if ( key_exists( 'edit', $_GET ) ) {
-	if ( $is_admin ) {
-		echo 'todo: faire le formulaire d\'édition de question';
+	if ( $is_admin ) { 
+		?>
+
+		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">Modifier la question</h1>
+		<form method="post" action="single-question.php?id=<?php echo $id ?>&edit=true">
+			<label for="question_title" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom de la question</label>
+			<input type="text" name="question_title" id="question_title" autocomplete="question_title" value="<?php echo html_entity_decode( $question['title'] ); ?>" class="mb-4 block w-full rounded-md py-1.5 bg-gray-50 border-gray-300 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="janesmith">
+			<label for="content" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Contenu</label>
+			<textarea id="markdown-editor" required name='content' data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ...">
+			<?php echo html_entity_decode( $question["content"] ) ?>
+			</textarea>
+
+
+			<div id="categories-renderer" class="sm:col-span-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:text-white"></div>
+			<div class="mt-4 sm:col-span-2">
+				<button id="dropdownCheckboxButton" data-dropdown-toggle="categories-dropdown" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium inline-flex items-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">Catégories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+				
+				<div id="categories-dropdown" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 dark:divide-gray-600">
+					<ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
+						<?php
+
+						$has_cat = Database::get_categories_label_by_question($id); 
+
+						$i = 0;
+						foreach ( $categories as $category ) {
+							$name = 'checkbox-item-' . strval( $i );
+							?>
+								<li>
+									<div class="flex items-center">
+									<?php if (in_array($category['label'], $has_cat)): ?>
+										<input checked id="<?php echo htmlentities( $name ); ?>" name="<?php echo htmlentities( $name ); ?>" type="checkbox" value="<?php echo htmlentities( $category['id'] ); ?>" data-cat-label='<?php echo ucfirst( htmlentities( $category['label'] ) ); ?>' class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+									<?php else: ?>
+											<input id="<?php echo htmlentities( $name ); ?>" name="<?php echo htmlentities( $name ); ?>" type="checkbox" value="<?php echo htmlentities( $category['id'] ); ?>" data-cat-label='<?php echo ucfirst( htmlentities( $category['label'] ) ); ?>' class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+									<?php endif; ?>
+										<label for="<?php echo htmlentities( $name ); ?>" class="flex-1 ml-2 cursor-pointer text-sm font-medium text-gray-900 dark:text-gray-300"><?php echo ucfirst( htmlentities( $category['label'] ) ); ?></label>
+									</div>
+								</li>
+							<?php
+							$i++;
+						}
+
+						?>
+					</ul>
+				</div>
+			</div>
+			
+			<input type="submit" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value='Valider'>
+		</form>
+
+	<?php
+
+
+
+
+
 	} else {
 		AlertManager::display_warning( "T'es un petit malin toi ;). Désolé tu n'as pas le droit de modifier cette question." );
 	}
@@ -46,19 +99,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
 			<?php echo htmlentities( $question['title'] ); ?>
 		</h1>
-
-		<?php // Create component to replace div below. ?>
-		<div class="flex algin-center">
-			<div class="flex flex-wrap mb-4"><a
-					class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 hover:bg-blue-200 dark:hover:bg-blue-300 dark:text-blue-800 mb-2"
-					href="/blog/tag/flowbite/">#Flowbite</a></div>
-			<div class="flex flex-wrap mb-4"><a
-					class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 hover:bg-red-200 dark:hover:bg-red-300 dark:text-red-800 mb-2"
-					href="/blog/tag/flowbite/">#Flowbite</a></div>
-			<div class="flex flex-wrap mb-4"><a
-					class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 hover:bg-yellow-200 dark:hover:bg-yellow-300 dark:text-yellow-800 mb-2"
-					href="/blog/tag/flowbite/">#Flowbite</a></div>
-		</div>
+		<?php Component::display_categories( $id ); ?>
 
 		<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
 			<div class="text-base">
@@ -87,4 +128,15 @@ if ( key_exists( 'edit', $_GET ) ) {
 		</p>
 	</article>
 	<?php
+}
+
+if ( isset($_POST['question_title']) && isset($_POST['content']) && isset($_POST['checkbox-item-1'])) {
+	$i = 1;
+	while (isset($_POST['checkbox-item-' . $i])) {
+		$categories_ids[] = htmlentities($_POST['checkbox-item-' . $i]);
+		$i++;
+	}
+	$title = htmlentities($_POST['question_title']);
+	$content = htmlentities($_POST['content']);
+	Database::modify_question( $id, $title, $content, $categories_ids );
 }

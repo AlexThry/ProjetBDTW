@@ -23,7 +23,6 @@ if ( isset($_POST['question_title']) && isset($_POST['content'])) {
 			$categories_ids[] = htmlentities($value);
 		}
 	}
-	var_dump("ids : ", $categories_ids,"post : ", $_POST);
 
 	$title = htmlentities($_POST['question_title']);
 	$content = htmlentities($_POST['content']);

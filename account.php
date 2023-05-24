@@ -24,14 +24,11 @@ if ( ! get_user() ) {
 							'label'    => 'Mes livres',
 							'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',
 						),
-						'user_wishlist' => array(
-							'label'    => 'Ma wishlist',
+						'interface_admin' => array(
+							'label'    => 'Interface administrateur',
 							'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
 						),
-						'user_circles'  => array(
-							'label'    => 'Mon cercle',
-							'svg_path' => '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668zM12 10a2 2 0 11-4 0 2 2 0 014 0z" clip-rule="evenodd"></path>',
-						),
+						
 					);
 
 					$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
@@ -74,7 +71,6 @@ if ( ! get_user() ) {
 					require_once 'includes/account/data-form.php';
 					break;
 				case 'user_books':
-					// Premier tab: Mes livres --------------------------------------------------->
 					$books = Database::get_user_books( get_user()['id'] );
 
 					?>
@@ -84,24 +80,59 @@ if ( ! get_user() ) {
 					</div>
 					<?php
 					Component::display_books( $books );
+					//mathys est trop beau
 					break;
-				case 'user_wishlist':
-					// Deuxième tab: Ma Whishlist (TODO) ----------------------------------------->
-					$whishlist = Database::get_user_wishlist( get_user()['id'] );
-
+				case 'interface_admin':
 					?>
-					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">
-						<h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" id="content">Votre liste de lectures</h1>
-						<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">Ajoutez, modifiez ou supprimez des titres à votre liste de lectures.</p>
-					</div>
+				<section class="bg-white dark:bg-gray-900 ml-">
+					<div class="py-4 ml-2">
+						<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle catégorie</h2>
+						<form action="add_category.php" method="post">
+							<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+								<div class="sm:col-span-2">
+									<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom de la catégorie</label>
+									<input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un nom de catégorie" required="">
+								</div>
+
+							
+							</div>
+							<button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800" value="Soumettre">
+							</button>
+
+
+						</form>
+						</div>	
+					</section>
+					<!-- Supprimer une catégorie -->
+					<form class="sm:max-w-lg w-450" action="<?php echo get_home_url(); ?>" method="GET">
+						<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Supprimer une catégorie</h2>
+						<div class="flex search-cat-dropdown-container ml-2">
+							<input type="hidden" name="start" value="0">
+							<input type="hidden" name="limit" value="<?php echo $limit; ?>">
+							<input type="hidden" name="sort" value="<?php echo $sort; ?>">
+							<input type="hidden" name="order" value="<?php echo $order; ?>">
+							<input type="hidden" class="search-hidden-genre" name="genre" value="<?php echo $genre; ?>">
+
+							<button data-dropdown-toggle="dropdown-cat-search-<?php echo $random; ?>" class="dropdown-search-cat-button flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white-100 border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button"><span class="dropdown-cat-value"><?php echo isset( $genre ) ? $genre : 'Sélectionner une valeur à supprimer'; ?></span> <svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+							<div id="dropdown-cat-search-<?php echo $random; ?>" class="dropdown-cat-search z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+								<ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+									<?php
+									$categories = Database::get_categories();
+									foreach ( $categories as $category ) {
+										?>
+										
+										<li data-cat="<?php echo $category['label']; ?>">
+											<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><?php echo $category['label']; ?></button>
+										</li>
+									
+									<?php }; ?>
+								</ul>
+							</div>
+
 					<?php
-					Component::display_books( $whishlist );
+					
 					break;
-				case 'user_circles':
-					// Quatrième tab: Mon cercle (TODO) ----------------------------------------->
-					$circle = Database::get_user_circles( get_user()['id'] );
-					require_once 'includes/account/circle-form.php';
-					break;
+				
 
 				default:
 					AlertManager::display_error( 'Cet onglet n\'existe pas.' );

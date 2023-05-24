@@ -2,10 +2,16 @@
 	require_once 'functions.php';
 	// Test if user is connected
 if ( ! get_user() ) {
-	header( 'Location: ' . get_home_url() );
+	header( 'Location: connection.php' );
 }
 
-	require_once 'includes/header.php';
+$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
+$is_admin = get_user()['is_admin'];
+// Check if user is allowed to get on this page
+if( ! $is_admin && $active_tab === 'interface_admin') {
+	header('Location: connection-admin.php');
+}
+require_once 'includes/header.php';
 ?>
 
 <div class="content">
@@ -24,14 +30,15 @@ if ( ! get_user() ) {
 							'label'    => 'Mes livres',
 							'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',
 						),
-						'interface_admin' => array(
-							'label'    => 'Interface administrateur',
-							'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
-						),
-						
 					);
 
-					$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
+					// Add the interface_admin button, but only if the user is connected as an admin
+					if( $is_admin ) {
+						$buttons['interface_admin'] = array(
+							'label'    => 'Interface administrateur',
+							'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
+						);
+					}
 
 					foreach ( $buttons as $tab_slug => $tab ) {
 						$is_selected = $active_tab === $tab_slug;
@@ -94,14 +101,14 @@ if ( ! get_user() ) {
 									<input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un nom de catégorie" required="">
 								</div>
 
-							
+
 							</div>
 							<button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800" value="Soumettre">
 							</button>
 
 
 						</form>
-						</div>	
+						</div>
 					</section>
 					<!-- Supprimer une catégorie -->
 					<form class="sm:max-w-lg w-450" action="<?php echo get_home_url(); ?>" method="GET">
@@ -120,19 +127,19 @@ if ( ! get_user() ) {
 									$categories = Database::get_categories();
 									foreach ( $categories as $category ) {
 										?>
-										
+
 										<li data-cat="<?php echo $category['label']; ?>">
 											<button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><?php echo $category['label']; ?></button>
 										</li>
-									
+
 									<?php }; ?>
 								</ul>
 							</div>
 
 					<?php
-					
+
 					break;
-				
+
 
 				default:
 					AlertManager::display_error( 'Cet onglet n\'existe pas.' );

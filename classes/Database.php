@@ -404,7 +404,10 @@ if ( ! class_exists( 'Database' ) ) {
 			$sql = "DELETE FROM category WHERE label='$category'";
 			$conn->query($sql);
 		}
-
+		
+		public static function get_questions_unvalidate(){
+			
+		}
 
 		/**
 		 * Returns the list of books a user wants to read

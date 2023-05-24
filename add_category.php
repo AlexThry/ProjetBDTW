@@ -18,7 +18,7 @@ if(isset($_POST["button"]) && !empty($_POST["button"])){
 else{
 
     $msg_error = "Veuillez remplir ce champ !";
-    header("Location: account.php?tab=interface_admin&error=$msg_error");
+    header("Location: account.php?tab=interface_admin&error=").htmlentities($msg_error);
 
 }
 

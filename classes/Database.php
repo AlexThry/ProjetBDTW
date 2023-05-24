@@ -268,28 +268,33 @@ if ( ! class_exists( 'Database' ) ) {
 		 * @param int $id_question The question's id
 		 * @return array|null The question if it exists, null otherwise
 		 */
-		public static function modify_question( $id_question, $title, $content, $categories ) {
+		public static function modify_question( $id_question, $title, $content, $id_categories ) {
 			global $conn;
+
 			$sql = "UPDATE question SET title = '$title', content = '$content' WHERE id = $id_question";
 			mysqli_query($conn, $sql);
 
 			$sql = "DELETE FROM has_category WHERE id_question1 = $id_question";
 			mysqli_query($conn, $sql);
 
-			foreach ($categories as $category) {
-				$sql = "INSERT INTO has_category (id_question1, id_category) VALUES ($id_question, $category)";
+			if (sizeof($id_categories) == 0) {
+				return;
+			}
+
+			foreach ($id_categories as $id_category) {
+				$sql = "INSERT INTO has_category (id_question1, id_category) VALUES ($id_question, $id_category)";
 				mysqli_query($conn, $sql);
 			}
 		}
 
 
-		public static function get_categories_label_by_question( $id_question ) {
+		public static function get_categories_id_by_question( $id_question ) {
 			global $conn;
-			$sql = "SELECT label FROM category WHERE id IN (SELECT id_category FROM has_category WHERE id_question1 = $id_question)";
+			$sql = "SELECT id FROM category WHERE id IN (SELECT id_category FROM has_category WHERE id_question1 = $id_question)";
 			$res = mysqli_query($conn, $sql);
 			$categories = array();
 			foreach ($res as $line) {
-				$categories[] = $line['label'];
+				$categories[] = $line['id'];
 			}
 			return $categories;
 		}

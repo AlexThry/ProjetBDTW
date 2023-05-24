@@ -15,6 +15,25 @@ $is_admin = true;
 // *** todo: check if has already like the question
 $is_liked = true;
 
+if ( isset($_POST['question_title']) && isset($_POST['content'])) {
+	$i = 0;
+	$categories_ids = [];
+	foreach ($_POST as $key => $value) {
+		if (strpos($key, 'checkbox-item-') === 0) {
+			$categories_ids[] = htmlentities($value);
+		}
+	}
+	var_dump("ids : ", $categories_ids,"post : ", $_POST);
+
+	$title = htmlentities($_POST['question_title']);
+	$content = htmlentities($_POST['content']);
+	if (strlen($title) > 50) {
+		AlertManager::display_error( "Le titre de la question ne doit pas dépasser 50 caractères." );
+	} else {
+		Database::modify_question( $id, $title, $content, $categories_ids );
+	}
+}
+
 /*
  ***todo: Afficher les categories à la place de #flowbite et
 mettant les bonnes couleurs comme dans le fichier
@@ -56,7 +75,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 					<ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
 						<?php
 
-						$has_cat = Database::get_categories_label_by_question($id); 
+						$has_cat = Database::get_categories_id_by_question($id); 
 
 						$i = 0;
 						foreach ( $categories as $category ) {
@@ -64,7 +83,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 							?>
 								<li>
 									<div class="flex items-center">
-									<?php if (in_array($category['label'], $has_cat)): ?>
+									<?php if (in_array($category['id'], $has_cat)): ?>
 										<input checked id="<?php echo htmlentities( $name ); ?>" name="<?php echo htmlentities( $name ); ?>" type="checkbox" value="<?php echo htmlentities( $category['id'] ); ?>" data-cat-label='<?php echo ucfirst( htmlentities( $category['label'] ) ); ?>' class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 									<?php else: ?>
 											<input id="<?php echo htmlentities( $name ); ?>" name="<?php echo htmlentities( $name ); ?>" type="checkbox" value="<?php echo htmlentities( $category['id'] ); ?>" data-cat-label='<?php echo ucfirst( htmlentities( $category['label'] ) ); ?>' class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
@@ -130,17 +149,4 @@ if ( key_exists( 'edit', $_GET ) ) {
 	<?php
 }
 
-if ( isset($_POST['question_title']) && isset($_POST['content']) && isset($_POST['checkbox-item-1'])) {
-	$i = 1;
-	while (isset($_POST['checkbox-item-' . $i])) {
-		$categories_ids[] = htmlentities($_POST['checkbox-item-' . $i]);
-		$i++;
-	}
-	$title = htmlentities($_POST['question_title']);
-	$content = htmlentities($_POST['content']);
-	if (strlen($title) > 50) {
-		AlertManager::display_error( "Le titre de la question ne doit pas dépasser 50 caractères." );
-	} else {
-		Database::modify_question( $id, $title, $content, $categories_ids );
-	}
-}
+

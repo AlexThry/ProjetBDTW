@@ -117,11 +117,6 @@ html.dark .html-markdown-renderer {
   color: #e7e7e7;
 }
 
-html.dark .html-markdown-renderer pre,
-html.dark .html-markdown-renderer code {
-  color: #151515;
-}
-
 html.dark .html-markdown-renderer h1,
 html.dark .html-markdown-renderer h2,
 html.dark .html-markdown-renderer h3,
@@ -171,7 +166,7 @@ html.dark .html-markdown-renderer ol {
 /* Code block styling */
 html.dark .html-markdown-renderer pre {
   padding: 16px;
-  background-color: #e9f4ff;
+  background-color: #1c1c1c;
   border-radius: 3px;
   overflow: auto;
 }
@@ -180,6 +175,7 @@ html.dark .html-markdown-renderer pre code {
   display: block;
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 14px;
+  background-color: #1c1c1c;
 }
 
 /* Inline code styling */
@@ -187,7 +183,8 @@ html.dark .html-markdown-renderer code {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 14px;
   padding: 3px 5px;
-  background-color: #e9f4ff;
+  background-color: #404245;
+  color: #e7e9eb;
   border-radius: 3px;
 }
 

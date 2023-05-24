@@ -40,11 +40,14 @@ if ( ! class_exists( 'Database' ) ) {
 			if($res === null) return null;
 
 			$user = array(
-				'id'         => (int)$row['id'],
-				'user_name'  => $row['user_name'],
-				'first_name' => $row['first_name'],
-				'last_name'  => $row['last_name'],
-				'is_admin'   => (boolean)$row['is_admin']
+				'id'         => (int)$res['id'],
+				'user_name'  => $res['user_name'],
+				'first_name' => $res['first_name'],
+				'last_name'  => $res['last_name'],
+				'is_admin'   => (boolean)$res['is_admin'],
+				'password' =>$res['password'],
+				'email' =>$res['email'],
+				'profile_url' =>$res['profile_url']
 			);
 			return $user;
 		}
@@ -162,6 +165,28 @@ if ( ! class_exists( 'Database' ) ) {
 			}
 			return $questions;
 		}
+		/**
+		 * Returns all the questions of a user
+		 *
+		 * @return array All the questions
+		 */
+		public static function get_user_questions($user_id) {
+			global $conn;
+			$sql = 'SELECT * FROM question WHERE id_user =' . $user_id;
+			$res = mysqli_query( $conn, $sql );
+
+			$questions = array();
+			foreach( $res as $row ) {
+				$questions[] = array(
+					'id'            => (int)$row['id'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes'  => (int)$row['number_likes']
+				);
+			}
+			return $questions;
+		}
 
 		/**
 		 * Returns the questions related to a given question
@@ -209,7 +234,7 @@ if ( ! class_exists( 'Database' ) ) {
 					'content'       => $row['content'],
 					'raw_html'      => $row['raw_html'],
 					'id_question'   => (int)$row['id_question'],
-					'id_user'       => (int)$row['is_user'],
+					'id_user'       => (int)$row['id_user'],
 				);
 			}
 			return $answers;
@@ -234,6 +259,19 @@ if ( ! class_exists( 'Database' ) ) {
 				);
 			}
 			return $categories;
+		}
+
+		/**
+		 * Returns the category of a question
+		 *
+		 * @return string category
+		 */
+		public static function get_categorie_question(int $question_id) {
+			global $conn;
+			$sql = 'SELECT c.label FROM category c JOIN has_category hc ON hc.id_category = c.id WHERE hc.id_question1 ='.$question_id;
+			$res = mysqli_fetch_assoc($conn->query( $sql ));
+			$category= $res['label'];
+			return $category;
 		}
 
 
@@ -327,7 +365,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 *              All parameters are optionnal.
 		 * @return array $books Books matching the query.
 		 */
-		public static function get_sorted_books( $args ): array {
+		public static function get_sorted_quest( $args ): array {
 			global $conn;
 
 			$genre  = isset( $args['genre'] ) && ! empty( $args['genre'] ) ? $args['genre'] : null;

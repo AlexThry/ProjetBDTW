@@ -16,18 +16,11 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js" defer></script>
         <script src="assets/js/script.js" defer></script>
-
-
-
-        <!-- highlight.js is not included in the bundle, so include it as well if you want it -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" integrity="sha512-rdhY3cbXURo13l/WU9VlaRyaIYeJ/KBakckXIvJNAQde8DgpOmE+eZf7ha4vdqVjTtwQt69bD2wH2LXob/LB7Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <!--include Stacks -->
-        <!-- <script src="assets/js/stacks.min.js"></script> -->
-        <!-- include the bundle -->
-        <!-- <script src="assets/js/app.bundle.js"></script> -->
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" integrity="sha512-rdhY3cbXURo13l/WU9VlaRyaIYeJ/KBakckXIvJNAQde8DgpOmE+eZf7ha4vdqVjTtwQt69bD2wH2LXob/LB7Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js" integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <!-- initialize the editor -->
+        <!-- to use if cdn doesn't work -->
+        <!-- <script src="assets/js/dependencies/showdown.min.js"></script> -->
         <script src="assets/js/markdown-editor.js"></script>
 
 	</main>

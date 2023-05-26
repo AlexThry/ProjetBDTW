@@ -83,14 +83,12 @@ if( $error_message !== null ) {
 
 			switch ( $active_tab ) {
 				case 'user_data':
-					// Troisième tab: Mes infos (TODO) ------------------------------------------>
+					// <--------------------- Mes infos (TODO) --------------------------->
 					require_once 'includes/account/data-form.php';
 					break;
 				case 'user_questions':
-					// Premier tab: Mes questions --------------------------------------------------->
-					$questions = Database::get_user_questions( get_user()['id'] );
-
-					?>
+					// <--------------------- Mes questions ------------------------------>
+				?>
 					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">
 						<h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" id="content">Mes questions</h1>
 						<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">Retrouvez toutes les questions que vous avez posées ainsi que leurs réponses.</p>
@@ -121,12 +119,9 @@ if( $error_message !== null ) {
 						</div>
 					</section>
 
-
-
 					<!-- Suppress a category -->
 					<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Supprimer une catégorie</h2>
 					<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Sélectionner une catégorie<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-
 
 					<form action="suppress-category.php" method="post">
 						<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -145,10 +140,28 @@ if( $error_message !== null ) {
 						</div>
 					</form>
 
-					<!-- See questions unvalidate -->
+					<!-- Displays unvalidated questions -->
 					<h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Les questions invalidées</h2>
-					<textarea id="markdown-editor" required="" name="content" data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ..." disabled>            J'ai une erreur quand j'essaye de connecter mon site à ma base de donnée mysql, j'obtiens l'error "Vous n'êtes pas qualifié pour parler de mon grand front.
-					</textarea>
+
+					<div id="accordion-open" data-accordion="open">
+						<ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900">
+							<?php
+							$unvalidated_questions = Database::get_unvalidated_questions();
+							$i_question = 0;
+							foreach ($unvalidated_questions as $question) :
+								$first_category = Database::get_question_categories($question['id'])[0]['label'];
+							?>
+
+								<h2 id="accordion-open-heading">
+									<div class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
+										<h1 class="question-title w-200"> <?php echo $question['title'] ?> </h1>
+										<p><?php echo $first_category ?></p>
+										<p><?php echo $question['creation_date'] ?></p>
+										<p class="w-650"><?php echo $question['content'] ?></p>
+									</div>
+								</h2>
+						<?php endforeach; ?>
+					</div>
 
 					<?php
 

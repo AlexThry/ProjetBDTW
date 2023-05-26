@@ -1,7 +1,6 @@
 <?php
 
 require_once 'functions.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -174,6 +173,11 @@ require_once 'functions.php';
 							$profile_url = $current_user['profile_url'];
 							?>
 
+					<?php $user            = get_user();
+					// Check if user is connected
+					if ( ! $user ) die();
+					$is_admin      = $user['is_admin']; ?>
+
 					<!-- Profile dropdown -->
 					<div class="relative ml-3">
 						<button data-dropdown-toggle="dropdown-user" data-tooltip-target="tooltip-user" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -190,13 +194,19 @@ require_once 'functions.php';
 							<li>
 								<a href="account.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
 							</li>
-							<li>
-								<a href="account.php?tab=user_questions" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes questions</a>
-							</li>
-							<li>
-								<a href="account.php?tab=user_questions_favoris" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes favoris</a>
-							</li>
-							<li>
+							<?php if ($is_admin):?>
+								<li>
+									<a href="account.php?tab=interface_admin" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Interface administrateur</a>
+								</li>
+							<?php else:?>
+								<li>
+									<a href="account.php?tab=user_questions" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes questions</a>
+								</li>
+								<li>
+									<a href="account.php?tab=user_questions_favoris" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes favoris</a>
+								</li>
+								<li>
+							<?php endif;?>	
 								<a href="logout.php" class="flex items-center p-3 text-sm font-medium text-red-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500">
 									<svg class="w-5 h-5 mr-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z"></path></svg>
 									Déconnexion

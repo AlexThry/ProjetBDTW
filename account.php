@@ -41,6 +41,10 @@ if( $error_message !== null ) {
 								'label'    => 'Mes questions',
 								'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',
 							),
+							'user_questions_favoris'    => array(
+								'label'    => 'Mes favoris',
+								'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
+							)
 						);
 
 						// Add the interface_admin button, but only if the user is connected as an admin
@@ -87,15 +91,28 @@ if( $error_message !== null ) {
 					require_once 'includes/account/data-form.php';
 					break;
 				case 'user_questions':
-					// <--------------------- Mes questions ------------------------------>
-				?>
+					// Premier tab: Mes questions --------------------------------------------------->
+					$questions = Database::get_user_questions( get_user()['id'],true );
+					?>
 					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">
 						<h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" id="content">Mes questions</h1>
 						<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">Retrouvez toutes les questions que vous avez posées ainsi que leurs réponses.</p>
 					</div>
 					<?php
+					echo Component::display_user_question($questions);
+					break;
 
-					require_once 'user-questions.php';
+				case 'user_questions_favoris':
+					//Mes favoris --------------------------------------------------->
+					$questions = Database::get_user_questions_favoris( get_user()['id'], true );
+
+					?>
+					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">
+						<h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" id="content">Mes favoris</h1>
+						<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">Retrouvez toutes les questions que vous avez aimées ainsi que leur réponse.</p>
+					</div>
+					<?php
+					echo Component::display_user_question($questions);
 					break;
 
 				case 'interface_admin':

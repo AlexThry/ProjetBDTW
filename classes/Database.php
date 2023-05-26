@@ -214,6 +214,32 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 		/**
+		 * Returns all the questions liked by a user
+		 *
+		 * @return array All the questions
+		 */
+		public static function get_user_questions_favoris($user_id, $with_likes = false) {
+			global $conn;
+			$sql = 'SELECT * FROM question q JOIN likes l ON q.id = l.id_question WHERE l.id_user =' . $user_id;
+			$res = mysqli_query( $conn, $sql );
+
+			foreach( $res as $row ) {
+				$question = [
+					'id'            => (int)$row['id_question'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+				];
+
+				// Optionnal keys
+				if($with_likes) $question['number_likes'] = self::get_number_likes($question['id']);
+
+				$questions[] = $question;
+			}
+			return $questions;
+		}
+
+		/**
 		 * Returns the questions related to a given question
 		 *
 		 * /!\ Related questions are not bidirectionnal !
@@ -247,7 +273,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_number_likes( $id_question ) {
 			global $conn;
-			$sql = "SELECT count(*) `number_likes` FROM likes WHERE id_question = $id_question;";
+			$sql = "SELECT count(*) as `number_likes` FROM likes WHERE id_question = $id_question;";
 			$res = mysqli_query( $conn, $sql );
 			return mysqli_fetch_assoc($res)['number_likes'];
 		}

@@ -137,12 +137,20 @@ form input {
   color: rgb(29, 78, 216);
 }
 
-.w-650 {
-  width: 650px;
+.w-500 {
+  width: 500px;
 }
 
-.w-200 {
-  width: 200px;
+.w-150 {
+  width: 150px;
+}
+
+.w-100 {
+  width: 100px;
+}
+
+.w-20 {
+  width: 20px;
 }
 
 .cadre {

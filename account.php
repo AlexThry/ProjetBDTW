@@ -142,35 +142,20 @@ if( $error_message !== null ) {
 
 					<!-- Displays unvalidated questions -->
 					<h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Les questions invalidées</h2>
+					<?php
+						$unvalidated_questions = Database::get_unvalidated_questions();
+						Component::display_questions($unvalidated_questions, "with-validation-action");
+					?>
 
-					<div id="accordion-open" data-accordion="open">
-						<ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900">
-							<?php
-							$unvalidated_questions = Database::get_unvalidated_questions();
-							$i_question = 0;
-							foreach ($unvalidated_questions as $question) :
-								$question_id    = $question['id'];
-								$first_category = Database::get_question_categories($question_id)[0]['label'];
-								$validation_url = "validate-question.php?question-id=$question_id&previous-url=$_SERVER[REQUEST_URI]";
-							?>
-								<h2 id="accordion-open-heading">
-									<div class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
-										<h1 class="question-title w-200"> <?php echo $question['title'] ?> </h1>
-										<p><?php echo $first_category ?></p>
-										<p><?php echo $question['creation_date'] ?></p>
-										<p class="w-650"><?php echo $question['content'] ?></p>
-										<a href="<?php echo $validation_url ?>" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-											<svg fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 mr-2 -ml-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-												<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-											</svg>
-											Validé
-										</a>
-									</div>
-								</h2>
-						<?php endforeach; ?>
-					</div>
+					<!-- Displays unanswered questions -->
+					<h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Les questions non répondues</h2>
+					<?php
+						$unanswered_questions = Database::get_unanswered_questions();
+						Component::display_questions($unanswered_questions, "with-answer-action");
+					?>
 
-					<?php break;
+
+				<?php break;
 
 				default:
 					AlertManager::display_error( 'Cet onglet n\'existe pas.' );

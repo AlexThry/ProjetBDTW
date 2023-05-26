@@ -157,6 +157,34 @@ if ( ! class_exists( 'Database' ) ) {
 
 
 		/**
+		 * Returns all the unanswered questions
+		 *
+		 * @return array
+		 */
+		public static function get_unanswered_questions(){
+			global $conn;
+			$sql = "SELECT * FROM question
+				WHERE id NOT IN (
+					SELECT id_question
+					FROM answer
+				);";
+			$res = $conn->query($sql);
+
+			$questions = array();
+			foreach( $res as $row ) {
+				$questions[] = [
+					'id'            => (int)$row['id'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes'  => self::get_number_likes($row['id']),
+				];
+			}
+			return $questions;
+		}
+
+
+		/**
 		 * Returns all the questions of a user
 		 *
 		 * @return array All the questions

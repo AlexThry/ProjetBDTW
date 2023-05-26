@@ -93,13 +93,13 @@ function connect_user( $user_name, $password ) {
  */
 function add_user_to_session( array $result ): void {
 	$user = array(
-		'id' => (int) $result['id'],
-		'user_name' =>$result['user_name'],
-		'first_name' =>$result['first_name'],
-		'last_name' =>$result['last_name'],
-		'password' =>$result['password'],
-		'email' =>$result['email'],
-		'profile_url' =>$result['profile_url']
+		'id'         => (int)$result['id'],
+		'user_name'  => $result['user_name'],
+		'first_name' => $result['first_name'],
+		'last_name'  => $result['last_name'],
+		'is_admin'   => (boolean)$result['is_admin'],
+		'email'       => $result['mail'],
+		'profile_url'=> $result['profile_url'],
 	);
 
 	$_SESSION['current_user'] = $user;

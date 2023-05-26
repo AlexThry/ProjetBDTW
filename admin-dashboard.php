@@ -85,9 +85,9 @@ if ( ! get_user() ) {
 					<?php
 					Component::display_books( $books );
 					break;
-				case 'user_wishlist':
+				case 'interface_admin':
 					// Deuxième tab: Ma Whishlist (TODO) ----------------------------------------->
-					$whishlist = Database::get_user_wishlist( get_user()['id'] );
+					
 
 					?>
 					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">

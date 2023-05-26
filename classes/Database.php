@@ -509,6 +509,27 @@ if ( ! class_exists( 'Database' ) ) {
 			return $book;
 		}
 
+		public static function create_category($category){
+			global $conn;
+			$sql = "INSERT INTO category(label) VALUES ('$category')";
+			$conn->query($sql);
+		}
+
+		public static function delete_category($category){
+			global $conn;
+			$sql = "DELETE FROM category WHERE label='$category'";
+			$conn->query($sql);
+		}
+
+		// TODO
+		/**
+		 * Returns the list of all unvalidated questions
+		 *
+		 * @return array
+		 */
+		public static function get_unvalidated_questions(){
+			return [];
+		}
 
 		/**
 		 * Returns the list of books a user wants to read

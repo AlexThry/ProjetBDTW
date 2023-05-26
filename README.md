@@ -19,14 +19,17 @@
     - Tri par date de création
     - Tri répondu / pas répondu
     - (Tri validés et invalidés (seulement pour l'admin))
+    - Dans la top bar, affiché un bouton "Poser une question"
 
 - Dans l'espace admin | **`Hugo Ugo`**
-    - Faire le form pour ajouter une catégorie
-    - Faire le form pour supprimer une catégorie
+    - [FIX] Responsive design dans l'onglet interface admin'
+    - ✔️ Faire le form pour ajouter une catégorie
+    - ✔️ Faire le form pour supprimer une catégorie
     - Voir les questions non validés
     - Validé une question
     - Voir les questions non répondues
     - (Tri questions validés et invalidés)
+    - (Dans un onglet paramètre, afficher l'option "Afficher le bouton ajouter une question dans la topbar") (voir Arnaud si tu comprends pas)
 
 - Dans la page d'une question | **`Arnaud Alexis`**
     - Voir l'intitulé, la date, etc

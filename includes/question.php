@@ -79,7 +79,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 			<textarea id="markdown-editor" required name='content' data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 				<?php 
 				// les sauts de lignes ne s'affichent pas dans le textarea
-				echo html_entity_decode( $question["content"] ) 
+				echo html_entity_decode( $question["content"] );
 				?>
 			</textarea>
 			<div class="sm:col-span-2">

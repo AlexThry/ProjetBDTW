@@ -86,16 +86,16 @@ INSERT INTO `category` (`id`, `label`) VALUES
 
 DROP TABLE IF EXISTS `has_category`;
 CREATE TABLE IF NOT EXISTS `has_category` (
-  `id_question1` int NOT NULL,
+  `id_question` int NOT NULL,
   `id_category` int NOT NULL,
-  PRIMARY KEY (`id_question1`,`id_category`)
+  PRIMARY KEY (`id_question`,`id_category`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `has_category`
 --
 
-INSERT INTO `has_category` (`id_question1`, `id_category`) VALUES
+INSERT INTO `has_category` (`id_question`, `id_category`) VALUES
 (1, 2),
 (1, 8),
 (2, 8),
@@ -117,16 +117,16 @@ INSERT INTO `has_category` (`id_question1`, `id_category`) VALUES
 
 DROP TABLE IF EXISTS `is_nearby`;
 CREATE TABLE IF NOT EXISTS `is_nearby` (
-  `id_question1` int NOT NULL,
+  `id_question` int NOT NULL,
   `id_question2` int NOT NULL,
-  PRIMARY KEY (`id_question1`,`id_question2`)
+  PRIMARY KEY (`id_question`,`id_question2`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `is_nearby`
 --
 
-INSERT INTO `is_nearby` (`id_question1`, `id_question2`) VALUES
+INSERT INTO `is_nearby` (`id_question`, `id_question2`) VALUES
 (5, 2),
 (5, 6),
 (6, 5),

@@ -47,7 +47,7 @@ if ( ! class_exists( 'Database' ) ) {
 				'is_admin'   => (boolean)$res['is_admin'],
 				'password' =>$res['password'],
 				'email' =>$res['email'],
-				'image_url' =>$res['image_url']
+				'profile_url' =>$res['profile_url']
 			);
 			return $user;
 		}
@@ -91,10 +91,10 @@ if ( ! class_exists( 'Database' ) ) {
 
 			$question = array(
 				'id'            => (int)$res['id'],
+				'id_user'		=> (int)$res['id_user'],
 				'title'         => $res['title'],
 				'content'       => $res['content'],
 				'creation_date' => $res['creation_date'],
-				'number_likes'  => (int)$res['number_likes']
 			);
 			return $question;
 		}
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_nearby_questions( $id_question ) {
 			global $conn;
-			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question1 = $id_question";
+			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question = $id_question";
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
@@ -251,7 +251,7 @@ if ( ! class_exists( 'Database' ) ) {
 		public static function get_categories_by_question_id( $question_id ) {
 			global $conn;
 
-			$sql = "SELECT label FROM category WHERE id IN (SELECT id_category FROM has_category WHERE id_question1 = " . $question_id . ")";
+			$sql = "SELECT label FROM category WHERE id IN (SELECT id_category FROM has_category WHERE id_question = " . $question_id . ")";
 			$categories = array();
 			$res = mysqli_query($conn, $sql);
 			foreach ($res as $line) {
@@ -274,7 +274,7 @@ if ( ! class_exists( 'Database' ) ) {
 			$sql = "UPDATE question SET title = '$title', content = '$content' WHERE id = $id_question";
 			mysqli_query($conn, $sql);
 
-			$sql = "DELETE FROM has_category WHERE id_question1 = $id_question";
+			$sql = "DELETE FROM has_category WHERE id_question = $id_question";
 			mysqli_query($conn, $sql);
 
 			if (sizeof($id_categories) == 0) {
@@ -282,7 +282,7 @@ if ( ! class_exists( 'Database' ) ) {
 			}
 
 			foreach ($id_categories as $id_category) {
-				$sql = "INSERT INTO has_category (id_question1, id_category) VALUES ($id_question, $id_category)";
+				$sql = "INSERT INTO has_category (id_question, id_category) VALUES ($id_question, $id_category)";
 				mysqli_query($conn, $sql);
 			}
 		}
@@ -290,13 +290,21 @@ if ( ! class_exists( 'Database' ) ) {
 
 		public static function get_categories_id_by_question( $id_question ) {
 			global $conn;
-			$sql = "SELECT id FROM category WHERE id IN (SELECT id_category FROM has_category WHERE id_question1 = $id_question)";
+			$sql = "SELECT id FROM category WHERE id IN (SELECT id_category FROM has_category WHERE id_question = $id_question)";
 			$res = mysqli_query($conn, $sql);
 			$categories = array();
 			foreach ($res as $line) {
 				$categories[] = $line['id'];
 			}
 			return $categories;
+		}
+
+
+		public static function get_likes_number( $id_question ) {
+			global $conn;
+			$sql = "SELECT COUNT(*) AS number_likes FROM likes WHERE id_question = $id_question";
+			$res = mysqli_fetch_assoc($conn->query( $sql ));
+			return $res['number_likes'];
 		}
 
 
@@ -397,7 +405,7 @@ if ( ! class_exists( 'Database' ) ) {
 				$book['title']         = $line['title'];
 				$book['author']        = $line['author'];
 				$book['description']   = $line['description'];
-				$book['image_url']     = $line['image_url'];
+				$book['profile_url']     = $line['profile_url'];
 				$book['parution_date'] = $line['parution_date'];
 				$book['score']         = $line['score'];
 				$books[]               = $book;
@@ -497,7 +505,7 @@ if ( ! class_exists( 'Database' ) ) {
 				$book['author']        = $line['author'];
 				$book['parution_date'] = $line['parution_date'];
 				$book['title']         = $line['title'];
-				$book['image_url']     = $line['image_url'];
+				$book['profile_url']     = $line['profile_url'];
 				$book['score']         = $line['score'];
 				$books[]               = $book;
 			}

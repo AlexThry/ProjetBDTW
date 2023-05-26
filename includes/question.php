@@ -8,7 +8,6 @@ if ($user['is_admin']) {
 	$is_admin = true;
 }
 
-
 /**
  * Display a question and edit buttons if user is admin.
  */
@@ -18,6 +17,7 @@ if ( ! key_exists( 'id', $_GET ) ) {
 }
 $id       = htmlentities( $_GET['id'] );
 $question = Database::get_question( $id );
+$like_number = Database::get_likes_number( $id );
 
 $is_liked = false;
 // if ($question['is_liked']) {
@@ -83,7 +83,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 				?>
 			</textarea>
 			<div class="sm:col-span-2">
-				<div id="renderer" class="html-markdown-renderer" rows="8" class="block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500" placeholder="Your description here"><p><?php echo $question['content'] ?></p></div>
+				<div id="renderer" class="html-markdown-renderer" rows="8" class="block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div>
 				<input type="hidden" id="html-input" name="html-input">
 			</div>
 			
@@ -158,10 +158,10 @@ if ( key_exists( 'edit', $_GET ) ) {
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
 				</svg>
-				<span class="sr-only">J'aime<?php echo intval( htmlentities( $question['number_likes'] ) ) > 1 ? 's' : ''; ?></span>
+				<span class="sr-only">J'aime<?php echo intval( htmlentities( $like_number ) ) > 1 ? 's' : ''; ?></span>
 			</a>
-			<p class="text-xl font-bold"><?php echo htmlentities( $question['number_likes'] ); ?></p>
-			<p>J'aime<?php echo intval( htmlentities( $question['number_likes'] ) ) > 1 ? 's' : ''; ?></p>
+			<p class="text-xl font-bold"><?php echo htmlentities( $like_number ); ?></p>
+			<p>J'aime<?php echo intval( htmlentities( $like_number ) ) > 1 ? 's' : ''; ?></p>
 		</div>
 		<p class="text-gray-800 dark:text-gray-200">
 			<?php echo html_entity_decode( $question['content'] ); ?>

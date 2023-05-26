@@ -76,13 +76,13 @@ if ( key_exists( 'delete_answer', $_GET ) ) {
 				</div>
 			<?php endif; ?>
 		</footer>
-		<p class="text-gray-800 dark:text-gray-200">
+		<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer">
 			<?php 
 				if ($answer != null ) {
 					echo html_entity_decode( $answer['content'] ); 
 				}
 			?>
-		</p>
+		</mark>
 
 		<!-- Pour aller plus loin. Ajouter bouton répondre -->
 		<!-- <div class="flex items-center mt-4 space-x-4">

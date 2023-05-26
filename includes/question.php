@@ -24,7 +24,7 @@ $is_liked = false;
 // 	$is_liked = true;
 // }
 
-if ( isset($_POST['question_title']) && isset($_POST['content'])) {
+if ( isset($_POST['question_title']) && isset($_POST['html-input'])) {
 	$i = 0;
 	$categories_ids = [];
 	foreach ($_POST as $key => $value) {
@@ -34,7 +34,7 @@ if ( isset($_POST['question_title']) && isset($_POST['content'])) {
 	}
 
 	$title = htmlentities($_POST['question_title']);
-	$content = htmlentities($_POST['content']);
+	$content = htmlentities($_POST['html-input']);
 	if (strlen($title) > 50) {
 		AlertManager::display_error( "Le titre de la question ne doit pas dépasser 50 caractères." );
 	} else {
@@ -71,7 +71,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 		?>
 
 		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">Modifier la question</h1>
-		<form method="post" action="single-question.php?id=<?php echo $id ?>">
+		<form method="post" action="single-question.php?id=<?php echo $id ?>" class="mb-10">
 			<label for="question_title" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom de la question</label>
 			<input type="text" name="question_title" id="question_title" autocomplete="question_title" value="<?php echo html_entity_decode( $question['title'] ); ?>" class="mb-4 block w-full rounded-md py-1.5 bg-gray-50 border-gray-300 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="janesmith">
 			<label for="content" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Contenu</label>
@@ -83,7 +83,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 				?>
 			</textarea>
 			<div class="sm:col-span-2">
-				<div id="renderer" class="html-markdown-renderer" rows="8" class="block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div>
+				<div id="renderer" class="html-markdown-renderer block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div>
 				<input type="hidden" id="html-input" name="html-input">
 			</div>
 			
@@ -118,8 +118,8 @@ if ( key_exists( 'edit', $_GET ) ) {
 						?>
 					</ul>
 				</div>
-				
-				<input type="submit" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value='Valider'>
+				<br />
+				<input type="submit" class="cursor-pointer mt-5 rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value='Valider'>
 			</div>
 
 		</form>
@@ -152,7 +152,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 		</div>
 	</header>
 
-	<article class="pt-8 pb-12 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900 flex items-start gap-10">
+	<article class="pt-8 pb-12 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900 flex items-start gap-10 html-markdown-renderer ">
 		<div class="flex flex-col gap-2 items-center dark:text-white">
 			<a href="?id=<?php echo htmlentities( $id ); ?>&liked=true" type="button" class="<?php echo $is_liked ? 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' : 'text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500'; ?> cursor-pointer">
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -163,9 +163,9 @@ if ( key_exists( 'edit', $_GET ) ) {
 			<p class="text-xl font-bold"><?php echo htmlentities( $like_number ); ?></p>
 			<p>J'aime<?php echo intval( htmlentities( $like_number ) ) > 1 ? 's' : ''; ?></p>
 		</div>
-		<p class="text-gray-800 dark:text-gray-200">
+		<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer">
 			<?php echo html_entity_decode( $question['content'] ); ?>
-		</p>
+		</mark>
 	</article>
 	<?php
 }

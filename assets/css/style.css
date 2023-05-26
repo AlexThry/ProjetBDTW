@@ -14,6 +14,10 @@ main {
   flex-direction: column;
 }
 
+mark {
+  background-color: transparent;
+}
+
 .page-container {
   flex: 1;
 }
@@ -127,12 +131,12 @@ form input {
   margin-right: 10px;
 }
 
-.like-png{
+.like-png {
   width: 15px;
   height: 15px;
 }
 
-.question-title{
+.question-title {
   font-weight: bold;
   color: rgb(29, 78, 216);
 }
@@ -148,7 +152,7 @@ form input {
 .cadre {
   border-left: solid 1px #e5e7eb;
   border-right: solid 1px #e5e7eb;
-  border-bottom:  solid 1px #e5e7eb;
+  border-bottom: solid 1px #e5e7eb;
   padding: 20px;
 }
 

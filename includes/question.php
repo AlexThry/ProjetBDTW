@@ -82,10 +82,12 @@ if ( key_exists( 'edit', $_GET ) ) {
 				echo html_entity_decode( $question["content"] );
 				?>
 			</textarea>
-			<div class="sm:col-span-2">
-				<div id="renderer" class="html-markdown-renderer block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div>
+			<label for="renderer" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Rendu</label>
+			<div class="sm:col-span-2" name="renderer">
+				<div id="renderer" class="html-markdown-renderer rounded-lg border border-gray-300 block p-2.5 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div></div>
 				<input type="hidden" id="html-input" name="html-input">
 			</div>
+
 			
 			<div id="categories-renderer" class="sm:col-span-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:text-white"></div>
 			<div class="mt-4 sm:col-span-2">

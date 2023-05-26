@@ -105,11 +105,11 @@ function initMarkdownEditor() {
    */
   function decode(str) {
     return str
-      .replaceAll("&lt;", "<")
-      .replaceAll("&gt;", ">")
-      .replaceAll("&amp;", "&")
-      .replaceAll("&quot;", '"')
-      .replaceAll("&apos;", "'");
+      // .replaceAll("&lt;", "<")
+      // .replaceAll("&gt;", ">")
+      // .replaceAll("&amp;", "&")
+      // .replaceAll("&quot;", '"')
+      // .replaceAll("&apos;", "'");
   }
 
   function handleInput() {

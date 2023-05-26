@@ -311,6 +311,23 @@ if ( ! class_exists( 'Database' ) ) {
 			return $answer;
 		}
 
+		public static function create_category($category){
+			global $conn;
+			$sql = "INSERT INTO category(label) VALUES ('$category')";
+			$conn->query($sql);
+		}
+
+		public static function delete_category($category){
+			global $conn;
+			$sql = "DELETE FROM category WHERE label='$category'";
+			$conn->query($sql);
+		}
+
+		public static function question_is_validated( $question_id ) {
+			global $conn;
+			$sql = "SELECT * FROM question WHERE id = $question_id AND id_validator IS NOT NULL";
+			return $conn->query($sql)->num_rows > 0;
+		}
 
 
 
@@ -485,18 +502,6 @@ if ( ! class_exists( 'Database' ) ) {
 			}
 
 			return $book;
-		}
-
-		public static function create_category($category){
-			global $conn;
-			$sql = "INSERT INTO category(label) VALUES ('$category')";
-			$conn->query($sql);
-		}
-
-		public static function delete_category($category){
-			global $conn;
-			$sql = "DELETE FROM category WHERE label='$category'";
-			$conn->query($sql);
 		}
 
 		/**

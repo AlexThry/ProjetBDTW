@@ -118,7 +118,6 @@ if ( key_exists( 'edit', $_GET ) ) {
 						?>
 					</ul>
 				</div>
-				<br />
 				<input type="submit" class="cursor-pointer mt-5 rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value='Valider'>
 			</div>
 

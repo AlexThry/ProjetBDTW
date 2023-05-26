@@ -98,6 +98,7 @@ function add_user_to_session( array $result ): void {
 		'first_name' =>$result['first_name'],
 		'last_name' =>$result['last_name'],
 		'password' =>$result['password'],
+		'is_admin' =>$result['is_admin'], 
 		'email' =>$result['email'],
 		'profile_url' =>$result['profile_url']
 	);

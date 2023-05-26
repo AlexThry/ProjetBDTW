@@ -47,7 +47,7 @@ if ( ! class_exists( 'Database' ) ) {
 				'is_admin'   => (boolean)$res['is_admin'],
 				'password' =>$res['password'],
 				'email' =>$res['email'],
-				'profile_url' =>$res['profile_url']
+				'image_url' =>$res['image_url']
 			);
 			return $user;
 		}

@@ -9,9 +9,17 @@ if ( ! key_exists( 'id', $_GET ) ) {
 
 $id     = htmlentities( $_GET['id'] );
 $answer = Database::get_question_answer( $id );
+$user = Database::get_user( $answer['id_user'] );
+
 // todo : check if user is admin
 $is_admin = true;
 
+
+if ($user['image_url']) {
+	$admin_image = $user['image_url'];
+} else {
+	$admin_image = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+}
 // todo: recup user et afficher son nom, prenom, image url si oui sinon mettre une image par defaut
 
 if ( key_exists( 'delete_answer', $_GET ) ) {
@@ -30,8 +38,8 @@ if ( key_exists( 'delete_answer', $_GET ) ) {
 			<div class="flex items-center">
 				<p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white"><img
 						class="mr-2 w-6 h-6 rounded-full"
-						src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-						alt="Michael Gough">Michael Gough</p>
+						src="<?php echo $admin_image ?>"
+						alt="Michael Gough"><?php echo $user['first_name'] . " " . $user['last_name'] ?></p>
 				<?php if ( $answer != null && key_exists( 'creation_date', $answer ) ) : ?>
 					<p class="text-sm text-gray-600 dark:text-gray-400">
 						<time class="inline" pubdate datetime="<?php echo htmlentities( $answer['creation_date'] ); ?>" title="<?php echo format_date( $answer['creation_date'] ); ?>"><?php echo format_date( $answer['creation_date'] ); ?></time>

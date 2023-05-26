@@ -1,4 +1,14 @@
 <?php
+
+$user = get_user();
+
+$is_admin = false;
+
+if ($user['is_admin']) {
+	$is_admin = true;
+}
+
+
 /**
  * Display a question and edit buttons if user is admin.
  */
@@ -6,14 +16,13 @@
 if ( ! key_exists( 'id', $_GET ) ) {
 	exit();
 }
-
 $id       = htmlentities( $_GET['id'] );
 $question = Database::get_question( $id );
 
-// *** todo: check if user is admin
-$is_admin = true;
-// *** todo: check if has already like the question
-$is_liked = true;
+$is_liked = false;
+// if ($question['is_liked']) {
+// 	$is_liked = true;
+// }
 
 if ( isset($_POST['question_title']) && isset($_POST['content'])) {
 	$i = 0;
@@ -32,6 +41,11 @@ if ( isset($_POST['question_title']) && isset($_POST['content'])) {
 		Database::modify_question( $id, $title, $content, $categories_ids );
 	}
 }
+
+$question = Database::get_question( $id );
+
+// *** todo: check if has already like the question
+
 
 /*
  ***todo: Afficher les categories à la place de #flowbite et
@@ -57,15 +71,22 @@ if ( key_exists( 'edit', $_GET ) ) {
 		?>
 
 		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">Modifier la question</h1>
-		<form method="post" action="single-question.php?id=<?php echo $id ?>&edit=true">
+		<form method="post" action="single-question.php?id=<?php echo $id ?>">
 			<label for="question_title" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom de la question</label>
 			<input type="text" name="question_title" id="question_title" autocomplete="question_title" value="<?php echo html_entity_decode( $question['title'] ); ?>" class="mb-4 block w-full rounded-md py-1.5 bg-gray-50 border-gray-300 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="janesmith">
 			<label for="content" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Contenu</label>
+			
 			<textarea id="markdown-editor" required name='content' data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-			<?php echo html_entity_decode( $question["content"] ) ?>
+				<?php 
+				// les sauts de lignes ne s'affichent pas dans le textarea
+				echo html_entity_decode( $question["content"] ) 
+				?>
 			</textarea>
-
-
+			<div class="sm:col-span-2">
+				<div id="renderer" class="html-markdown-renderer" rows="8" class="block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500" placeholder="Your description here"><p><?php echo $question['content'] ?></p></div>
+				<input type="hidden" id="html-input" name="html-input">
+			</div>
+			
 			<div id="categories-renderer" class="sm:col-span-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:text-white"></div>
 			<div class="mt-4 sm:col-span-2">
 				<button id="dropdownCheckboxButton" data-dropdown-toggle="categories-dropdown" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium inline-flex items-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">Catégories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
@@ -97,9 +118,10 @@ if ( key_exists( 'edit', $_GET ) ) {
 						?>
 					</ul>
 				</div>
+				
+				<input type="submit" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value='Valider'>
 			</div>
-			
-			<input type="submit" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value='Valider'>
+
 		</form>
 
 	<?php
@@ -115,7 +137,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 	?>
 	<header class="mb-4 not-format text-black dark:text-white">
 		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-			<?php echo htmlentities( $question['title'] ); ?>
+			<?php echo html_entity_decode( $question['title'] ); ?>
 		</h1>
 		<?php Component::display_categories( $id ); ?>
 

@@ -24,8 +24,8 @@
     - [FIX] Responsive design dans l'onglet interface admin'
     - ✔️ Faire le form pour ajouter une catégorie
     - ✔️ Faire le form pour supprimer une catégorie
-    - Voir les questions non validés
-    - Validé une question
+    - ✔️ Voir les questions non validés
+    - ✔️ Validé une question
     - Voir les questions non répondues
     - (Tri questions validés et invalidés)
     - (Dans un onglet paramètre, afficher l'option "Afficher le bouton ajouter une question dans la topbar") (voir Arnaud si tu comprends pas)

@@ -124,6 +124,84 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 		/**
+		 * return all the categories linked to the question id
+		 * 
+		 * @param int $id_ The question's id
+		 * @return array all the question's categories
+		 */
+		public static function get_categories_by_id($id) {
+			global $conn;
+			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question1 = '.$id;
+			$res = mysqli_query( $conn, $sql );
+
+			$categories = array();
+			foreach( $res as $row ) {
+				$categories[] = $row['label'];
+			}
+			return $categories;
+		}
+
+		/**
+		 * return a display tag for a category
+		 * 
+		 * @param string $category the category's name
+		 * @return string the tag to display
+		 */
+		public static function get_display_categories($category) {
+			$color = "blue";
+			switch ($category){
+				case "git":
+					$color = "pink";
+					break;
+				case "javascript":
+					$color = "yellow";
+					break;
+				case "HTML":
+					$color = "red";
+					break;
+				case "CSS":
+					$color = "blue";
+					break;
+				case "PHP":
+					$color = "indigo";
+					break;
+				case "BD":
+					$color = "green";
+					break;
+				case "BDD":
+					$color = "green";
+					break;
+			}
+			return '<div class="flex flex-wrap mb-4"><a class="bg-'.$color.'-100 text-'.$color.'-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-'.$color.'-200 hover:bg-'.$color.'-200 dark:hover:bg-'.$color.'-300 dark:text-'.$color.'-800 mb-2" href="/blog/tag/flowbite/">'.'#'.$category.'</a></div>';
+			;
+		}
+
+		/**
+		 * return all the questions with the usernames
+		 * 
+		 * @return array all the questions with usernames
+		 */
+		public static function get_username_questions() {
+			global $conn;
+			$sql = 'SELECT question.id, title, creation_date, number_likes, content, user_name FROM question JOIN user ON user.id = question.id;';
+			$res = mysqli_query( $conn, $sql );
+
+			$questions = array();
+			foreach( $res as $row ) {
+				$category = self::get_categories_by_id((int)$row['id']);
+				$questions[] = array(
+					'id'            => (int)$row['id'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes'  => (int)$row['number_likes'],
+					'user_name'     => $row['user_name'],
+					'categories'    => $category
+				);
+			}
+			return $questions;
+		}
+		/**
 		 * Returns all the questions of a user
 		 *
 		 * @return array All the questions
@@ -157,7 +235,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_nearby_questions( $id_question ) {
 			global $conn;
-			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question = $id_question";
+			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question1 = $id_question";
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
@@ -217,6 +295,19 @@ if ( ! class_exists( 'Database' ) ) {
 				);
 			}
 			return $categories;
+		}
+
+		/**
+		 * Returns the category of a question
+		 *
+		 * @return string category
+		 */
+		public static function get_categorie_question(int $question_id) {
+			global $conn;
+			$sql = 'SELECT c.label FROM category c JOIN has_category hc ON hc.id_category = c.id WHERE hc.id_question1 ='.$question_id;
+			$res = mysqli_fetch_assoc($conn->query( $sql ));
+			$category= $res['label'];
+			return $category;
 		}
 
 

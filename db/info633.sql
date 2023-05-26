@@ -117,16 +117,16 @@ INSERT INTO `has_category` (`id_question`, `id_category`) VALUES
 
 DROP TABLE IF EXISTS `is_nearby`;
 CREATE TABLE IF NOT EXISTS `is_nearby` (
-  `id_question` int NOT NULL,
-  `id_question2` int NOT NULL,
-  PRIMARY KEY (`id_question`,`id_question2`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+  `id_question1` int(11) NOT NULL,
+  `id_question2` int(11) NOT NULL,
+  PRIMARY KEY (`id_question1`,`id_question2`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `is_nearby`
 --
 
-INSERT INTO `is_nearby` (`id_question`, `id_question2`) VALUES
+INSERT INTO `is_nearby` (`id_question1`, `id_question2`) VALUES
 (5, 2),
 (5, 6),
 (6, 5),

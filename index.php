@@ -12,20 +12,7 @@
 			</div>
 			<div>
 				<div class="mt-10">
-					<!-- Decorative image grid -->
-					<div aria-hidden="true" class="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl">
-						<div class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-						<div class="flex items-center space-x-6 lg:space-x-8">
-							<div class="rounded-lg sm:opacity-0 lg:opacity-100">
-								<img src="assets/images/index-image.svg" alt="" class="h-full w-full object-cover object-center">
-							</div>
-						</div>
-					</div>
-
-					<!-- <a href="#" class="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700">Shop Collection</a> -->
-
 					<?php require 'includes/search-bar.php'; ?>
-
 						<div class="mx-auto max-w-screen-xl px-4 lg:px-12">
 							<!-- Start coding here -->
 							<div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">

@@ -8,7 +8,7 @@
     - ✔️ Voir toutes **nos** questions
     - ✔️ Voir la réponse ou le message "Pas de réponse, patientez svp"
     - ❓ Voir le contenu additionnel de la réponse
-    - Pouvoir afficher les questions triées (par date, sujet...)
+    - Pouvoir cliquer sur un lien pour aller directment sur la page de la question
 
 - Dans la page d'accueil | **`Ronan`**
     - Voir toutes les questions (avec pagination)

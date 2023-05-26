@@ -36,17 +36,20 @@ if( $error_message !== null ) {
 							'user_data'     => array(
 								'label'    => 'Mes données',
 								'svg_path' => '<path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>',
-							),
-							'user_questions'    => array(
-								'label'    => 'Mes questions',
-								'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',
-							),
-							'user_questions_favoris'    => array(
-								'label'    => 'Mes favoris',
-								'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
 							)
 						);
 
+						// Add the user_questions and user_questions_favoris button, but only if the user is not an admin
+						if( !$is_admin ) {
+							$buttons['user_questions']= array(
+								'label'    => 'Mes questions',
+								'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',
+							);
+							$buttons['user_questions_favoris']= array(
+								'label'    => 'Mes favoris',
+								'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
+							);
+						}
 						// Add the interface_admin button, but only if the user is connected as an admin
 						if( $is_admin ) {
 							$buttons['interface_admin'] = array(

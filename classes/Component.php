@@ -97,7 +97,7 @@ if ( ! class_exists( 'Component' ) ) {
 					foreach ($questions_user as $question) :
 						$answer         = Database::get_question_answer( $question['id'] );
 						$categories     = Database::get_question_categories( $question['id'] );
-						$first_category = empty($categories) ? "javascript" : $categories[0]['label'];
+						$first_category = empty($categories) ? "Aucune" : $categories[0]['label'];
 						// The following boolean are used to make custom display for each accordion questions
 						$is_first_question  = $i_question === 0;
 						$is_last_question   = $i_question === sizeof($questions_user) - 1;

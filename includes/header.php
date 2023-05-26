@@ -173,10 +173,10 @@ require_once 'functions.php';
 							$profile_url = $current_user['profile_url'];
 							?>
 
-					<?php $user            = get_user();
+					<?php $user = get_user();
 					// Check if user is connected
 					if ( ! $user ) die();
-					$is_admin      = $user['is_admin']; ?>
+					$is_admin = $user['is_admin']; ?>
 
 					<!-- Profile dropdown -->
 					<div class="relative ml-3">

@@ -27,13 +27,14 @@ $is_validated = Database::question_is_validated( $question_id );
 if($is_validated) {
     // Unvalidating
     $sql = "UPDATE question SET id_validator = NULL WHERE id = $question_id;";
+    // Removing all likes
+    $sql .= "DELETE FROM likes WHERE id_question=$question_id;";
 } else {
     // Validating
     $admin_id = get_user()['id'];
     $sql = "UPDATE question SET id_validator = $admin_id WHERE id = $question_id;";
 }
-
-$conn->query($sql);
+$conn->multi_query($sql);
 
 header("Location: account.php?tab=interface_admin");
 exit();

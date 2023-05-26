@@ -308,6 +308,22 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 
+		public static function modify_answer( $id_answer, $content ) {
+			global $conn;
+			$sql = "UPDATE answer SET content = '$content' WHERE id = $id_answer";
+			mysqli_query($conn, $sql);
+		}
+
+
+		public static function delete_answer( $id_answer ) {
+			global $conn;
+			$sql = "DELETE FROM answer WHERE id = $id_answer";
+			mysqli_query($conn, $sql);
+		}
+
+
+
+
 
 
 

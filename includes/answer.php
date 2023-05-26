@@ -7,12 +7,28 @@ if ( ! key_exists( 'id', $_GET ) ) {
 	exit();
 }
 
-$id     = htmlentities( $_GET['id'] );
+$current_user = get_user();
+
+$id     = (int)htmlentities( $_GET['id'] );
+$answer_id = Database::get_question_answer( $id )['id'];
+
+if (key_exists('answer-content', $_POST) && isset($_POST['answer-content'])) {
+	Database::modify_answer($answer_id, htmlentities($_POST['answer-content']));
+}
+
+
+
+
+
 $answer = Database::get_question_answer( $id );
 $user = Database::get_user( $answer['id_user'] );
 
+
 // todo : check if user is admin
-$is_admin = true;
+$is_admin = false;
+if ($current_user['is_admin']) {
+	$is_admin = true;
+}
 
 
 if ($user['profile_url']) {
@@ -22,12 +38,18 @@ if ($user['profile_url']) {
 }
 // todo: recup user et afficher son nom, prenom, image url si oui sinon mettre une image par defaut
 
-if ( key_exists( 'delete_answer', $_GET ) ) {
-	// delete answer in db et mettre à jour l'etat de la question...
-	header( 'Location: index.php' );
-} elseif ( key_exists( 'edit_answer', $_GET ) ) {
-	if ( $is_admin ) {
-		echo 'todo: faire le formulaire d\'édition de la réponse';
+if ( key_exists( 'edit_answer', $_GET ) ) {
+	if ( $is_admin ) { 
+		?>
+		<form action="single-question.php?id=<?php echo $id ?>" method="post">
+			<textarea id="answer-editor" required="" name="answer-content" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+				<?php echo $answer['content'] ?>
+			</textarea>
+			<input type="submit" value="valider" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer">
+		</form>
+
+		<?php
+		
 	} else {
 		AlertManager::display_warning( "T'es un petit malin toi ;). Désolé tu n'as pas le droit de modifier cette question." );
 	}
@@ -67,10 +89,6 @@ if ( key_exists( 'delete_answer', $_GET ) ) {
 						<li>
 							<a href="?id=<?php echo htmlentities( $id ); ?>&edit_answer=true"
 								class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-						</li>
-						<li>
-							<a href="?id=<?php echo htmlentities( $id ); ?>&delete_answer=true"
-								class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
 						</li>
 					</ul>
 				</div>

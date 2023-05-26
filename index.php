@@ -43,27 +43,44 @@
 											</tr>
 										</thead>
 										<tbody>
+											<?php
+											// Gets the questions with their respective username, number of likes, and categories
+											$questions = Database::get_questions(true, true, true);
 
-										<?php
-										
-										$questions = Database::get_username_questions();
+											// Variables used to display custom colors for the categories
+											$default_color = "blue";
+											$category_to_color = [
+												"git"        => "pink",
+												"javascript" => "yellow",
+												"HTML"       => "red",
+												"CSS"        => "blue",
+												"PHP"        => "indigo",
+												"BD"         => "green",
+											];
+											?>
 
-										foreach ($questions as $question){
-											echo '
-													<tr class="border-b dark:border-gray-700">
-														<th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'">'.$question["title"].'</a></th>
-														<td class="px-4 py-3">';
+											<?php foreach ($questions as $question) : ?>
+												<tr class="border-b dark:border-gray-700">
+													<th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+														<a href="single-question.php?id=<?php echo $question["id"] ?> "> <?php echo $question["title"] ?> </a>
+													</th>
+													<td class="px-4 py-3">
+														<?php
 														foreach ($question["categories"] as $category){
-															echo Database::get_display_categories($category);
+															if(! key_exists($category['label'], $category_to_color)) {
+																$color = $default_color;
+															} else {
+																$color = $category_to_color[$category['label']];
+															}
+															echo "<div class='flex flex-wrap mb-4'><a class='bg-$color-100 text-$color-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-$color-200 hover:bg-$color-200 dark:hover:bg-$color-300 dark:text-$color-800 mb-2' href='/blog/tag/flowbite/'>#".$category['label']."</a></div>";
 														}
-													echo '</td>
-														<td class="px-4 py-3">'.$question["creation_date"].'</td>
-														<td class="px-4 py-3">'.$question["user_name"].'</td>
-														<td class="px-4 py-3">'.$question["number_likes"].'</td>
-													</tr>';
-
-										}
-										?>
+														?>
+													</td>
+													<td class="px-4 py-3"><?php echo $question["creation_date"] ?></td>
+													<td class="px-4 py-3"><?php echo $question["user_name"] ?></td>
+													<td class="px-4 py-3"><?php echo $question["number_likes"] ?></td>
+												</tr>
+											<?php endforeach; ?>
 										</tbody>
 									</table>
 								</div>
@@ -75,8 +92,6 @@
 		</div>
 	</section>
 	<?php endif; ?>
-
-
 </div>
 
 <?php

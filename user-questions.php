@@ -4,10 +4,10 @@ $user_id         = get_user()['id'];
 $save_label      = null;
 
 // Check if user is connected
-// TODO : Maybe redirect user to connection page ?
+// TODO : Maybe redirect user to connection page if he's not connected ?
 if ( ! $user ) die();
 
-$questions_user = Database::get_user_questions($user_id);
+$questions_user = Database::get_user_questions($user_id, true);
 $i_question = 0;
 ?>
 
@@ -15,8 +15,9 @@ $i_question = 0;
     <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900">
         <?php
         foreach ($questions_user as $question) :
-            $answer             = Database::get_question_answer( $question['id'] );
-            $categorie          = Database::get_categorie_question($question['id']);
+            $answer         = Database::get_question_answer( $question['id'] );
+            $categories     = Database::get_question_categories( $question['id'] );
+            $first_category = empty($categories) ? "Aucune" : $categories[0]['label'];
             // The following boolean are used to make custom display for each accordion questions
             $is_first_question  = $i_question === 0;
             $is_last_question   = $i_question === sizeof($questions_user) - 1;
@@ -34,7 +35,7 @@ $i_question = 0;
                     data-accordion-target="#accordion-open-body-<?php echo $i_question ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i_question ?>"
                 >
                     <h1 class="question-title w-200"> <?php echo $question['title'] ?> </h1>
-                    <p><?php echo $categorie ?></p>
+                    <p><?php echo $first_category ?></p>
                     <p><?php echo $question['creation_date'] ?></p>
                     <span class="flex items-center"><?php echo $question['number_likes'] ?><img src="assets/images/like.png" alt="" class="like-png"></span>
                     <p class="w-650"><?php echo $question['content'] ?></p>

@@ -94,7 +94,6 @@ if ( ! class_exists( 'Database' ) ) {
 				'title'         => $res['title'],
 				'content'       => $res['content'],
 				'creation_date' => $res['creation_date'],
-				'number_likes'  => (int)$res['number_likes']
 			);
 			return $question;
 		}
@@ -103,123 +102,112 @@ if ( ! class_exists( 'Database' ) ) {
 		/**
 		 * Returns all the questions
 		 *
+		 * @param $with_username    If true, also adds the question's user username
+		 * @param $with_categories  If true, also adds the question's categories
+		 * @param $with_likes       If true, also adds the question's number of likes
 		 * @return array All the questions
 		 */
-		public static function get_questions() {
+		public static function get_questions($with_username = false, $with_categories = false, $with_likes = false) {
 			global $conn;
-			$sql = 'SELECT * FROM question';
+			$sql = 'SELECT q.* FROM question';
+			if($with_username) $sql = 'SELECT q.*, user_name FROM question q JOIN user u ON u.id = id_user';
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
 			foreach( $res as $row ) {
-				$questions[] = array(
+				$question = [
 					'id'            => (int)$row['id'],
 					'title'         => $row['title'],
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
-					'number_likes'  => (int)$row['number_likes']
-				);
+				];
+
+				// Optionnal keys
+				if($with_username)   $question['user_name']    = $row['user_name'];
+				if($with_categories) $question['categories']   = self::get_question_categories($question['id']);
+				if($with_likes)      $question['number_likes'] = self::get_number_likes($question['id']);
+
+				$questions[] = $question;
 			}
 			return $questions;
 		}
 
+
 		/**
-		 * return all the categories linked to the question id
-		 * 
-		 * @param int $id_ The question's id
-		 * @return array all the question's categories
+		 * Returns all the unvalidated questions
+		 *
+		 * @return array
 		 */
-		public static function get_categories_by_id($id) {
+		public static function get_unvalidated_questions(){
 			global $conn;
-			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question = '.$id;
-			$res = mysqli_query( $conn, $sql );
-
-			$categories = array();
-			foreach( $res as $row ) {
-				$categories[] = $row['label'];
-			}
-			return $categories;
-		}
-
-		/**
-		 * return a display tag for a category
-		 * 
-		 * @param string $category the category's name
-		 * @return string the tag to display
-		 */
-		public static function get_display_categories($category) {
-			$color = "blue";
-			switch ($category){
-				case "git":
-					$color = "pink";
-					break;
-				case "javascript":
-					$color = "yellow";
-					break;
-				case "HTML":
-					$color = "red";
-					break;
-				case "CSS":
-					$color = "blue";
-					break;
-				case "PHP":
-					$color = "indigo";
-					break;
-				case "BD":
-					$color = "green";
-					break;
-				case "BDD":
-					$color = "green";
-					break;
-			}
-			return '<div class="flex flex-wrap mb-4"><a class="bg-'.$color.'-100 text-'.$color.'-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-'.$color.'-200 hover:bg-'.$color.'-200 dark:hover:bg-'.$color.'-300 dark:text-'.$color.'-800 mb-2" href="/blog/tag/flowbite/">'.'#'.$category.'</a></div>';
-			;
-		}
-
-		/**
-		 * return all the questions with the usernames
-		 * 
-		 * @return array all the questions with usernames
-		 */
-		public static function get_username_questions() {
-			global $conn;
-			$sql = 'SELECT question.id, title, creation_date, number_likes, content, user_name FROM question JOIN user ON user.id = question.id;';
-			$res = mysqli_query( $conn, $sql );
+			$sql = "SELECT * FROM question WHERE id_validator IS NULL;";
+			$res = $conn->query($sql);
 
 			$questions = array();
 			foreach( $res as $row ) {
-				$category = self::get_categories_by_id((int)$row['id']);
-				$questions[] = array(
+				$questions[] = [
 					'id'            => (int)$row['id'],
 					'title'         => $row['title'],
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
-					'number_likes'  => (int)$row['number_likes'],
-					'user_name'     => $row['user_name'],
-					'categories'    => $category
-				);
+					'number_likes'  => self::get_number_likes($row['id']),
+				];
 			}
 			return $questions;
 		}
+
+
+		/**
+		 * Returns all the unanswered questions
+		 *
+		 * @return array
+		 */
+		public static function get_unanswered_questions(){
+			global $conn;
+			$sql = "SELECT * FROM question
+				WHERE id NOT IN (
+					SELECT id_question
+					FROM answer
+				);";
+			$res = $conn->query($sql);
+
+			$questions = array();
+			foreach( $res as $row ) {
+				$questions[] = [
+					'id'            => (int)$row['id'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes'  => self::get_number_likes($row['id']),
+				];
+			}
+			return $questions;
+		}
+
+
 		/**
 		 * Returns all the questions of a user
 		 *
 		 * @return array All the questions
 		 */
-		public static function get_user_questions($user_id) {
+		public static function get_user_questions($user_id, $with_likes = false) {
 			global $conn;
-			$sql = 'SELECT * FROM question WHERE id_user =' . $user_id;
+			$sql = "SELECT * FROM question WHERE id_user = $user_id";
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
 			foreach( $res as $row ) {
-				$questions[] = array(
+				$question = [
 					'id'            => (int)$row['id'],
 					'title'         => $row['title'],
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
-					'number_likes'  => (int)$row['number_likes']
-				);
+				];
+
+				// Optionnal keys
+				if($with_likes) $question['number_likes'] = self::get_number_likes($question['id']);
+
+				$questions[] = $question;
 			}
 			return $questions;
 		}
@@ -245,12 +233,23 @@ if ( ! class_exists( 'Database' ) ) {
 					'title'         => $row['title'],
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
-					'number_likes'  => (int)$row['number_likes']
 				);
 			}
 			return $questions;
 		}
 
+		/**
+		 * Returns the number of likes of a question
+		 *
+		 * @param int $id_question The question's id
+		 * @return int The number of likes
+		 */
+		public static function get_number_likes( $id_question ) {
+			global $conn;
+			$sql = "SELECT count(*) `number_likes` FROM likes WHERE id_question = $id_question;";
+			$res = mysqli_query( $conn, $sql );
+			return mysqli_fetch_assoc($res)['number_likes'];
+		}
 
 		/**
 		 * Gets the given user answers
@@ -298,16 +297,24 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 		/**
-		 * Returns the category of a question
+		 * Returns the categories of a question
 		 *
-		 * @return string category
+		 * @param int $id_question The question's id
+		 * @return array The question categories
 		 */
-		public static function get_categorie_question(int $question_id) {
+		public static function get_question_categories(int $question_id) {
 			global $conn;
-			$sql = 'SELECT c.label FROM category c JOIN has_category hc ON hc.id_category = c.id WHERE hc.id_question ='.$question_id;
-			$res = mysqli_fetch_assoc($conn->query( $sql ));
-			$category= $res['label'];
-			return $category;
+			$sql = "SELECT * FROM has_category hc JOIN category c ON id_category = c.id WHERE id_question = $question_id";
+			$res = mysqli_query( $conn, $sql );
+
+			$categories = [];
+			foreach( $res as $row ) {
+				$categories[] = array(
+					'id'    => (int)$row['id'],
+					'label' => $row['label']
+				);
+			}
+			return $categories;
 		}
 
 
@@ -333,6 +340,23 @@ if ( ! class_exists( 'Database' ) ) {
 			return $answer;
 		}
 
+		public static function create_category($category){
+			global $conn;
+			$sql = "INSERT INTO category(label) VALUES ('$category')";
+			$conn->query($sql);
+		}
+
+		public static function delete_category($category){
+			global $conn;
+			$sql = "DELETE FROM category WHERE label='$category'";
+			$conn->query($sql);
+		}
+
+		public static function question_is_validated( $question_id ) {
+			global $conn;
+			$sql = "SELECT * FROM question WHERE id = $question_id AND id_validator IS NOT NULL";
+			return $conn->query($sql)->num_rows > 0;
+		}
 
 
 
@@ -507,28 +531,6 @@ if ( ! class_exists( 'Database' ) ) {
 			}
 
 			return $book;
-		}
-
-		public static function create_category($category){
-			global $conn;
-			$sql = "INSERT INTO category(label) VALUES ('$category')";
-			$conn->query($sql);
-		}
-
-		public static function delete_category($category){
-			global $conn;
-			$sql = "DELETE FROM category WHERE label='$category'";
-			$conn->query($sql);
-		}
-
-		// TODO
-		/**
-		 * Returns the list of all unvalidated questions
-		 *
-		 * @return array
-		 */
-		public static function get_unvalidated_questions(){
-			return [];
 		}
 
 		/**

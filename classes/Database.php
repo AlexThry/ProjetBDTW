@@ -131,7 +131,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_categories_by_id($id) {
 			global $conn;
-			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question1 = '.$id;
+			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question = '.$id;
 			$res = mysqli_query( $conn, $sql );
 
 			$categories = array();
@@ -235,7 +235,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_nearby_questions( $id_question ) {
 			global $conn;
-			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question1 = $id_question";
+			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question = $id_question";
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
@@ -304,7 +304,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_categorie_question(int $question_id) {
 			global $conn;
-			$sql = 'SELECT c.label FROM category c JOIN has_category hc ON hc.id_category = c.id WHERE hc.id_question1 ='.$question_id;
+			$sql = 'SELECT c.label FROM category c JOIN has_category hc ON hc.id_category = c.id WHERE hc.id_question ='.$question_id;
 			$res = mysqli_fetch_assoc($conn->query( $sql ));
 			$category= $res['label'];
 			return $category;

@@ -2,6 +2,7 @@
 
 ## TodoList
 
+- **CHANGER BD pour distinguer questions validés / invalidés**
 - Dans l'espace compte | **`Carlyne Lois`**
     - Changer ses identifiants: ok
     - Voir toutes **nos** questions: ok

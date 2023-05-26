@@ -40,7 +40,15 @@
     - Répondre à une question de manière courte
     - Répondre à une question de manière longue (markdown)
 
+## Pistes d'améliorations
+**Brouillon de réponse**
+- Créer | Modifier | Supprimer un brouillon de réponse
+- Voir mes brouillons
+- Limiter le nombre de brouillon (à 10 ?)
 
+**Brouillon de question**
+
+Pareil qu'au dessus, mais pour une question :)
 ## Architecture
 
  - `.` la racine contient les pages html, les fichiers de configuration et un exemple de contenu de la base de donnée (`proj631.md`).

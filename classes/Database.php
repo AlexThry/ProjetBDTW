@@ -83,7 +83,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 * @param int $id_question The question's id
 		 * @return array|null The question if it exists, null otherwise
 		 */
-		public static function get_question( int $id_question ) {
+		public static function get_question( int $id_question, $with_likes = false ) {
 			global $conn;
 			$sql = "SELECT * FROM question WHERE id = $id_question LIMIT 1";
 			$res = mysqli_fetch_assoc($conn->query( $sql ));
@@ -95,6 +95,7 @@ if ( ! class_exists( 'Database' ) ) {
 				'content'       => $res['content'],
 				'creation_date' => $res['creation_date'],
 			);
+			if($with_likes) $question['number_likes'] = self::get_number_likes($id_question);
 			return $question;
 		}
 

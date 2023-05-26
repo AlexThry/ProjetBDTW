@@ -8,7 +8,7 @@ if ( ! key_exists( 'id', $_GET ) ) {
 }
 
 $id       = htmlentities( $_GET['id'] );
-$question = Database::get_question( $id );
+$question = Database::get_question( $id, true );
 
 // *** todo: check if user is admin
 $is_admin = true;
@@ -62,7 +62,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 
 		<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
 			<div class="text-base">
-				Publiée le 
+				Publiée le
 				<time class="inline" pubdate datetime="<?php echo htmlentities( $question['creation_date'] ); ?>" title="<?php echo format_date( $question['creation_date'] ); ?>"><?php echo format_date( $question['creation_date'] ); ?></time>
 			</div>
 			<?php if ( $is_admin ) : ?>

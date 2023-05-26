@@ -4,10 +4,10 @@
 
 - **CHANGER BD pour distinguer questions validés / invalidés**
 - Dans l'espace compte | **`Carlyne Lois`**
-    - Changer ses identifiants: ok
-    - Voir toutes **nos** questions: ok
-    - Voir la réponse ou le message "Pas de réponse, patientez svp": ok
-    - Voir le contenu additionnel de la réponse: ok?
+    - ✔️ Changer ses identifiants
+    - ✔️ Voir toutes **nos** questions
+    - ✔️ Voir la réponse ou le message "Pas de réponse, patientez svp"
+    - ❓ Voir le contenu additionnel de la réponse
     - Pouvoir afficher les questions triées (par date, sujet...)
 
 - Dans la page d'accueil | **`Ronan`**

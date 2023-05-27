@@ -223,6 +223,7 @@ if ( ! class_exists( 'Database' ) ) {
 			$sql = 'SELECT * FROM question q JOIN likes l ON q.id = l.id_question WHERE l.id_user =' . $user_id;
 			$res = mysqli_query( $conn, $sql );
 
+			$questions = array();
 			foreach( $res as $row ) {
 				$question = [
 					'id'            => (int)$row['id_question'],

@@ -1,14 +1,15 @@
 <?php
 require_once 'functions.php';
 
+$user = get_user();
 // Checks if user is connected
-if ( ! get_user() ) {
+if ( ! $user  ) {
 	header( 'Location: connection.php' );
 	exit();
 }
 
 $active_tab    = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
-$is_admin      = get_user()['is_admin'];
+$is_admin      = $user['is_admin'];
 $error_message = isset( $_GET['error'] ) ? $_GET['error'] : null;
 
 // Check if user is allowed to get on the interface_admin tab
@@ -33,30 +34,22 @@ if( $error_message !== null ) {
 				<ul class="space-y-2">
 					<?php
 						$buttons = array(
-							'user_data'     => array(
+							'user_data'     => [
 								'label'    => 'Mes données',
 								'svg_path' => '<path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>',
-							)
-						);
-
-						// Add the user_questions and user_questions_favoris button, but only if the user is not an admin
-						if( !$is_admin ) {
-							$buttons['user_questions']= array(
+							],
+							// Carlyne, si tu lis ça, tu n'avais pas besoin de tester $is_admin avant
+							// Déjà, tu as juste besoin d'être connecté pour voir ces boutons (et pas besoin d'être admin)
+							// Ensuite, on teste déjà si l'utilisateur est connecté au début de la page
+							'user_questions' => [
 								'label'    => 'Mes questions',
 								'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',
-							);
-							$buttons['user_questions_favoris']= array(
+							],
+							'user_questions_favoris' => [
 								'label'    => 'Mes favoris',
 								'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
-							);
-						}
-						// Add the interface_admin button, but only if the user is connected as an admin
-						if( $is_admin ) {
-							$buttons['interface_admin'] = array(
-								'label'    => 'Interface administrateur',
-								'svg_path' => '<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>',
-							);
-						}
+							]
+						);
 					?>
 
 					<?php foreach ( $buttons as $tab_slug => $tab ) : ?>
@@ -117,65 +110,6 @@ if( $error_message !== null ) {
 					<?php
 					echo Component::display_user_question($questions);
 					break;
-
-				case 'interface_admin':
-					?>
-					<!-- Add a category -->
-					<section class="bg-white dark:bg-gray-900 ml-">
-						<div class="py-4 ml-2">
-							<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle catégorie</h2>
-							<form action="add-category.php" method="post">
-								<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-									<div class="sm:col-span-2">
-										<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom de la catégorie</label>
-										<input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un nom de catégorie" required="">
-									</div>
-
-
-								</div>
-								<button type="submit" name="button" class="flex items-center px-2 py-1 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">Soumettre</button>
-
-							</form>
-						</div>
-					</section>
-
-					<!-- Suppress a category -->
-					<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Supprimer une catégorie</h2>
-					<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Sélectionner une catégorie<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-
-					<form action="suppress-category.php" method="post">
-						<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-								<?php
-								$categories = Database::get_categories();
-								foreach ( $categories as $category ) :
-								?>
-									<li data-cat="<?php echo $category['label']; ?>">
-										<button type="submit" name="suppress_choice" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" value=<?php echo $category['label']; ?> ><?php echo $category['label']; ?></button>
-									</li>
-								<?php
-								endforeach;
-								?>
-							</ul>
-						</div>
-					</form>
-
-					<!-- Displays unvalidated questions -->
-					<h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Les questions invalidées</h2>
-					<?php
-						$unvalidated_questions = Database::get_unvalidated_questions();
-						Component::display_questions($unvalidated_questions, "with-validation-action");
-					?>
-
-					<!-- Displays unanswered questions -->
-					<h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Les questions non répondues</h2>
-					<?php
-						$unanswered_questions = Database::get_unanswered_questions();
-						Component::display_questions($unanswered_questions, "with-answer-action");
-					?>
-
-
-				<?php break;
 
 				default:
 					AlertManager::display_error( 'Cet onglet n\'existe pas.' );

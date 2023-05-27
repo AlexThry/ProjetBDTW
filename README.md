@@ -22,13 +22,16 @@
     - Dans la top bar, affiché un bouton "Poser une question"
 
 - Dans l'espace admin | **`Hugo Ugo`**
-    - [FIX] Responsive design dans l'onglet interface admin'
+    - [FIX] Responsive design index.php admin
     - ✔️ Faire le form pour ajouter une catégorie
     - ✔️ Faire le form pour supprimer une catégorie
     - ✔️ Voir les questions non validés
-    - ✔️ Validé une question
+    - ✔️ Valider une question
+    - Supprimer une question
     - ✔️ Voir les questions non répondues
-    - (Tri questions validés et invalidés)
+    - ✔️ Transformer l'accueil en Dashboard
+    - Dans la topbar, afficher un bouton "Notifications"
+    - Afficher le nombre de notifications sur ce bouton
     - (Dans un onglet paramètre, afficher l'option "Afficher le bouton ajouter une question dans la topbar") (voir Arnaud si tu comprends pas)
 
 - Dans la page d'une question | **`Arnaud Alexis`**

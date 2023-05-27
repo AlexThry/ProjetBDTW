@@ -98,7 +98,7 @@ function add_user_to_session( array $result ): void {
 		'first_name' => $result['first_name'],
 		'last_name'  => $result['last_name'],
 		'is_admin'   => (boolean)$result['is_admin'],
-		'email'       => $result['mail'],
+		'email'       => $result['email'],
 		'profile_url'=> $result['profile_url'],
 	);
 

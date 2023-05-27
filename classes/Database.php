@@ -482,13 +482,19 @@ if ( ! class_exists( 'Database' ) ) {
 
 		public static function create_answer( $id_question, $id_admin, $content ){
 			global $conn;
-			$sql = "INSERT INTO answer(id_question, id_user, content) VALUES ($id_question, $id_admin, '$content')";
+			$sql = sprintf(
+				"INSERT INTO answer(id_question, id_user, content) VALUES ($id_question, $id_admin, '%s')",
+				$conn->real_escape_string( $content )
+			);
 			$conn->query($sql);
 		}
 
 		public static function modify_answer( $id_answer, $content ) {
 			global $conn;
-			$sql = "UPDATE answer SET content = '$content' WHERE id = $id_answer";
+			$sql = sprintf(
+				"UPDATE answer SET content = '%s' WHERE id = $id_answer",
+				$conn->real_escape_string( $content )
+			);
 			$conn->query($sql);
 		}
 
@@ -502,3 +508,7 @@ if ( ! class_exists( 'Database' ) ) {
 }
 
 Database::setup();
+
+/*
+&é"'(-è_çà\ `coucou`
+*/

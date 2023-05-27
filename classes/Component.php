@@ -74,7 +74,7 @@ if ( ! class_exists( 'Component' ) ) {
 
 			<div id="accordion-open-body-<?php echo $i_question ?>" class="hidden" aria-labelledby="accordion-open-heading-<?php echo $i_question ?>">
 				<div class="border border-gray-200 text-gray-1000 dark:text-gray-100 dark:border-gray-700">
-					<form action="new-answer.php" method="post" class="flex-1">
+					<form action="add-answer.php" method="post" class="flex-1">
 						<input type="hidden" name="id-question" value=<?php echo $question_id ?>>
 						<div class="sm:col-span-2">
 							<textarea id="markdown-editor" required data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma réponse ..."></textarea>

@@ -10,6 +10,7 @@ if ( ! key_exists( 'id', $_GET ) ) {
 $current_user = get_user();
 
 $id     = (int)htmlentities( $_GET['id'] );
+
 $answer_id = Database::get_question_answer( $id )['id'];
 
 if (key_exists('answer-content', $_POST) && isset($_POST['answer-content'])) {

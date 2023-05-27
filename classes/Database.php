@@ -117,16 +117,16 @@ if ( ! class_exists( 'Database' ) ) {
 
 			$questions = array();
 			foreach( $res as $row ) {
-				$category = self::get_category((int)$row['id']);
-				$questions[] = array(
+				$question = array(
 					'id'            => (int)$row['id'],
+					'id_user'		=> (int)$row['id_user'],
 					'title'         => $row['title'],
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
-					'number_likes'  => (int)$row['number_likes'],
-					'user_name'     => $row['user_name'],
-					'categories'    => $category
 				);
+				if($with_likes) $question['number_likes'] = self::get_number_likes($row['id']);
+				if($with_categories) $question['number_likes'] = self::get_category((int)$row['id']);
+		
 			}
 			return $questions;
 		}
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_category($id) {
 			global $conn;
-			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question1 = '.$id;
+			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question = '.$id;
 			$res = mysqli_query( $conn, $sql );
 
 			$categories = array();
@@ -154,23 +154,23 @@ if ( ! class_exists( 'Database' ) ) {
 		 *
 		 * @return array
 		 */
-		// public static function get_unvalidated_questions(){
-		// 	global $conn;
-		// 	$sql = "SELECT * FROM question WHERE id_validator IS NULL;";
-		// 	$res = $conn->query($sql);
+		public static function get_unvalidated_questions(){
+			global $conn;
+			$sql = "SELECT * FROM question WHERE id_validator IS NULL;";
+			$res = $conn->query($sql);
 
-		// 	$questions = array();
-		// 	foreach( $res as $row ) {
-		// 		$questions[] = [
-		// 			'id'            => (int)$row['id'],
-		// 			'title'         => $row['title'],
-		// 			'content'       => $row['content'],
-		// 			'creation_date' => $row['creation_date'],
-		// 			'number_likes'  => self::get_number_likes($row['id']),
-		// 		];
-		// 	}
-		// 	return $questions;
-		// }
+			$questions = array();
+			foreach( $res as $row ) {
+				$questions[] = [
+					'id'            => (int)$row['id'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes'  => self::get_number_likes($row['id']),
+				];
+			}
+			return $questions;
+		}
 
 
 		/**

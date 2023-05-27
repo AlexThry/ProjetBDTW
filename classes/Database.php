@@ -126,15 +126,15 @@ if ( ! class_exists( 'Database' ) ) {
 				);
 				if($with_likes) $question['number_likes'] = self::get_number_likes($row['id']);
 				if($with_categories) $question['number_likes'] = self::get_category((int)$row['id']);
-		
+
 			}
 			return $questions;
 		}
-		
+
 
 		/**
 		 * return all the categories linked to the question id
-		 * 
+		 *
 		 * @param int $id_ The question's id
 		 * @return array all the question's categories
 		 */
@@ -311,7 +311,6 @@ if ( ! class_exists( 'Database' ) ) {
 				$answers[] = array(
 					'id'            => (int)$row['id'],
 					'content'       => $row['content'],
-					'raw_html'      => $row['raw_html'],
 					'id_question'   => (int)$row['id_question'],
 					'id_user'       => (int)$row['id_user'],
 				);
@@ -385,7 +384,6 @@ if ( ! class_exists( 'Database' ) ) {
 			$answer = array(
 				'id'          => (int)$res['id'],
 				'content'     => $res['content'],
-				'raw_html'    => $res['raw_html'],
 				'id_question' => (int)$res['id_question'],
 				'id_user'     => (int)$res['id_user'],
 			);
@@ -409,6 +407,13 @@ if ( ! class_exists( 'Database' ) ) {
 			$sql = "SELECT * FROM question WHERE id = $question_id AND id_validator IS NOT NULL";
 			return $conn->query($sql)->num_rows > 0;
 		}
+
+		public static function question_is_answered( $question_id ) {
+			global $conn;
+			$sql = "SELECT id FROM answer WHERE id_question = $question_id";
+			return $conn->query($sql)->num_rows > 0;
+		}
+
 		/**
 		 * Returns the question of a given id
 		 *
@@ -475,17 +480,23 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 
+		public static function create_answer( $id_question, $id_admin, $content ){
+			global $conn;
+			$sql = "INSERT INTO answer(id_question, id_user, content) VALUES ($id_question, $id_admin, '$content')";
+			$conn->query($sql);
+		}
+
 		public static function modify_answer( $id_answer, $content ) {
 			global $conn;
 			$sql = "UPDATE answer SET content = '$content' WHERE id = $id_answer";
-			mysqli_query($conn, $sql);
+			$conn->query($sql);
 		}
 
 
 		public static function delete_answer( $id_answer ) {
 			global $conn;
 			$sql = "DELETE FROM answer WHERE id = $id_answer";
-			mysqli_query($conn, $sql);
+			$conn->query($sql);
 		}
 	}
 }

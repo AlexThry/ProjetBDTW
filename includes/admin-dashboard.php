@@ -85,14 +85,14 @@ if( !$is_admin ) {
     <h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions invalidées</h2>
     <?php
         $unvalidated_questions = Database::get_unvalidated_questions();
-        Component::display_questions($unvalidated_questions, "with-validation-action");
+        Component::display_questions($unvalidated_questions, "validatable");
     ?>
 
     <!-- Displays unanswered questions -->
     <h2 class="mt-20 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions non répondues</h2>
     <?php
         $unanswered_questions = Database::get_unanswered_questions();
-        Component::display_questions($unanswered_questions, "with-answer-action");
+        Component::display_questions($unanswered_questions, "answerable");
     ?>
 
 

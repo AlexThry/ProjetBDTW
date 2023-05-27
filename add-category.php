@@ -13,7 +13,7 @@ if( !$is_admin ) {
 // Checks the form inputs
 if( $name_category === null ) {
     $msg_error = "Veuillez remplir le nom de la categorie";
-    header("Location: account.php?tab=interface_admin&error=".$msg_error);
+    header("Location: index.php&error=".$msg_error);
     exit();
 }
 
@@ -22,11 +22,11 @@ $categories = Database::get_categories();
 // Check if category already exists
 if( in_array($name_category, $categories) ){
     $msg_error = "Cette catégorie existe déjà !";
-    header("Location: account.php?tab=interface_admin&error=".htmlentities($msg_error));
+    header("Location: index.php&error=".htmlentities($msg_error));
     exit();
 }
 
 Database::create_category($name_category);
 
-header("Location: account.php?tab=interface_admin");
+header("Location: index.php");
 exit();

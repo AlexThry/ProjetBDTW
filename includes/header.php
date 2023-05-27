@@ -189,14 +189,9 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 
 						<div id="dropdown-user" class="z-10 hidden bg-white divide-y border divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
 							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-							<li>
-								<a href="account.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
-							</li>
-							<?php if ($is_admin):?>
 								<li>
-									<a href="account.php?tab=interface_admin" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Interface administrateur</a>
+									<a href="account.php" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
 								</li>
-							<?php else:?>
 								<li>
 									<a href="account.php?tab=user_questions" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes questions</a>
 								</li>
@@ -204,12 +199,11 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 									<a href="account.php?tab=user_questions_favoris" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mes favoris</a>
 								</li>
 								<li>
-							<?php endif;?>
-								<a href="logout.php" class="flex items-center p-3 text-sm font-medium text-red-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500">
-									<svg class="w-5 h-5 mr-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z"></path></svg>
-									Déconnexion
-								</a>
-							</li>
+									<a href="logout.php" class="flex items-center p-3 text-sm font-medium text-red-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500">
+										<svg class="w-5 h-5 mr-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 6a3 3 0 11-6 0 3 3 0 016 0zM14 17a6 6 0 00-12 0h12zM13 8a1 1 0 100 2h4a1 1 0 100-2h-4z"></path></svg>
+										Déconnexion
+									</a>
+								</li>
 							</ul>
 						</div>
 

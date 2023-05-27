@@ -12,12 +12,6 @@ $active_tab    = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
 $is_admin      = $user['is_admin'];
 $error_message = isset( $_GET['error'] ) ? $_GET['error'] : null;
 
-// Check if user is allowed to get on the interface_admin tab
-if( ! $is_admin && $active_tab === 'interface_admin') {
-	header('Location: connection-admin.php');
-	exit();
-}
-
 require_once 'includes/header.php';
 
 // Display error messages

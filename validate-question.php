@@ -17,7 +17,7 @@ if( !$is_admin ) {
 // End if question_id is not given
 if($question_id === null) {
     // Redirect to previous page
-    header("Location: account.php?tab=interface_admin");
+    header("Location: index.php");
     exit();
 }
 
@@ -36,5 +36,5 @@ if($is_validated) {
 }
 $conn->multi_query($sql);
 
-header("Location: account.php?tab=interface_admin");
+header("Location: index.php");
 exit();

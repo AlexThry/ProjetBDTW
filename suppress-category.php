@@ -13,9 +13,9 @@ if( !$is_admin ) {
 // Checks the form inputs
 if( $category_selected === null ) {
     $msg_error = "Veuillez selectionner une categorie a supprime";
-    header("Location: account.php?tab=interface_admin&error=".htmlentities($msg_error));
+    header("Location: index.php?error=".htmlentities($msg_error));
     exit();
 }
 
 $delete_category = Database::delete_category($category_selected);
-header("Location: account.php?tab=interface_admin");
+header("Location: index.php");

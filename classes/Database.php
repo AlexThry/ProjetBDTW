@@ -277,6 +277,14 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 
+		public static function get_user_by_question_id( int $id_question ) {
+			global $conn;
+			$sql = "SELECT user.* FROM user JOIN question ON question.id_user = user.id WHERE question.id = $id_question";
+			$res = mysqli_query( $conn, $sql );
+			$user = mysqli_fetch_assoc( $res );
+			return $user;
+		}
+
 		/**
 		 * Returns all the categories
 		 *

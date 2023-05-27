@@ -8,6 +8,7 @@ if ($user['is_admin']) {
 	$is_admin = true;
 }
 
+
 /**
  * Display a question and edit buttons if user is admin.
  */
@@ -16,6 +17,7 @@ if ( ! key_exists( 'id', $_GET ) ) {
 	exit();
 }
 $id       = htmlentities( $_GET['id'] );
+$question_user = Database::get_user_by_question_id($id)['user_name'];
 $question = Database::get_question( $id );
 $like_number = Database::get_likes_number( $id );
 
@@ -35,6 +37,7 @@ if ( isset($_POST['question_title']) && isset($_POST['html-input'])) {
 
 	$title = htmlentities($_POST['question_title']);
 	$content = htmlentities($_POST['html-input']);
+	var_dump($title, $content);
 	if (strlen($title) > 50) {
 		AlertManager::display_error( "Le titre de la question ne doit pas dépasser 50 caractères." );
 	} else {
@@ -84,7 +87,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 			</textarea>
 			<label for="renderer" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Rendu</label>
 			<div class="sm:col-span-2" name="renderer">
-				<div id="renderer" class="html-markdown-renderer rounded-lg border border-gray-300 block p-2.5 w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div></div>
+				<div id="renderer" class="html-markdown-renderer block p-2.5 w-full mb-4" rows="8" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div>
 				<input type="hidden" id="html-input" name="html-input">
 			</div>
 
@@ -145,7 +148,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 		<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
 			<div class="text-base">
 				Publiée le 
-				<time class="inline" pubdate datetime="<?php echo htmlentities( $question['creation_date'] ); ?>" title="<?php echo format_date( $question['creation_date'] ); ?>"><?php echo format_date( $question['creation_date'] ); ?></time>
+				<time class="inline" pubdate datetime="<?php echo htmlentities( $question['creation_date'] ); ?>" title="<?php echo format_date( $question['creation_date'] ); ?>"><?php echo format_date( $question['creation_date'] ); ?></time> par <?php echo htmlentities($question_user); ?>
 			</div>
 			<?php if ( $is_admin ) : ?>
 				<a href="?id=<?php echo htmlentities( $id ); ?>&edit=true" class="inline-flex items-center ml-2 text-sm font-medium text-blue-600 md:ml-2 dark:text-blue-500 hover:underline">Modifier</a>

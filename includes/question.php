@@ -4,7 +4,7 @@ $user = get_user();
 
 $is_admin = false;
 
-if ($user['is_admin']) {
+if ($user && $user['is_admin']) {
 	$is_admin = true;
 }
 

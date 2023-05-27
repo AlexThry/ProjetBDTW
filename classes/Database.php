@@ -126,7 +126,7 @@ if ( ! class_exists( 'Database' ) ) {
 				);
 				if($with_likes) $question['number_likes'] = self::get_number_likes($row['id']);
 				if($with_categories) $question['number_likes'] = self::get_category((int)$row['id']);
-
+				$questions[] = $question;
 			}
 			return $questions;
 		}

@@ -30,7 +30,7 @@
     - Supprimer une question
     - ✔️ Voir les questions non répondues
     - ✔️ Transformer l'accueil en Dashboard
-    - Pouvoir acceder aux questions existantes
+    - Accéder à la page d'une question
     - Dans la topbar, afficher un bouton "Notifications"
     - Afficher le nombre de notifications sur ce bouton
     - (Dans un onglet paramètre, afficher l'option "Afficher le bouton ajouter une question dans la topbar") (voir Arnaud si tu comprends pas)

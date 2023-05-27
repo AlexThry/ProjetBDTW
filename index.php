@@ -77,12 +77,8 @@
 									</div>
 								</div>
 							</div>
-						<!-- </div> -->
 						</div>
 					</div>
-
-					<!-- <a href="#" class="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700">Shop Collection</a> -->
-
 					<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
                         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                             <!-- Start coding here -->
@@ -264,17 +260,11 @@
                                 </nav>
                             </div>
                         </div>
-                     </section>
-
+                    </section>
                 </div>
-            </div>
-            </div>
-        </div>
+            </section>
         <?php endif; ?>
-    </section>
 	<?php endif; ?>
-
-
 </div>
 
 <?php require_once 'includes/footer.php'; ?>

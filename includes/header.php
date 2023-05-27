@@ -95,11 +95,9 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 					<div class="ml-8 sm:block hidden">
 						<?php require 'search-bar.php'; ?>
 					</div>
-
 				</div>
 
 				<div class="flex items-center">
-
 					<div class="flex-col hidden pt-6 lg:flex-row lg:self-center lg:py-0 lg:flex mr-2" id="mobile-menu-1">
 						<ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
 							<li>
@@ -122,7 +120,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 						<span class="sr-only">Rejoindre notre communauté Discord</span>
 					</a>
 					<div id="tooltip-discord-2" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(815px, -64px, 0px);">
-					Rejoindre notre communauté Discord
+						Rejoindre notre communauté Discord
 						<div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate3d(99px, 0px, 0px);"></div>
 					</div>
 
@@ -156,10 +154,53 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 						</div>
 						<?php endif ?>
 
+					<?php if($is_admin) : ?>
+					<!-- Notifications -->
+					<button type="button" data-dropdown-toggle="notification-dropdown" class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+						<span class="sr-only">View notifications</span>
+						<!-- Bell icon -->
+						<svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+						</svg>
+					</button>
+
+					<!-- Dropdown menu -->
+					<div class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl" id="notification-dropdown">
+						<div class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300">
+							Notifications
+						</div>
+						<div>
+							<a href="#" class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+							</a>
+						</div>
+						<a
+						href="#"
+						class="block py-2 text-md font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-600 dark:text-white dark:hover:underline"
+						>
+							<div class="inline-flex items-center">
+								<svg
+								aria-hidden="true"
+								class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+								>
+								<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+								<path
+									fill-rule="evenodd"
+									d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+									clip-rule="evenodd"
+								></path>
+								</svg>
+								View all
+							</div>
+						</a>
+					</div>
+					<?php endif; ?>
 					<?php
 						$current_user = get_user();
-					if ( ! $current_user ) :
-						?>
+						if ( ! $current_user ) :
+					?>
 
 					<a href="connection.php" data-tooltip-target="tooltip-connection" class="py-2.5 px-5 ml-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
 						Connexion

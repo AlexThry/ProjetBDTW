@@ -57,10 +57,9 @@
                                                 echo '
                                                         <tr class="border-b dark:border-gray-700">
                                                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'" class="ml-2 text-sm font-medium text-blue-600 md:ml-2 dark:text-blue-500 hover:underline">'.$question["title"].'</a></th>
-                                                            <td class="px-4 py-3">';
-                                                            foreach ($categories as $category){
-                                                                echo Component::display_categories($question['id']);
-                                                            }
+                                                            <td class="px-4 py-3" style="  transform: translateY(20%);">';
+                                                            echo Component::display_categories($question['id']);
+                                                            
                                                         echo '</td>
                                                             <td class="px-4 py-3">'.$question["creation_date"].'</td>
                                                             <td class="px-4 py-3">'.$user["user_name"].'</td>

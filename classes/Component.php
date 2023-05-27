@@ -53,6 +53,51 @@ if ( ! class_exists( 'Component' ) ) {
 
 
 		/**
+		 * Displays a list of categories
+		 *
+		 * @param int $id_question ID of the question.
+		 * @return void
+		 */
+		public static function display_categories( $id_question ) {
+			$categories = Database::get_categories_by_question_id( $id_question );
+			echo '<div class="flex algin-center">';
+			foreach ( $categories as $category ) :
+				$label = $category['label'];
+
+				switch ($label) {
+					case 'git':
+						$color = 'pink';
+						break;
+					case 'javascript':
+						$color = 'yellow';
+						break;
+					case 'HTML':
+						$color = 'red';
+						break;
+					case 'CSS':
+						$color = 'blue';
+						break;
+					case 'PHP':
+						$color = 'indigo';
+						break;
+					case 'BD':
+						$color = 'green';
+						break;
+					default:
+						$color = 'blue';
+						break;
+				}
+				?>
+					<div class="flex flex-wrap mb-4"><a
+						class="bg-<?php echo $color ?>-100 text-<?php echo $color ?>-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-<?php echo $color ?>-200 hover:bg-<?php echo $color ?>-200 dark:hover:bg-<?php echo $color ?>-300 dark:text-<?php echo $color ?>-800 mb-2"
+						href="#"><?php echo $category['label']; ?></a></div>
+				<?php endforeach; 
+				echo '</div>';
+			
+			
+		}
+
+		/**
 		 * Displays a grid of questions
 		 * If theres no question, displays a message.
 		 *

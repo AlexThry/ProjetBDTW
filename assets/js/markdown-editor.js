@@ -17,34 +17,35 @@ function initMarkdownEditor() {
     },
   ];
 
-  showdown.extension("highlight", function () {
-    return [
-      {
-        type: "output",
-        filter: function (text, converter, options) {
-          var left = "<pre><code\\b[^>]*>",
-            right = "</code></pre>",
-            flags = "g";
-          var replacement = function (wholeMatch, match, left, right) {
-            var lang = (left.match(/class=\"([^ \"]+)/) || [])[1];
-            left = left.slice(0, 18) + "hljs " + left.slice(18);
-            if (lang && hljs.getLanguage(lang)) {
-              return left + hljs.highlight(lang, match).value + right;
-            } else {
-              return left + hljs.highlightAuto(match).value + right;
-            }
-          };
-          return showdown.helper.replaceRecursiveRegExp(
-            text,
-            replacement,
-            left,
-            right,
-            flags
-          );
-        },
-      },
-    ];
-  });
+  // cause issues when we try to update questions
+  // showdown.extension("highlight", function () {
+  //   return [
+  //     {
+  //       type: "output",
+  //       filter: function (text, converter, options) {
+  //         var left = "<pre><code\\b[^>]*>",
+  //           right = "</code></pre>",
+  //           flags = "g";
+  //         var replacement = function (wholeMatch, match, left, right) {
+  //           var lang = (left.match(/class=\"([^ \"]+)/) || [])[1];
+  //           left = left.slice(0, 18) + "hljs " + left.slice(18);
+  //           if (lang && hljs.getLanguage(lang)) {
+  //             return left + hljs.highlight(lang, match).value + right;
+  //           } else {
+  //             return left + hljs.highlightAuto(match).value + right;
+  //           }
+  //         };
+  //         return showdown.helper.replaceRecursiveRegExp(
+  //           text,
+  //           replacement,
+  //           left,
+  //           right,
+  //           flags
+  //         );
+  //       },
+  //     },
+  //   ];
+  // });
 
   const converter = new showdown.Converter({
     tables: true,
@@ -54,11 +55,11 @@ function initMarkdownEditor() {
     openLinksInNewWindow: true,
     underline: true,
     strikethrough: true,
-    extensions: ["highlight"],
+    // extensions: ["highlight"],
     ghCodeBlocks: true,
-    smoothLivePreview:true,
-    smartIndentationFix:true,
-    requireSpaceBeforeHeadingText:true,
+    smoothLivePreview: true,
+    smartIndentationFix: true,
+    requireSpaceBeforeHeadingText: true,
     ghMentions: true,
     backslashEscapesHTMLTags: true,
     emoji: true,
@@ -67,7 +68,8 @@ function initMarkdownEditor() {
   // to use github flavored markdown options
   //   converter.setFlavor('github');
 
-  markdownEditor.value = converter.makeMarkdown(markdownEditor.value);
+  const initialHTML = markdownEditor.value;
+  markdownEditor.value = converter.makeMarkdown(initialHTML);
 
   const previewID = markdownEditor.dataset.previewId;
   if (!previewID) {
@@ -93,6 +95,8 @@ function initMarkdownEditor() {
     return;
   }
 
+  markdownInput.value = initialHTML;
+
   /**
    * Enable to fix a showdown bug due to html snippets.
    *
@@ -101,11 +105,11 @@ function initMarkdownEditor() {
    */
   function decode(str) {
     return str
-      .replaceAll("&lt;", "<")
-      .replaceAll("&gt;", ">")
-      .replaceAll("&amp;", "&")
-      .replaceAll("&quot;", '"')
-      .replaceAll("&apos;", "'");
+      // .replaceAll("&lt;", "<")
+      // .replaceAll("&gt;", ">")
+      // .replaceAll("&amp;", "&")
+      // .replaceAll("&quot;", '"')
+      // .replaceAll("&apos;", "'");
   }
 
   function handleInput() {

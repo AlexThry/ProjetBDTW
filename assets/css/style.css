@@ -14,6 +14,10 @@ main {
   flex-direction: column;
 }
 
+mark {
+  background-color: transparent;
+}
+
 .page-container {
   flex: 1;
 }
@@ -125,6 +129,20 @@ form input {
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+}
+
+
+.question-title {
+  font-weight: bold;
+  color: rgb(29, 78, 216);
+}
+
+.w-650 {
+  width: 650px;
+}
+
+.w-200 {
+  width: 200px;
 }
 
 .like-png{

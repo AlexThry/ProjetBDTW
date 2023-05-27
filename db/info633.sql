@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `raw_html` text NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_question` int(11) NOT NULL,
+  `id_user` int NOT NULL,
+  `id_question` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_user` (`id_user`),
   KEY `fk_id_question` (`id_question`)
@@ -44,13 +44,13 @@ CREATE TABLE IF NOT EXISTS `answer` (
 --
 
 INSERT INTO `answer` (`id`, `content`, `raw_html`, `id_user`, `id_question`) VALUES
-(1, 'Exactement.\nPour une association de 1 à 1, il faut choisir un sens et reporter la clé dans l’autre relation. Pour guider votre choix, vous pouvez privilégier la clé la plus simple (nombre, sans caractères)', '', 8, 2),
-(2, 'Il y a une erreur à la ligne 7, vous avez oublié d\'ajouter un \";\". Faites attention dans le reste du code, vous ne prenez pas en compte le cas où l\'utilisateur n\'a pas encore de compte, pensez à archiver. bip.', '', 9, 1),
-(3, 'Tu créer pas de table. C\'est une vraie question ou tu me poses une question ? C\'est un piège *sourire gênant*. J\'crois qu\'on se comprends plus... Qu\'est ce que tu fait ?', '', 8, 12),
-(4, 'La différence entre une jointure et un produit cartésien réside dans le résultat obtenu.\n\nDans un produit cartésien, toutes les combinaisons possibles entre les enregistrements de deux tables sont retournées, sans tenir compte d\'aucune condition. Le produit cartésien est généralement noté par le symbole ×.\n\nEn revanche, une jointure est une opération qui combine les enregistrements de deux tables en fonction d\'une condition spécifique. La condition de jointure est généralement basée sur des valeurs communes dans les colonnes des tables. Le résultat de la jointure est un sous-ensemble des enregistrements des tables d\'origine qui satisfont la condition de jointure.', '', 9, 11),
-(5, 'Les jointures LEFT JOIN et RIGHT JOIN servent à combiner les enregistrements de deux tables en fonction d\'une condition de jointure spécifiée, tout en incluant tous les enregistrements de l\'une des tables, même s\'ils ne correspondent à aucun enregistrement dans l\'autre table.\r\n\r\nDans un LEFT JOIN, tous les enregistrements de la table de gauche (la première table spécifiée dans la requête) sont inclus dans le résultat, qu\'ils correspondent ou non aux enregistrements de la table de droite (la deuxième table spécifiée). Si aucun enregistrement ne correspond dans la table de droite, les colonnes correspondantes contiendront des valeurs nulles.\r\n\r\nDans un RIGHT JOIN, c\'est l\'inverse : tous les enregistrements de la table de droite sont inclus, qu\'ils correspondent ou non aux enregistrements de la table de gauche.', '', 8, 10),
-(6, 'Il est préférable d\'utiliser une requête SELECT imbriquée (subquery) lorsque vous avez besoin d\'effectuer une opération basée sur les résultats d\'une requête interne avant de les utiliser dans la requête externe. Cela peut être utile lorsque vous devez filtrer, agréger ou manipuler les données avant de les utiliser dans la requête principale. Les sous-requêtes sont généralement utilisées pour effectuer des opérations plus complexes et fournir des résultats intermédiaires.\n\nEn revanche, il est préférable d\'utiliser une jointure (JOIN) lorsque vous souhaitez combiner les données de plusieurs tables en fonction d\'une condition de jointure. Les jointures sont utilisées pour obtenir des informations provenant de différentes tables en les liant sur des colonnes communes. Cela permet de récupérer des enregistrements correspondants des tables liées, en utilisant une condition spécifiée, et de les combiner dans un résultat unique.', '', 9, 9),
-(7, 'GROUP BY est utilisé pour regrouper les enregistrements en fonction des valeurs d\'une ou plusieurs colonnes. Il est couramment utilisé avec des fonctions d\'agrégation telles que SUM, COUNT, AVG, etc. pour obtenir des résultats agrégés par groupe. L\'instruction GROUP BY divise les enregistrements en groupes distincts selon les valeurs de la colonne spécifiée, ce qui permet d\'effectuer des calculs sur chaque groupe séparément.\r\n\r\nORDER BY, quant à lui, est utilisé pour trier les enregistrements du résultat d\'une requête en fonction des valeurs d\'une ou plusieurs colonnes', '', 8, 8);
+(1, 'Exactement.\nPour une association de 1 à 1, il faut choisir un sens et reporter la clé dans l’autre relation. Pour guider votre choix, vous pouvez privilégier la clé la plus simple (nombre, sans caractères)', '', 1, 2),
+(2, 'Il y a une erreur à la ligne 7, vous avez oublié d\'ajouter un \";\". Faites attention dans le reste du code, vous ne prenez pas en compte le cas où l\'utilisateur n\'a pas encore de compte, pensez à archiver. bip.', '', 2, 1),
+(3, 'Tu créer pas de table. C\'est une vraie question ou tu me poses une question ? C\'est un piège *sourire gênant*. J\'crois qu\'on se comprends plus... Qu\'est ce que tu fait ?', '', 5, 12),
+(4, 'La différence entre une jointure et un produit cartésien réside dans le résultat obtenu.\n\nDans un produit cartésien, toutes les combinaisons possibles entre les enregistrements de deux tables sont retournées, sans tenir compte d\'aucune condition. Le produit cartésien est généralement noté par le symbole ×.\n\nEn revanche, une jointure est une opération qui combine les enregistrements de deux tables en fonction d\'une condition spécifique. La condition de jointure est généralement basée sur des valeurs communes dans les colonnes des tables. Le résultat de la jointure est un sous-ensemble des enregistrements des tables d\'origine qui satisfont la condition de jointure.', '', 3, 11),
+(5, 'Les jointures LEFT JOIN et RIGHT JOIN servent à combiner les enregistrements de deux tables en fonction d\'une condition de jointure spécifiée, tout en incluant tous les enregistrements de l\'une des tables, même s\'ils ne correspondent à aucun enregistrement dans l\'autre table.\r\n\r\nDans un LEFT JOIN, tous les enregistrements de la table de gauche (la première table spécifiée dans la requête) sont inclus dans le résultat, qu\'ils correspondent ou non aux enregistrements de la table de droite (la deuxième table spécifiée). Si aucun enregistrement ne correspond dans la table de droite, les colonnes correspondantes contiendront des valeurs nulles.\r\n\r\nDans un RIGHT JOIN, c\'est l\'inverse : tous les enregistrements de la table de droite sont inclus, qu\'ils correspondent ou non aux enregistrements de la table de gauche.', '', 4, 10),
+(6, 'Il est préférable d\'utiliser une requête SELECT imbriquée (subquery) lorsque vous avez besoin d\'effectuer une opération basée sur les résultats d\'une requête interne avant de les utiliser dans la requête externe. Cela peut être utile lorsque vous devez filtrer, agréger ou manipuler les données avant de les utiliser dans la requête principale. Les sous-requêtes sont généralement utilisées pour effectuer des opérations plus complexes et fournir des résultats intermédiaires.\n\nEn revanche, il est préférable d\'utiliser une jointure (JOIN) lorsque vous souhaitez combiner les données de plusieurs tables en fonction d\'une condition de jointure. Les jointures sont utilisées pour obtenir des informations provenant de différentes tables en les liant sur des colonnes communes. Cela permet de récupérer des enregistrements correspondants des tables liées, en utilisant une condition spécifiée, et de les combiner dans un résultat unique.', '', 6, 9),
+(7, 'GROUP BY est utilisé pour regrouper les enregistrements en fonction des valeurs d\'une ou plusieurs colonnes. Il est couramment utilisé avec des fonctions d\'agrégation telles que SUM, COUNT, AVG, etc. pour obtenir des résultats agrégés par groupe. L\'instruction GROUP BY divise les enregistrements en groupes distincts selon les valeurs de la colonne spécifiée, ce qui permet d\'effectuer des calculs sur chaque groupe séparément.\r\n\r\nORDER BY, quant à lui, est utilisé pour trier les enregistrements du résultat d\'une requête en fonction des valeurs d\'une ou plusieurs colonnes', '', 7, 8);
 
 -- --------------------------------------------------------
 
@@ -60,11 +60,11 @@ INSERT INTO `answer` (`id`, `content`, `raw_html`, `id_user`, `id_question`) VAL
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `label` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `label` (`label`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `category`
@@ -195,7 +195,7 @@ INSERT INTO `likes` (`id`, `id_question`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` text NOT NULL,
@@ -231,7 +231,7 @@ INSERT INTO `question` (`id`, `title`, `creation_date`, `content`, `id_user`, `i
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
   `is_admin` tinyint(1) NOT NULL,
@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_username` (`user_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `user`

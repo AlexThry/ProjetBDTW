@@ -146,6 +146,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 							Changez de thème
 							<div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate3d(68.5px, 0px, 0px);"></div>
 						</div>
+						<?php if (get_user()) : ?>
 						<a href="single-question.php?new_question" data-tooltip-target="tooltip-new" class="mr-2 py-2.5 px-5 ml-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
 							Nouvelle question
 						</a>
@@ -153,6 +154,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 							Posez votre question 
 							<div class="tooltip-arrow" data-popper-arrow="" style="position: relative;"></div>
 						</div>
+						<?php endif ?>
 
 					<?php
 						$current_user = get_user();

@@ -32,7 +32,7 @@ if (key_exists('answer-content', $_POST) && isset($_POST['answer-content'])) {
 
 // todo : check if user is admin
 $is_admin = false;
-if ($current_user['is_admin']) {
+if ($current_user && $current_user['is_admin']) {
 	$is_admin = true;
 }
 if ($is_answered) {

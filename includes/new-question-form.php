@@ -11,7 +11,12 @@ $categories = Database::get_categories();
 
 ?>
 
-<form action="#" class="flex-1 mt-8">
+<form action="submit-question.php" class="flex-1 mt-8" method="post">
+	<?php
+		if(isset($_GET["error"])){
+			AlertManager::display_error( html_entity_decode( $_GET['error'] ) );
+		}
+	?>	
 	<h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">Poser une question</h2>
 	<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 		<div class="sm:col-span-2">
@@ -22,7 +27,7 @@ $categories = Database::get_categories();
 		<!-- markdown editor -->
 		<div class="sm:col-span-2">
 			<label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-			<textarea id="markdown-editor" required data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ..."></textarea>
+			<textarea id="markdown-editor" name="markdown-editor" required data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ..."></textarea>
 		</div>
 		<div class="sm:col-span-2">
 			<div id="renderer" class="html-markdown-renderer block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"></div>

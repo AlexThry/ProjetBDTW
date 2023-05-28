@@ -474,6 +474,16 @@ if ( ! class_exists( 'Database' ) ) {
 			return $res['number_likes'];
 		}
 
+		public static function add_question($title, $content,$id_current_user,$categories){
+			global $conn;
+			$sql = "INSERT INTO question(title, creation_date, content, id_user) VALUES ('$title', NOW(), '$content', $id_current_user)";
+			$conn->query($sql);
+			foreach($categories as $id_category){
+				$sql = "INSERT INTO has_category(id_question, id_category) VALUES ((SELECT id FROM question WHERE title='$title'), $id_category)" ;
+				$conn->query($sql);
+			}
+
+		}
 
 		public static function modify_answer( $id_answer, $content ) {
 			global $conn;

@@ -226,7 +226,7 @@ if ( ! class_exists( 'Component' ) ) {
 											$answer_user_id = $answer['id_user'];
 											$admin_answer = Database::get_user($answer_user_id);
 											echo "<div class='admin'><p>" . $admin_answer['user_name'] . "</p></div>";
-											echo "<div class='admin-answer'><p>" . $answer['content'] . "</p>";
+											echo "<div class='admin-answer'><p>" . $answer['content'] . "</p></div>";
 										echo "</div>";
 									} else {
 										echo "<p>Pas de réponse, veuillez patienter...</p>";
@@ -234,8 +234,9 @@ if ( ! class_exists( 'Component' ) ) {
 								?>
 							</div>
 						</div>
-					<?php $i_question++; ?>
-				<?php endforeach; ?>
+						<?php $i_question++;
+					endforeach;?>
+				</ul>
 			</div>
 		<?php }
 	}

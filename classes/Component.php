@@ -209,7 +209,7 @@ if ( ! class_exists( 'Component' ) ) {
 								?>"
 								data-accordion-target="#accordion-open-body-<?php echo $i_question ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i_question ?>"
 							>
-								<h1 class="question-title w-150"> <?php echo $question['title'] ?> </h1>
+								<h1 class="question-title w-150"><a href="single-question.php?id=<?php echo $question['id']?>" class="question-title w-200 dark:text-blue-500 hover:underline"> <?php echo $question["title"] ?> </a></h1>
 								<p class="w-20 text-center"><?php echo $first_category ?></p>
 								<p class="w-100 text-center"><?php echo $question['creation_date'] ?></p>
 								<span class="flex items-center"><?php echo $question['number_likes'] ?><img src="assets/images/like.png" alt="" class="like-png"></span>

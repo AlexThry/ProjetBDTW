@@ -533,11 +533,15 @@ if ( ! class_exists( 'Database' ) ) {
 			$sql = "DELETE FROM answer WHERE id = $id_answer";
 			$conn->query($sql);
 		}
+
+		public static function question_exists( $id_question ) {
+			global $conn;
+			$sql = "SELECT * FROM question WHERE id = $id_question";
+			return $conn->query($sql)->num_rows > 0;
+		}
 	}
 }
 
 Database::setup();
 
-/*
-&é"'(-è_çà\ `coucou`
-*/
+

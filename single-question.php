@@ -13,7 +13,7 @@ $user = get_user();
 
 		if ( key_exists( 'new_question', $_GET ) ) {
 			require_once 'includes/new-question-form.php';
-		} elseif ( key_exists( 'id', $_GET ) ) {
+		} elseif ( key_exists( 'id', $_GET ) && Database::question_exists( $_GET['id'] )) {
 			// todo: check if question exists and is published (has an answer)
 			$question_published = true;
 			if ( $question_published ) {
@@ -22,6 +22,9 @@ $user = get_user();
 			} else {
 				AlertManager::display_warning( 'Cette question n\'est pas visible.' );
 			}
+		} elseif (! Database::question_exists( $_GET['id'] )){
+			AlertManager::display_warning( 'Cette question n\'existe pas' );
+
 		} else {
 			AlertManager::display_info( 'Aucune question n\'a été sélectionnée.' );
 		}

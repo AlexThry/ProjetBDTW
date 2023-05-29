@@ -29,7 +29,7 @@ if ( ! class_exists( 'Component' ) ) {
 					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
 					<p><?php echo $first_category ?></p>
 					<p><?php echo $question['creation_date'] ?></p>
-					<p class="w-650"><?php echo html_entity_decode($question['content']) ?></p>
+					<c class="w-650"><?php echo html_entity_decode($question['content']) ?></c>
 
 					<?php if($validatable) : ?>
 						<a href="<?php echo $validation_url ?>" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Component' ) ) {
 					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
 					<p><?php echo $first_category ?></p>
 					<p><?php echo html_entity_decode($question['creation_date']) ?></p>
-					<p class="w-650"><?php echo html_entity_decode($question['content']) ?></p>
+					<c class="w-650"><?php echo html_entity_decode($question['content']) ?></c>
 					<button
 						type="button"
 						data-accordion-target="#accordion-open-body-<?php echo $i_question ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i_question ?>"

@@ -26,10 +26,10 @@ if ( ! class_exists( 'Component' ) ) {
 
 			<h2 id="accordion-open-heading">
 				<div class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
-					<h1 class="question-title w-200"> <?php echo $question['title'] ?> </h1>
+					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
 					<p><?php echo $first_category ?></p>
 					<p><?php echo $question['creation_date'] ?></p>
-					<p class="w-650"><?php echo $question['content'] ?></p>
+					<p class="w-650"><?php echo html_entity_decode($question['content']) ?></p>
 
 					<?php if($validatable) : ?>
 						<a href="<?php echo $validation_url ?>" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -58,10 +58,10 @@ if ( ! class_exists( 'Component' ) ) {
 			?>
 			<h2 id="accordion-open-heading-<?php echo $i_question ?>">
 				<div class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
-					<h1 class="question-title w-200"> <?php echo $question['title'] ?> </h1>
+					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
 					<p><?php echo $first_category ?></p>
-					<p><?php echo $question['creation_date'] ?></p>
-					<p class="w-650"><?php echo $question['content'] ?></p>
+					<p><?php echo html_entity_decode($question['creation_date']) ?></p>
+					<p class="w-650"><?php echo html_entity_decode($question['content']) ?></p>
 					<button
 						type="button"
 						data-accordion-target="#accordion-open-body-<?php echo $i_question ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i_question ?>"

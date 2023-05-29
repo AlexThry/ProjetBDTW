@@ -434,6 +434,28 @@ if ( ! class_exists( 'Database' ) ) {
 			return $categories;
 		}
 
+		public static function add_question( $id_user, $title, $content, $id_categories ) {
+			global $conn;
+
+			$sql = "INSERT INTO question (title, content, id_user) VALUES ('$title', '$content', $id_user)";
+			mysqli_query($conn, $sql);
+
+			$id_question = mysqli_insert_id($conn);
+
+			if (sizeof($id_categories) == 0) {
+				AlertManager::display_success('La question à été ajoutée avec succès !');
+
+				return;
+			}
+
+			foreach ($id_categories as $id_category) {
+				$sql = "INSERT INTO has_category (id_question, id_category) VALUES ($id_question, $id_category)";
+				mysqli_query($conn, $sql);
+			}
+			AlertManager::display_success('La question à été ajoutée avec succès !');
+
+		}
+
 		/**
 		 * Returns the question of a given id
 		 *
@@ -450,6 +472,7 @@ if ( ! class_exists( 'Database' ) ) {
 			mysqli_query($conn, $sql);
 
 			if (sizeof($id_categories) == 0) {
+				AlertManager::display_success('La question à été modifiée avec succès !');
 				return;
 			}
 
@@ -457,6 +480,8 @@ if ( ! class_exists( 'Database' ) ) {
 				$sql = "INSERT INTO has_category (id_question, id_category) VALUES ($id_question, $id_category)";
 				mysqli_query($conn, $sql);
 			}
+
+			AlertManager::display_success('La question à été modifiée avec succès !');
 		}
 
 
@@ -487,6 +512,8 @@ if ( ! class_exists( 'Database' ) ) {
 				$conn->real_escape_string( $content )
 			);
 			$conn->query($sql);
+			AlertManager::display_success('La réponse à été ajoutée avec succès !');
+
 		}
 
 		public static function modify_answer( $id_answer, $content ) {
@@ -496,6 +523,8 @@ if ( ! class_exists( 'Database' ) ) {
 				$conn->real_escape_string( $content )
 			);
 			$conn->query($sql);
+			AlertManager::display_success('La réponse à été modifiée avec succès !');
+
 		}
 
 

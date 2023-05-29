@@ -22,9 +22,8 @@ $question = Database::get_question( $id );
 $like_number = Database::get_likes_number( $id );
 
 $is_liked = false;
-// if ($question['is_liked']) {
-// 	$is_liked = true;
-// }
+
+
 
 if ( isset($_POST['question_title']) && isset($_POST['html-input'])) {
 	$i = 0;

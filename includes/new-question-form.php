@@ -1,6 +1,7 @@
 <?php
 
 $categories = Database::get_categories();
+$user = get_user();
 
 // todo form submission, aide :
 // - c'est le html contenu dans l'input #html-input qui est envoyé au serveur (pas le markdown)
@@ -9,14 +10,35 @@ $categories = Database::get_categories();
 // important veille bien à utiliser htmlentities
 // (et encore plus pour l'attribut content de la db comme ca peut contenir du html)
 
+if ( isset($_POST['question_title']) && isset($_POST['html-input']) && $user) {
+	$i = 0;
+	$categories_ids = [];
+	foreach ($_POST as $key => $value) {
+		if (strpos($key, 'checkbox-item-') === 0) {
+			$categories_ids[] = htmlentities($value);
+		}
+	}
+	$id_user = $user['id'];
+	$title = htmlentities($_POST['question_title']);
+	$content = htmlentities($_POST['html-input']);
+	if (strlen($title) > 50) {
+		AlertManager::display_error("Le titre ne doit pas dépasser 50 caractères");
+	} else {
+		Database::add_question( $id_user, $title, $content, $categories_ids );
+	 }
+} 
 ?>
 
-<form action="#" class="flex-1 mt-8">
+
+<?php if ($user): ?>
+	<?php if ($user['is_admin']): AlertManager::display_info("Vous êtes connecté en tant qu'admin. Voullez vous poser une question ?"); endif ?>
+
+<form action="#" method="post" class="flex-1 mt-8">
 	<h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">Poser une question</h2>
 	<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 		<div class="sm:col-span-2">
-			<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
-			<input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Sujet ..." required="">
+			<label for="question_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
+			<input type="text" name="question_title" id="question_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Sujet ..." required="">
 		</div>
 
 		<!-- markdown editor -->
@@ -65,5 +87,8 @@ $categories = Database::get_categories();
 
 	<div id="editor-container"></div>
 </form>
+<?php else: AlertManager::display_warning('Vous devez être connecté pour poser une question'); ?>
+<?php endif; ?>
+	
 
 

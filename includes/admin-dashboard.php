@@ -127,7 +127,7 @@ if( !$is_admin ) {
                 foreach ( $categories as $category ) :
                 ?>
                     <li data-cat="<?php echo $category['label']; ?>">
-                        <button type="submit" name="suppress_choice" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" value=<?php echo $category['label']; ?> ><?php echo $category['label']; ?></button>
+                        <button type="submit" name="suppress_choice" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" value=<?php echo html_entity_decode($category['label']); ?> ><?php echo html_entity_decode($category['label']); ?></button>
                     </li>
                 <?php
                 endforeach;

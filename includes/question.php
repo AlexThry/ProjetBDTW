@@ -21,8 +21,7 @@ $question_user = Database::get_user_by_question_id($id)['user_name'];
 $question = Database::get_question( $id );
 $like_number = Database::get_likes_number( $id );
 
-$is_liked = false;
-
+$is_liked = Database::is_liked( $id, $user['id'] );
 
 
 if ( isset($_POST['question_title']) && isset($_POST['html-input'])) {
@@ -61,6 +60,8 @@ si l'attribut existe, on affiche un formulaire d'édition à la place de la ques
 if ( key_exists( 'liked', $_GET ) ) {
 	$is_liked = true;
 	// update DB
+
+
 }
 
 // *** todo: interactivité edit button

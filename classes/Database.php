@@ -111,7 +111,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_questions($with_username = false, $with_categories = false, $with_likes = false) {
 			global $conn;
-			$sql = 'SELECT * FROM question';
+			$sql = 'SELECT * FROM question WHERE (id_validator IS NOT NULL)';
 			if($with_username) $sql = 'SELECT q.*, user_name FROM question q JOIN user u ON u.id = id_user WHERE (id_validator IS NOT NULL)';
 			$sql .= " ORDER BY creation_date DESC";
 			$res = mysqli_query( $conn, $sql );

@@ -12,12 +12,12 @@
 
 
 - Dans la page d'accueil | **`Ronan`**
-    - Voir toutes les questions (avec pagination)
-    - Recherche par texte (seulement le texte de la quesiton)
+    - ✔️ Voir toutes les questions (avec pagination) (sans pagination)
+    - ✔️Recherche par texte (seulement le texte de la quesiton)
     - (Recherche par texte (avec le texte des réponses))
-    - Recherche par catégorie
+    - ✔️Recherche par catégorie
     - Tri par nombre de likes
-    - Tri par date de création
+    - ✔️Tri par date de création
     - Tri répondu / pas répondu
     - (Tri validés et invalidés (seulement pour l'admin))
     - Dans la top bar, affiché un bouton "Poser une question"

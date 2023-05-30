@@ -81,7 +81,7 @@ function get_home_url(): string {
  * @return boolean
  */
 function is_home_page(): bool {
-	return get_url_basename() === 'ProjetBDTW';
+	return 	basename(explode('?', get_url())[0]) === 'ProjetBDTW';
 }
 
 /**

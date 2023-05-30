@@ -580,17 +580,20 @@ if ( ! class_exists( 'Database' ) ) {
 			$conn->query($sql);
 		}
 
+
 		public static function question_exists( $id_question ) {
 			global $conn;
 			$sql = "SELECT * FROM question WHERE id = $id_question";
 			return $conn->query($sql)->num_rows > 0;
 		}
 
+
 		public static function is_liked($id_question, $id_user) {
 			global $conn;
 			$sql = "SELECT * FROM likes WHERE id_question = $id_question AND id_user = $id_user";
 			return $conn->query($sql)->num_rows > 0;
 		}
+
 
 		/**
 		 * Toggles the like of a user on a question

@@ -4,9 +4,9 @@ require_once 'includes/header.php';
 
 $is_admin        = get_user() ? get_user()['is_admin'] : false;
 $question_id     = key_exists('id', $_GET) && !empty($_GET['id']) ? $_GET['id'] : null;
-$add_question    = key_exists('new_question', $_GET) && !empty($_GET['new_question']);
-$question_exists = Database::question_exists( $question_id );
-$is_validated    = Database::question_is_validated( $question_id );
+$add_question    = key_exists('new_question', $_GET);
+$question_exists = $question_id !== null ? Database::question_exists( $question_id ) : false;
+$is_validated    = $question_id !== null ? Database::question_is_validated( $question_id ) : false;
 ?>
 
 <section class="flex pt-4 pb-8 lg:pt-8 lg:pb-12 bg-white dark:bg-gray-900">

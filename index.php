@@ -28,46 +28,45 @@
 
                     <?php require 'includes/search-bar.php'; ?>
 
-                        <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-                            <!-- Start coding here -->
-                            <div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <th scope="col" class="px-4 py-3">Titre</th>
-                                                <th scope="col" class="px-4 py-3">Catégorie</th>
-                                                <th scope="col" class="px-4 py-3">Date</th>
-                                                <th scope="col" class="px-4 py-3">utilisateur</th>
-                                                    <span class="sr-only">Actions</span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+                        <!-- Start coding here -->
+                        <div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-3">Titre</th>
+                                            <th scope="col" class="px-4 py-3">Catégorie</th>
+                                            <th scope="col" class="px-4 py-3">Date</th>
+                                            <th scope="col" class="px-4 py-3">utilisateur</th>
+                                                <span class="sr-only">Actions</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                        <?php
+                                    <?php
 
-                                        $questions = Database::get_questions();
+                                    $questions = Database::get_questions();
 
-                                        foreach ($questions as $question) {
-                                            $categories = Database::get_categories_by_question_id($question['id']);
-                                            $user = Database::get_user($question['id_user']);
-                                            echo '
-                                                    <tr class="border-b dark:border-gray-700">
-                                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'" class="ml-2 text-sm font-medium text-blue-600 md:ml-2 dark:text-blue-500 hover:underline">'.$question["title"].'</a></th>
-                                                        <td class="px-4 py-3" style="  transform: translateY(20%);">';
-                                                        echo Component::display_categories($question['id']);
+                                    foreach ($questions as $question) {
+                                        $categories = Database::get_categories_by_question_id($question['id']);
+                                        $user = Database::get_user($question['id_user']);
+                                        echo '
+                                            <tr class="border-b dark:border-gray-700">
+                                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'" class="ml-2 text-sm font-medium text-blue-600 md:ml-2 dark:text-blue-500 hover:underline">'.$question["title"].'</a></th>
+                                                <td class="px-4 py-3" style="  transform: translateY(20%);">';
+                                                echo Component::display_categories($question['id']);
 
-                                                    echo '</td>
-                                                        <td class="px-4 py-3">'.format_date($question["creation_date"]).'</td>
-                                                        <td class="px-4 py-3">'.$user["user_name"].'</td>
-                                                    </tr>';
+                                            echo '</td>
+                                                <td class="px-4 py-3">'.format_date($question["creation_date"]).'</td>
+                                                <td class="px-4 py-3">'.$user["user_name"].'</td>
+                                            </tr>';
 
                                         }
                                         ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

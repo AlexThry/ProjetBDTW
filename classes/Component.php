@@ -101,12 +101,13 @@ if ( ! class_exists( 'Component' ) ) {
 			foreach ($categories as $category){
 				$color = self::get_category_color($category['label']);
 				?>
-				<div class="flex flex-wrap"><a
-						class="bg-<?php echo $color ?>-100 text-<?php echo $color ?>-800 text-sm font-medium mr-2 px-2.5 py-0 rounded dark:bg-<?php echo $color ?>-200 hover:bg-<?php echo $color ?>-200 dark:hover:bg-<?php echo $color ?>-300 dark:text-<?php echo $color ?>-800 mb-2"
-						href="#">#<?php echo $category['label']; ?></a></div>
-				<?php
-			}
-			echo "</div>";
+					<div class="flex flex-wrap mb-4"><a
+						class="bg-<?php echo $color ?>-100 text-<?php echo $color ?>-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-<?php echo $color ?>-200 hover:bg-<?php echo $color ?>-200 dark:hover:bg-<?php echo $color ?>-300 dark:text-<?php echo $color ?>-800 mb-2"
+						<?php echo 'href="?category='.$category['label'].'&amp;search="">'.$category['label'].'</a></div>' ?>
+			<?php }
+				echo '</div>';
+
+
 		}
 
 		/**

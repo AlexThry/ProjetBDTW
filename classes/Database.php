@@ -115,7 +115,7 @@ if ( ! class_exists( 'Database' ) ) {
 			if($with_username) $sql = 'SELECT q.*, user_name FROM question q JOIN user u ON u.id = id_user WHERE (id_validator IS NOT NULL)';
 			$sql .= " ORDER BY creation_date DESC";
 			$res = mysqli_query( $conn, $sql );
-		
+
 
 			$questions = array();
 			foreach( $res as $row ) {
@@ -134,10 +134,10 @@ if ( ! class_exists( 'Database' ) ) {
 			return $questions;
 		}
 
-		
+
 		/**
-		 * return all the questions with this category 
-		 * 
+		 * return all the questions with this category
+		 *
 		 * @return array all the questions according to the category
 		 */
 		public static function get_questions_with_category($category, $search) {
@@ -162,8 +162,8 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 		/**
-		 * return all the questions with the string either in the title or the content 
-		 * 
+		 * return all the questions with the string either in the title or the content
+		 *
 		 * @return array all the questions according to the string
 		 */
 		public static function get_questions_with_string($search) {
@@ -186,7 +186,7 @@ if ( ! class_exists( 'Database' ) ) {
 			}
 			return $questions;
 		}
-		
+
 		/**
 		 * return all the categories linked to the question id
 		 *
@@ -598,6 +598,7 @@ if ( ! class_exists( 'Database' ) ) {
 		public static function is_liked($id_question, $id_user) {
 			global $conn;
 			$sql = "SELECT * FROM likes WHERE id_question = $id_question AND id_user = $id_user";
+			echo $sql;
 			return $conn->query($sql)->num_rows > 0;
 		}
 

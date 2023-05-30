@@ -38,6 +38,8 @@ if ( ! class_exists( 'Component' ) ) {
 			$answerable  = in_array("answerable", $options);
 			$i_question  = key_exists("i-question", $options) && $answerable ? $options['i-question'] : 0;
 			$validatable = in_array("validatable", $options) && !$answerable;
+			$first_category = empty($categories) ? "Aucune" : $categories[0]['label'];
+
 			?>
 
 			<h2 id="accordion-open-heading-<?php echo $i_question ?>">

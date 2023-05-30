@@ -36,7 +36,7 @@ if( !$is_admin ) {
                     <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">A répondre</a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">A validé</a>
+                    <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">A valider</a>
                 </li>
                 </ul>
             </li>
@@ -82,14 +82,14 @@ if( !$is_admin ) {
     <h1 class="mb-20 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">Tableau de bord</h1>
 
     <!-- Displays unvalidated questions -->
-    <h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions invalidées</h2>
+    <h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions non validées</h2>
     <?php
         $unvalidated_questions = Database::get_unvalidated_questions();
         Component::display_questions($unvalidated_questions, "validatable");
     ?>
 
     <!-- Displays unanswered questions -->
-    <h2 class="mt-20 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions non répondues</h2>
+    <h2 class="mt-20 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions sans réponse</h2>
     <?php
         $unanswered_questions = Database::get_unanswered_questions();
         Component::display_questions($unanswered_questions, "answerable");
@@ -97,7 +97,7 @@ if( !$is_admin ) {
 
 
     <!-- Add a category -->
-    <section class="mt-20 bg-white dark:bg-gray-900 ml-">
+    <section class="mt-20 bg-white dark:bg-gray-800 ml-">
         <div class="py-4 ml-2">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle catégorie</h2>
             <form action="add-category.php" method="post">
@@ -109,7 +109,7 @@ if( !$is_admin ) {
 
 
                 </div>
-                <button type="submit" name="button" class="flex items-center px-2 py-1 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">Soumettre</button>
+                <button type="submit" name="button" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-4">Soumettre</button>
 
             </form>
         </div>

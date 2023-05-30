@@ -171,7 +171,7 @@ if ( ! class_exists( 'Component' ) ) {
 					<h2 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" id="content">Aucune questions !</h2>
 					<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">
 						Pour poser une question, c'est par
-						<a href='<?php echo get_home_url() ?>' class="dark:text-white">ici</a>
+						<a href='single-question.php?new_question' class="dark:text-white">ici</a>
 					</p>
 				</div>
 			<?php endif;

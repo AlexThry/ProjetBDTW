@@ -11,7 +11,6 @@ require_once 'classes/Answerable.php';
 function format_date( $date_value ): string {
 	setlocale( LC_TIME, 'fr_FR.UTF-8' ); // Set the locale to French
 
-	$date_value     = '2023-02-02 00:00:00';
 	$date           = new DateTime( $date_value );
 	$formatted_date = $date->format( 'j M, Y' );
 

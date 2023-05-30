@@ -61,7 +61,7 @@
                                                             echo Component::display_categories($question['id']);
                                                             
                                                         echo '</td>
-                                                            <td class="px-4 py-3">'.$question["creation_date"].'</td>
+                                                            <td class="px-4 py-3">'.format_date($question["creation_date"]).'</td>
                                                             <td class="px-4 py-3">'.$user["user_name"].'</td>
                                                         </tr>';
 

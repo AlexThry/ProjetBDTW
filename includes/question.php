@@ -21,7 +21,7 @@ $question_user = Database::get_user_by_question_id($id)['user_name'];
 $question = Database::get_question( $id );
 $like_number = Database::get_likes_number( $id );
 
-$is_liked = Database::is_liked( $id, $user['id'] );
+$is_liked = $user ? Database::is_liked( $id, $user['id'] ) : false;
 
 
 
@@ -38,7 +38,7 @@ if ( isset($_POST['question_title']) && isset($_POST['html-input'])) {
 	$title = htmlentities($_POST['question_title']);
 	$content = htmlentities($_POST['html-input']);
 	Database::modify_question( $id, $title, $content, $categories_ids );
-	
+
 }
 
 $question = Database::get_question( $id );
@@ -66,12 +66,12 @@ if ( key_exists( 'liked', $_GET ) ) {
 	} else if ($_GET['liked'] == 'false' && $is_liked == true) {
 		$is_liked = true;
 		Database::set_is_liked( $id, $user['id'], false );
-	} 
+	}
 }
 
 // *** todo: interactivité edit button
 if ( key_exists( 'edit', $_GET ) ) {
-	if ( $is_admin ) { 
+	if ( $is_admin ) {
 		?>
 
 		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">Modifier la question</h1>
@@ -79,9 +79,9 @@ if ( key_exists( 'edit', $_GET ) ) {
 			<label for="question_title" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom de la question</label>
 			<input type="text" name="question_title" id="question_title" autocomplete="question_title" value="<?php echo html_entity_decode( $question['title'] ); ?>" class="mb-4 block w-full rounded-md py-1.5 bg-gray-50 border-gray-300 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="janesmith">
 			<label for="content" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Contenu</label>
-			
+
 			<textarea id="markdown-editor" required name='content' data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-				<?php 
+				<?php
 				// les sauts de lignes ne s'affichent pas dans le textarea
 				echo html_entity_decode( $question["content"] );
 				?>
@@ -92,16 +92,16 @@ if ( key_exists( 'edit', $_GET ) ) {
 				<input type="hidden" id="html-input" name="html-input">
 			</div>
 
-			
+
 			<div id="categories-renderer" class="sm:col-span-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:text-white"></div>
 			<div class="mt-4 sm:col-span-2">
 				<button id="dropdownCheckboxButton" data-dropdown-toggle="categories-dropdown" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium inline-flex items-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">Catégories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-				
+
 				<div id="categories-dropdown" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 dark:divide-gray-600">
 					<ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
 						<?php
 
-						$has_cat = Database::get_categories_id_by_question($id); 
+						$has_cat = Database::get_categories_id_by_question($id);
 
 						$i = 0;
 						foreach ( $categories as $category ) {
@@ -148,7 +148,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 
 		<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
 			<div class="text-base">
-				Publiée le 
+				Publiée le
 				<time class="inline" pubdate datetime="<?php echo htmlentities( $question['creation_date'] ); ?>" title="<?php echo format_date( $question['creation_date'] ); ?>"><?php echo format_date( $question['creation_date'] ); ?></time> par <?php echo htmlentities($question_user); ?>
 			</div>
 			<?php if ( $is_admin ) : ?>
@@ -167,7 +167,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 			</a>
 			<p class="text-xl font-bold"><?php echo htmlentities( $like_number ); ?></p>
 			<p>J'aime<?php echo intval( htmlentities( $like_number ) ) > 1 ? 's' : ''; ?></p>
-		</div> 
+		</div>
 		<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1">
 			<?php echo html_entity_decode( $question['content'] ); ?>
 		</mark>

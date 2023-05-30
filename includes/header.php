@@ -62,7 +62,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 	<main>
 		<div class="page-container overflow-hidden">
 
-		<?php $header_class = ($is_admin && is_home_page()) ? "left-0 right-0 top-0 z-50" : "sticky top-0 z-40 "; ?>
+		<?php $header_class = ($is_admin && is_home_page() && empty($_GET)) ? "left-0 right-0 top-0 z-50" : "sticky top-0 z-40 "; ?>
 		<header class="flex-none w-full mx-auto bg-white fixed border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800 <?php echo $header_class ?>">
 			<?php if ( is_home_page() ) : ?>
 			<div id="banner" tabindex="-1" class="z-50 flex justify-center w-full px-4 py-3 border border-b border-gray-200 bg-gray-50 dark:border-gray-600 lg:py-4 dark:bg-gray-700">

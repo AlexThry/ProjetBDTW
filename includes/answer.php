@@ -105,7 +105,7 @@ if ($is_answered) {
 					</div>
 				<?php endif; ?>
 			</footer>
-			<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer">
+			<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1">
 				<?php 
 					if ( $is_answered ) {
 						echo html_entity_decode( $answer['content'] ); 

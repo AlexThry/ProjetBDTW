@@ -38,6 +38,8 @@ if ( ! class_exists( 'Component' ) ) {
 			$answerable  = in_array("answerable", $options);
 			$i_question  = key_exists("i-question", $options) && $answerable ? $options['i-question'] : 0;
 			$validatable = in_array("validatable", $options) && !$answerable;
+			$first_category = empty($categories) ? "Aucune" : $categories[0]['label'];
+
 			?>
 
 			<h2 id="accordion-open-heading-<?php echo $i_question ?>">
@@ -45,6 +47,9 @@ if ( ! class_exists( 'Component' ) ) {
 					<a href="single-question.php?id=<?php echo $question_id ?>"><h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?></h1></a>
 					<?php self::display_categories($question_id) ?>
 					<p><?php echo html_entity_decode($question['creation_date']) ?></p>
+					<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1">	
+						<?php echo html_entity_decode($question['content']) ?>
+					</mark>
 
 					<?php if($validatable) : ?>
 						<a href="<?php echo "validate-question.php?question-id=$question_id&previous-url=$_SERVER[REQUEST_URI]" ?>" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -62,9 +67,17 @@ if ( ! class_exists( 'Component' ) ) {
 					<?php endif; ?>
 				</div>
 				<div class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
-					<mark class="admin-answer text-gray-800 dark:text-gray-200 html-markdown-renderer">
-						<?php echo html_entity_decode( $question['content'] ) ?>
-					</mark>
+					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
+					<p><?php echo $first_category ?></p>
+					<p><?php echo html_entity_decode($question['creation_date']) ?></p>
+					<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1"><?php echo html_entity_decode($question['content']) ?></mark>
+					<button
+						type="button"
+						data-accordion-target="#accordion-open-body-<?php echo $i_question ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i_question ?>"
+						class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					>
+						Répondre
+					</button>
 				</div>
 			</h2>
 			<?php if($answerable) : ?>
@@ -190,7 +203,9 @@ if ( ! class_exists( 'Component' ) ) {
 								<p class="w-20 text-center"><?php echo $first_category ?></p>
 								<p class="w-100 text-center"><?php echo $question['creation_date'] ?></p>
 								<span class="flex items-center"><?php echo $question['number_likes'] ?><img src="assets/images/like.png" alt="" class="like-png"></span>
-								<p class="w-500"><?php echo $question['content'] ?></p>
+								<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1 w-500">
+									<?php echo html_entity_decode($question['content']) ?>
+								</mark>
 								<svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 							</button>
 						</h2>

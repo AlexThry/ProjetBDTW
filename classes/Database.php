@@ -592,6 +592,27 @@ if ( ! class_exists( 'Database' ) ) {
 			$sql = "SELECT * FROM question WHERE id = $id_question";
 			return $conn->query($sql)->num_rows > 0;
 		}
+
+		public static function is_liked($id_question, $id_user) {
+			global $conn;
+			$sql = "SELECT * FROM likes WHERE id_question = $id_question AND id_user = $id_user";
+			return $conn->query($sql)->num_rows > 0;
+		}
+
+
+		public static function set_is_liked($id_question, $id_user, $bool) {
+			global $conn;
+			if ($bool) {
+				$sql = "INSERT INTO likes (id_question, id_user) VALUES ($id_question, $id_user)";
+				$conn->query($sql);
+			} else {
+				if (self::is_liked($id_question, $id_user)) {
+					$sql = "DELETE FROM likes WHERE id_question = $id_question AND id_user = $id_user";
+					$conn->query($sql);
+				}
+			}
+
+		}
 	}
 }
 

@@ -205,7 +205,8 @@ if ( ! class_exists( 'Database' ) ) {
 		public static function get_unanswered_questions(){
 			global $conn;
 			$sql = "SELECT * FROM question
-				WHERE id NOT IN (
+				WHERE id_validator IS NOT NULL
+				AND id NOT IN (
 					SELECT id_question
 					FROM answer
 				);";

@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 26 mai 2023 à 13:34
+-- Généré le : mar. 30 mai 2023 à 20:48
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -29,14 +29,14 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
-  `id_user` int NOT NULL,
-  `id_question` int NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_question` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_id_user` (`id_user`),
   KEY `fk_id_question` (`id_question`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `answer`
@@ -59,19 +59,19 @@ INSERT INTO `answer` (`id`, `content`, `id_user`, `id_question`) VALUES
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `label` (`label`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `category`
 --
 
 INSERT INTO `category` (`id`, `label`) VALUES
-(6, 'git'),
-(5, 'javascript'),
+(6, 'GIT'),
+(5, 'JAVASCRIPT'),
 (4, 'HTML'),
 (3, 'CSS'),
 (2, 'PHP'),
@@ -100,9 +100,11 @@ INSERT INTO `has_category` (`id_question`, `id_category`) VALUES
 (2, 8),
 (3, 8),
 (4, 8),
+(5, 3),
 (5, 8),
 (6, 8),
 (7, 8),
+(8, 6),
 (9, 8),
 (10, 8),
 (11, 8),
@@ -147,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   PRIMARY KEY (`id`),
   KEY `fk_id_question` (`id_question`),
   KEY `fk_id_user` (`id_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `likes`
@@ -184,7 +186,9 @@ INSERT INTO `likes` (`id`, `id_question`, `id_user`) VALUES
 (34, 12, 5),
 (35, 12, 3),
 (36, 12, 7),
-(37, 12, 4);
+(37, 12, 4),
+(48, 12, 1),
+(51, 6, 8);
 
 -- --------------------------------------------------------
 
@@ -194,7 +198,7 @@ INSERT INTO `likes` (`id`, `id_question`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `content` text NOT NULL,
@@ -212,7 +216,7 @@ INSERT INTO `question` (`id`, `title`, `creation_date`, `content`, `id_user`, `i
 (1, 'Connexion à la base de donnée en PHP', '2023-02-02 00:00:00', 'J\'ai une erreur quand j\'essaye de connecter mon site à ma base de donnée mysql, j\'obtiens l\'error \"Vous n\'êtes pas qualifié pour parler de mon grand front\".\r\nVoici mon code :\r\n<?php\r\n$serveur = \"localhost\";\r\n$utilisateur = \"jeanlasticot\";\r\n$motdepasse = \"jesuisunasticot joyeux\";\r\n$base_de_donnees =\"aaaaaaugh\";\r\n\r\n$connexion = mysqli_connect($serveur, $utilisateur, $motdepasse, $base_de_donnees);\r\n\r\nif (!$connexion) {\r\n    die(\"Erreur de connexion à la base de données : \" . mysqli_connect_error());\r\n}', 2, 8),
 (2, 'Transformation d’une association de 1 à 1', '2023-01-29 00:00:00', 'Bonjour, nous avons vu comment passer du schéma entités/associations au schéma relationnel pour des associations de 1 à plusieurs et de plusieurs à plusieurs. Mais pour une association de 1 à 1 comment cela se passe ? On ajoute n\'importe laquelle clé primaire d\'une entité dans la relation de l\'autre entité en tant que clé étrangère ?\r\n', 1, 9),
 (3, 'Nommage des tables', '2023-01-30 00:00:00', 'Est ce qu\'il existe des conventions de nommages des tables / attributs dans le milieu professionnel de la base de donnés ?', 5, 9),
-(4, 'Table et relation', '2023-01-30 00:00:00', 'Bonjour, je me demandais quelle est la différence entre une table et une relation ?', 3, NULL),
+(4, 'Table et relation', '2023-01-30 00:00:00', '&lt;p&gt;Ceci est un test &lt;code&gt;test&lt;/code&gt;&lt;br /&gt;\r\n&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAAA6klEQVR4nGL8//8/AyUAIICYKNINBAABxILMYWRkZDCUlQU7iY2LHUPxr28/wfT5x48ZYS4HCCAUA0CasWmEAZgc1BJGEBsggEjyQvoEYwwxgABCMQDZdnTFIL65pSGGOoAAwuoCcXVusGIQDQMzC85idRVAAGEYALKpfVEkmA2isTkbGQAEEAu6AMimDeo3wJor45YzvLz5Fa8BAAGE1QsgTSePnyeoGQQAAgjFAFg8w1yCDGBeAdHI6gACiBE5KRvJyeFNB8gWnXv0CJwOAAIIxQByUiJAADFSmpkAAojizAQQQBQbABBgAOzmUc1BDvzZAAAAAElFTkSuQmCC&quot; style=&quot;width: 10em; heigth:45px;&quot;&gt;&lt;/img&gt;&lt;/p&gt;', 3, NULL),
 (5, 'Nombre de relation', '2023-01-30 00:00:00', 'est-il possible d\'avoir deux ou plusieurs relations entre deux mêmes entités ?', 6, 9),
 (6, 'tuple et n-tuple', '2023-01-31 00:00:00', 'Que signifie \"tuple\" et \"n-uplet\" d\'un modèle ?', 7, NULL),
 (7, 'Merise et modèle entité association', '2023-01-01 00:00:00', 'Quelles est la différence entre le modèle E/A et le modèle Merise ?\r\n', 4, 8),
@@ -230,7 +234,7 @@ INSERT INTO `question` (`id`, `title`, `creation_date`, `content`, `id_user`, `i
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
   `is_admin` tinyint(1) NOT NULL,
@@ -240,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_username` (`user_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`

@@ -1,7 +1,7 @@
 <?php
 require_once 'functions.php';
 
-$name_category  = isset( $_POST['name'] ) && !empty( $_POST['name'] ) ? $_POST['name'] : null;
+$name_category  = isset( $_POST['name'] ) && !empty( $_POST['name'] ) ? strtoupper($_POST['name']) : null;
 $is_admin       = get_user() ? get_user()['is_admin'] : false;
 
 // Check if user is connected as admin

@@ -126,9 +126,11 @@ if ( ! class_exists( 'Database' ) ) {
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
 				);
-				if($with_username) $question['user_name'] = $row['user_name'];
-				if($with_likes) $question['number_likes'] = self::get_number_likes($row['id']);
-				if($with_categories) $question['category'] = self::get_category((int)$row['id']);
+
+				if($with_username)   $question['user_name'] = $row['user_name'];
+				if($with_likes)      $question['number_likes'] = self::get_number_likes($row['id']);
+				if($with_categories) $question['categories'] = self::get_question_categories((int)$row['id']);
+
 				$questions[] = $question;
 			}
 			return $questions;
@@ -140,70 +142,37 @@ if ( ! class_exists( 'Database' ) ) {
 		 *
 		 * @return array all the questions according to the category
 		 */
-		public static function get_questions_with_category($category, $search) {
+		public static function search_questions($category_label, $search_string) {
 			global $conn;
-			$sql = 'SELECT DISTINCT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE (category.label LIKE "'.$category.'") AND ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%")) AND (question.id_validator IS NOT NULL) ORDER BY question.creation_date DESC';
+			$sql = "SELECT q.*, user_name FROM question q
+				 LEFT JOIN has_category hc ON q.id = hc.id_question
+				 LEFT JOIN category c ON c.id = hc.id_category
+				 LEFT JOIN user u ON u.id = q.id_user
+				 WHERE q.id_validator IS NOT NULL";
+
+			if($category_label !== null) $sql .= " AND c.label LIKE '$category_label'";
+			if($search_string !== null && !empty($search_string))   $sql .= " AND (q.content LIKE '%".strtoupper($search_string)."%' OR q.title LIKE '%".strtoupper($search_string)."%')";
+
+			$sql .= " GROUP BY q.id ORDER BY q.creation_date DESC";
+
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
 			foreach( $res as $row ) {
-				$category = self::get_category((int)$row['id']);
-				$questions[] = array(
+				$questions[] = [
 					'id'            => (int)$row['id'],
 					'title'         => $row['title'],
 					'content'       => $row['content'],
 					'creation_date' => $row['creation_date'],
 					'number_likes'  => self::get_number_likes($row['id']),
 					'user_name'     => $row['user_name'],
-					'categories'    => $category
-				);
+					'categories'    => self::get_question_categories((int)$row['id']),
+				];
 			}
 			return $questions;
 		}
 
-		/**
-		 * return all the questions with the string either in the title or the content
-		 *
-		 * @return array all the questions according to the string
-		 */
-		public static function get_questions_with_string($search) {
-			global $conn;
-			$sql = 'SELECT DISTINCT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%")) AND (question.id_validator IS NOT NULL) ORDER BY question.creation_date DESC';
-			$res = mysqli_query( $conn, $sql );
 
-			$questions = array();
-			foreach( $res as $row ) {
-				$category = self::get_category((int)$row['id']);
-				$questions[] = array(
-					'id'            => (int)$row['id'],
-					'title'         => $row['title'],
-					'content'       => $row['content'],
-					'creation_date' => $row['creation_date'],
-					'number_likes'  => self::get_number_likes($row['id']),
-					'user_name'     => $row['user_name'],
-					'categories'    => $category
-				);
-			}
-			return $questions;
-		}
-
-		/**
-		 * return all the categories linked to the question id
-		 *
-		 * @param int $id_ The question's id
-		 * @return array all the question's categories
-		 */
-		public static function get_category($id) {
-			global $conn;
-			$sql = 'SELECT label FROM category JOIN has_category ON id_category = id WHERE id_question = '.$id;
-			$res = mysqli_query( $conn, $sql );
-
-			$categories = array();
-			foreach( $res as $row ) {
-				$categories[] = $row['label'];
-			}
-			return $categories;
-		}
 		/**
 		 * Returns all the unvalidated questions
 		 *
@@ -410,7 +379,10 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_question_categories(int $question_id) {
 			global $conn;
-			$sql = "SELECT * FROM has_category hc JOIN category c ON id_category = c.id WHERE id_question = $question_id";
+			$sql = "SELECT * FROM has_category hc
+				JOIN category c ON id_category = c.id
+				WHERE id_question = $question_id";
+
 			$res = mysqli_query( $conn, $sql );
 
 			$categories = [];
@@ -423,6 +395,25 @@ if ( ! class_exists( 'Database' ) ) {
 			return $categories;
 		}
 
+
+
+		/**
+		 * Returns a category given by its id
+		 *
+		 * @param int $id_ The category's id
+		 * @return array The category
+		 */
+		public static function get_category( $category_id ) {
+			global $conn;
+			$sql = "SELECT * category FROM category WHERE id = $category_id";
+			$res = mysqli_fetch_assoc( mysqli_query( $conn, $sql ) );
+
+			$category = array(
+				'id'        => (int)$res['id'],
+				'label'     => $res['label'],
+			);
+			return $category;
+		}
 
 		/**
 		 * Returns the answer of a given question's id
@@ -598,23 +589,20 @@ if ( ! class_exists( 'Database' ) ) {
 		public static function is_liked($id_question, $id_user) {
 			global $conn;
 			$sql = "SELECT * FROM likes WHERE id_question = $id_question AND id_user = $id_user";
-			echo $sql;
 			return $conn->query($sql)->num_rows > 0;
 		}
 
-
-		public static function set_is_liked($id_question, $id_user, $bool) {
+		/**
+		 * Toggles the like of a user on a question
+		 * If the user likes the question, it removes the like
+		 * If the user doesnt like the question, it adds a like
+		 */
+		public static function toggle_user_like( $id_question, $id_user ) {
 			global $conn;
-			if ($bool) {
-				$sql = "INSERT INTO likes (id_question, id_user) VALUES ($id_question, $id_user)";
-				$conn->query($sql);
-			} else {
-				if (self::is_liked($id_question, $id_user)) {
-					$sql = "DELETE FROM likes WHERE id_question = $id_question AND id_user = $id_user";
-					$conn->query($sql);
-				}
-			}
-
+			$sql = self::is_liked( $id_question , $id_user ) ?
+				"DELETE FROM likes WHERE id_question = $id_question AND id_user = $id_user" :
+				"INSERT INTO likes (id_question, id_user) VALUES ($id_question, $id_user)";
+			$conn->query($sql);
 		}
 	}
 }

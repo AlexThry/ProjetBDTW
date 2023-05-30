@@ -64,23 +64,6 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 
 		<?php $header_class = ($is_admin && is_home_page() && empty($_GET)) ? "left-0 right-0 top-0 z-50" : "sticky top-0 z-40 "; ?>
 		<header class="flex-none w-full mx-auto bg-white fixed border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800 <?php echo $header_class ?>">
-			<?php if ( is_home_page() ) : ?>
-			<div id="banner" tabindex="-1" class="z-50 flex justify-center w-full px-4 py-3 border border-b border-gray-200 bg-gray-50 dark:border-gray-600 lg:py-4 dark:bg-gray-700">
-				<div class="items-center md:flex">
-					<p class="text-sm font-medium text-gray-900 md:my-0 dark:text-white">
-					<span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 hidden md:inline">New</span>
-					Explorez notre Roadmap et votez pour les fonctionnalités que vous souhaitez voir apparaître en premier !
-						<a href="https://github.com/AlexThry/ProjetBDTW" class="inline-flex items-center ml-2 text-sm font-medium text-blue-600 md:ml-2 dark:text-blue-500 hover:underline">
-						Découvrir
-						<svg class="w-4 h-4 ml-1 text-blue-600 dark:text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-							<path fillrule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" cliprule="evenodd"></path>
-						</svg>
-						</a>
-					</p>
-				</div>
-			</div>
-			<?php endif; ?>
-
 			<nav class="flex items-center justify-between w-full px-3 py-3 mx-auto max-w-8xl lg:px-4">
 				<div class="flex items-center">
 					<div class="flex items-center justify-between">

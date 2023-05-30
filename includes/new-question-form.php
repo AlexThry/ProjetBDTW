@@ -35,7 +35,7 @@ if ( isset($_POST['question_title']) && isset($_POST['html-input']) && $user) {
 
 <form action="#" method="post" class="flex-1 mt-8">
 	<h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">Poser une question</h2>
-	<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+	<div class="markdown-editor-container grid gap-4 sm:grid-cols-2 sm:gap-6">
 		<div class="sm:col-span-2">
 			<label for="question_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
 			<input type="text" name="question_title" id="question_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Sujet ..." required="">
@@ -44,14 +44,14 @@ if ( isset($_POST['question_title']) && isset($_POST['html-input']) && $user) {
 		<!-- markdown editor -->
 		<div class="sm:col-span-2">
 			<label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-			<textarea id="markdown-editor" required data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ..."></textarea>
+			<textarea required data-preview-id="renderer" data-input-id="html-input" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma question ..."></textarea>
 		</div>
 		<div class="sm:col-span-2">
-			<div id="renderer" class="html-markdown-renderer block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"></div>
-			<input type="hidden" id="html-input" name="html-input">
+			<div class="html-markdown-renderer block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 mb-4" rows="8" placeholder="Your description here"></div>
+			<input type="hidden" class="html-input" name="html-input">
 		</div>
-		
-		
+
+
 		<!-- categories input -->
 		<div id="categories-renderer" class="sm:col-span-2 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg flex w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:text-white"></div>
 		<div class="sm:col-span-2">

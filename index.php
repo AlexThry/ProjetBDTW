@@ -2,10 +2,10 @@
 
 <div class="content">
 
-	<?php if ( empty( $_GET ) ) : ?>
-        <?php if($is_admin) : ?>
-            <?php require_once 'includes/admin-dashboard.php' ?>
-        <?php else : ?>
+    <?php if ( empty( $_GET ) ) :
+        if($is_admin) :
+            require_once 'includes/admin-dashboard.php';
+        endif; ?>
         <section class="relative bg-white dark:bg-gray-800">
             <div class="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
                 <div class="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
@@ -41,45 +41,91 @@
                                                     <th scope="col" class="px-4 py-3">Catégorie</th>
                                                     <th scope="col" class="px-4 py-3">Date</th>
                                                     <th scope="col" class="px-4 py-3">utilisateur</th>
+                                                    <th scope="col" class="px-4 py-3">nb likes</th>
                                                         <span class="sr-only">Actions</span>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                            <?php
-                                            
-                                            $questions = Database::get_questions();
-                                            
-                                            foreach ($questions as $question) {
-                                                $categories = Database::get_categories_by_question_id($question['id']);
-                                                $user = Database::get_user($question['id_user']);
-                                                echo '
-                                                        <tr class="border-b dark:border-gray-700">
-                                                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'" class="ml-2 text-sm font-medium text-blue-600 md:ml-2 dark:text-blue-500 hover:underline">'.$question["title"].'</a></th>
-                                                            <td class="px-4 py-3" style="  transform: translateY(20%);">';
-                                                            echo Component::display_categories($question['id']);
-                                                            
-                                                        echo '</td>
-                                                            <td class="px-4 py-3">'.format_date($question["creation_date"]).'</td>
-                                                            <td class="px-4 py-3">'.$user["user_name"].'</td>
-                                                        </tr>';
+                                        <?php
+                                        
+                                        $questions = Database::get_questions(True, True, True);
 
-                                            }
-                                            ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        foreach ($questions as $question){
+                                            echo '
+                                                    <tr class="border-b dark:border-gray-700">
+                                                        <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'">'.$question["title"].'</a></th>
+                                                        <td class="px-4 py-3"><span class="flex py-1">';
+                                                    echo Component::display_categories($question["id"]);
+                                                    echo '</span></td>
+                                                        <td class="px-4 py-3">'.$question["creation_date"].'</td>
+                                                        <td class="px-4 py-3">'.$question["user_name"].'</td>
+                                                        <td class="px-4 py-3">'.$question["number_likes"].'</td>
+                                                    </tr>';
+
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <?php endif; ?>
-    <?php endif; ?>
+        </div>
+    </section>
 
+    <?php else: ?>
+
+        <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+            <!-- Start coding here -->
+            <div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Titre</th>
+                                <th scope="col" class="px-4 py-3">Catégorie</th>
+                                <th scope="col" class="px-4 py-3">Date</th>
+                                <th scope="col" class="px-4 py-3">utilisateur</th>
+                                <th scope="col" class="px-4 py-3">nb likes</th>
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php
+                        if (! empty( $_GET['category'] )) :
+                            $questions = Database::get_questions_with_category($_GET['category'], $_GET['search']);
+                        else :
+                            $questions = Database::get_questions_with_string($_GET['search']);
+                        endif;
+
+                            foreach ($questions as $question){
+                                echo '
+                                        <tr class="border-b dark:border-gray-700">
+                                            <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="single-question.php?id='.$question["id"].'">'.$question["title"].'</a></th>
+                                            <td class="px-4 py-3"><span class="flex py-1">';
+                                        echo Component::display_categories($question["id"]);
+                                        echo '</span></td>
+                                            <td class="px-4 py-3">'.$question["creation_date"].'</td>
+                                            <td class="px-4 py-3">'.$question["user_name"].'</td>
+                                            <td class="px-4 py-3">'.$question["number_likes"].'</td>
+                                        </tr>';
+
+                            }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php endif; ?>
 
 </div>
 

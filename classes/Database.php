@@ -112,7 +112,7 @@ if ( ! class_exists( 'Database' ) ) {
 		public static function get_questions($with_username = false, $with_categories = false, $with_likes = false) {
 			global $conn;
 			$sql = 'SELECT * FROM question';
-			if($with_username) $sql = 'SELECT q.*, user_name FROM question q JOIN user u ON u.id = id_user';
+			if($with_username) $sql = 'SELECT q.*, user_name FROM question q JOIN user u ON u.id = id_user WHERE (id_validator IS NOT NULL)ORDER BY creation_date DESC';
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_questions_with_category($category, $search) {
 			global $conn;
-			$sql = 'SELECT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE (category.label LIKE "'.$category.'") AND ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%"))';
+			$sql = 'SELECT DISTINCT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE (category.label LIKE "'.$category.'") AND ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%")) AND (question.id_validator IS NOT NULL) ORDER BY question.creation_date DESC';
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();
@@ -166,7 +166,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_questions_with_string($search) {
 			global $conn;
-			$sql = 'SELECT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%"))';
+			$sql = 'SELECT DISTINCT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%")) AND (question.id_validator IS NOT NULL) ORDER BY question.creation_date DESC';
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();

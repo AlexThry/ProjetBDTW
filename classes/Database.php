@@ -160,6 +160,32 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 		/**
+		 * return all the questions with the string either in the title or the content 
+		 * 
+		 * @return array all the questions according to the string
+		 */
+		public static function get_questions_with_string($search) {
+			global $conn;
+			$sql = 'SELECT question.id, title, creation_date, content, user_name FROM question JOIN user ON user.id = question.id JOIN has_category ON question.id = has_category.id_question JOIN category ON category.id = has_category.id_category WHERE ((question.content LIKE "%'.$search.'%") OR (question.title LIKE "%'.$search.'%"))';
+			$res = mysqli_query( $conn, $sql );
+
+			$questions = array();
+			foreach( $res as $row ) {
+				$category = self::get_category((int)$row['id']);
+				$questions[] = array(
+					'id'            => (int)$row['id'],
+					'title'         => $row['title'],
+					'content'       => $row['content'],
+					'creation_date' => $row['creation_date'],
+					'number_likes'  => self::get_number_likes($row['id']),
+					'user_name'     => $row['user_name'],
+					'categories'    => $category
+				);
+			}
+			return $questions;
+		}
+		
+		/**
 		 * return all the categories linked to the question id
 		 *
 		 * @param int $id_ The question's id

@@ -23,6 +23,8 @@
     - Dans la top bar, affiché un bouton "Poser une question"
 
 - Dans l'espace admin | **`Hugo Ugo`**
+    - ✔️ [FIX] Afficher la réponse d'une question en MD
+    - ✔️ [CLEAN] Afficher le contenu de la réponse en dessous de la question
     - ✔️ Faire le form pour ajouter une catégorie
     - ✔️ Faire le form pour supprimer une catégorie
     - ✔️ Voir les questions non validés
@@ -30,11 +32,12 @@
     - Supprimer une question
     - ✔️ Voir les questions non répondues
     - ✔️ Transformer l'accueil en Dashboard
+    - ✔️ Répondre à une question
     - Accéder à la page d'une question
-    - Dans la topbar, afficher un bouton "Notifications"
+    - ✔️ Dans la topbar, afficher un bouton "Notifications"
     - Afficher le nombre de notifications sur ce bouton
+    - Afficher les notifications lors de l'appui sur le bouton
     - (Dans un onglet paramètre, afficher l'option "Afficher le bouton ajouter une question dans la topbar") (voir Arnaud si tu comprends pas)
-    - changer l'affichage de la question en MD et afficher le content en dessous
 
 - Dans la page d'une question | **`Arnaud Alexis`**
     - ✔️ Voir l'intitulé, la date, etc
@@ -43,8 +46,6 @@
     - ✔️ Voir la réponse ou un message "Pas répondu, patientez plz"
     - ✔️ Voir qui a répondu (nom, image de profil, date de la réponse)
     - (Voir si la question à été édité par l'admin)
-    - Répondre à une question de manière courte
-    - Répondre à une question de manière longue (markdown)
 
 ## Pistes d'améliorations
 **Brouillon de réponse**

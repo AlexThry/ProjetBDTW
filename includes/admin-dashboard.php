@@ -85,7 +85,12 @@ if( !$is_admin ) {
     <h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions invalidées</h2>
     <?php
         $unvalidated_questions = Database::get_unvalidated_questions();
-        Component::display_questions($unvalidated_questions, "validatable");
+        Component::display_questions($unvalidated_questions, "validatable", "without-empty-msg");
+        if(empty($unvalidated_questions)) {
+            ?>
+            <p class="text-base font-medium text-gray-900 dark:text-white">Plus de questions ici, votre travail est terminé !</p>
+            <?php
+        }
     ?>
 
     <!-- Displays unanswered questions -->

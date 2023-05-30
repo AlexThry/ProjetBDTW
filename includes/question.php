@@ -24,6 +24,8 @@ $like_number = Database::get_likes_number( $id );
 $is_liked = Database::is_liked( $id, $user['id'] );
 
 
+
+
 if ( isset($_POST['question_title']) && isset($_POST['html-input'])) {
 	$i = 0;
 	$categories_ids = [];
@@ -58,10 +60,13 @@ si l'attribut existe, on affiche un formulaire d'édition à la place de la ques
 
 // *** todo: interactivité like
 if ( key_exists( 'liked', $_GET ) ) {
-	$is_liked = true;
-	// update DB
-
-
+	if ($_GET['liked'] == 'true' && $is_liked == false) {
+		$is_liked = false;
+		Database::set_is_liked( $id, $user['id'], true );
+	} else if ($_GET['liked'] == 'false' && $is_liked == true) {
+		$is_liked = true;
+		Database::set_is_liked( $id, $user['id'], false );
+	} 
 }
 
 // *** todo: interactivité edit button
@@ -83,7 +88,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 			</textarea>
 			<label for="renderer" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Rendu</label>
 			<div class="sm:col-span-2" name="renderer">
-				<div id="renderer" class="html-markdown-renderer block p-2.5 w-full mb-4" rows="8" placeholder="Your description here"><p><?php echo html_entity_decode($question['content']) ?></p></div>
+				<div id="renderer" class="html-markdown-renderer block p-2.5 w-full mb-4" rows="8" placeholder="Your description here"><mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1"><?php echo html_entity_decode($question['content']) ?></mark></div>
 				<input type="hidden" id="html-input" name="html-input">
 			</div>
 
@@ -154,7 +159,7 @@ if ( key_exists( 'edit', $_GET ) ) {
 
 	<article class="pt-8 pb-12 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900 flex items-start gap-10 html-markdown-renderer ">
 		<div class="flex flex-col gap-2 items-center dark:text-white">
-			<a href="?id=<?php echo htmlentities( $id ); ?>&liked=true" type="button" class="<?php echo $is_liked ? 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' : 'text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500'; ?> cursor-pointer">
+			<a href="?id=<?php echo htmlentities( $id ); ?>&liked=<?= $is_liked ? 'false' : 'true' ?>" type="button" <?= $is_liked ? 'style="color:white;"' : ''; ?> class="<?php echo $is_liked ? 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' : 'text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500'; ?> cursor-pointer">
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path>
 				</svg>
@@ -162,8 +167,8 @@ if ( key_exists( 'edit', $_GET ) ) {
 			</a>
 			<p class="text-xl font-bold"><?php echo htmlentities( $like_number ); ?></p>
 			<p>J'aime<?php echo intval( htmlentities( $like_number ) ) > 1 ? 's' : ''; ?></p>
-		</div>
-		<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer">
+		</div> 
+		<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1">
 			<?php echo html_entity_decode( $question['content'] ); ?>
 		</mark>
 	</article>

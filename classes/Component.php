@@ -29,7 +29,10 @@ if ( ! class_exists( 'Component' ) ) {
 					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
 					<p><?php echo $first_category ?></p>
 					<p><?php echo $question['creation_date'] ?></p>
-					<c class="w-650"><?php echo html_entity_decode($question['content']) ?></c>
+					<mark class="w-650">
+					<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1">	
+						<?php echo html_entity_decode($question['content']) ?>
+					</mark>
 
 					<?php if($validatable) : ?>
 						<a href="<?php echo $validation_url ?>" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -61,7 +64,7 @@ if ( ! class_exists( 'Component' ) ) {
 					<h1 class="question-title w-200"> <?php echo html_entity_decode($question['title']) ?> </h1>
 					<p><?php echo $first_category ?></p>
 					<p><?php echo html_entity_decode($question['creation_date']) ?></p>
-					<c class="w-650"><?php echo html_entity_decode($question['content']) ?></c>
+					<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1"><?php echo html_entity_decode($question['content']) ?></mark>
 					<button
 						type="button"
 						data-accordion-target="#accordion-open-body-<?php echo $i_question ?>" aria-expanded="false" aria-controls="accordion-open-body-<?php echo $i_question ?>"
@@ -213,7 +216,9 @@ if ( ! class_exists( 'Component' ) ) {
 								<p class="w-20 text-center"><?php echo $first_category ?></p>
 								<p class="w-100 text-center"><?php echo $question['creation_date'] ?></p>
 								<span class="flex items-center"><?php echo $question['number_likes'] ?><img src="assets/images/like.png" alt="" class="like-png"></span>
-								<p class="w-500"><?php echo $question['content'] ?></p>
+								<mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1 w-500">
+									<?php echo html_entity_decode($question['content']) ?>
+								</mark>
 								<svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 							</button>
 						</h2>
@@ -226,7 +231,7 @@ if ( ! class_exists( 'Component' ) ) {
 											$answer_user_id = $answer['id_user'];
 											$admin_answer = Database::get_user($answer_user_id);
 											echo "<div class='admin'><p>" . $admin_answer['user_name'] . "</p></div>";
-											echo "<div class='admin-answer'><p>" . $answer['content'] . "</p></div>";
+											echo "<div class='admin-answer'><mark class='text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1'>" . $answer['content'] . "</mark></div>";
 										echo "</div>";
 									} else {
 										echo "<p>Pas de réponse, veuillez patienter...</p>";

@@ -24,7 +24,11 @@ foreach ($questions_user as $question) :
 			<h1 class="question-title w-200"> <?php echo $question['title']; ?> </h1>
             <p><?php echo $question['creation_date']; ?></p>
             <span class="flex items-center"><?php echo "<p>" . $question['number_likes'] . "</p>"; ?><img src="assets/images/like.png" alt="" class="like-png"></span>
-            <p class="w-650"><?php echo $question['content']; ?></p>
+            <p class="w-650">
+            <mark class="text-gray-800 dark:text-gray-200 html-markdown-renderer flex-1">    
+            <?php echo $question['content']; ?>
+            </mark>
+        </p>
 			<svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 			</button>
 		</h2>

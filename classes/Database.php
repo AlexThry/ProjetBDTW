@@ -397,6 +397,20 @@ if ( ! class_exists( 'Database' ) ) {
 		}
 
 
+		/**
+		 * Returns the number of questions that a category has
+		 *
+		 * @param int $category_id The category's id
+		 * @return int The categorie's number of questions
+		 */
+		public static function get_category_nb_questions(int $id_category) {
+			global $conn;
+			$sql = "SELECT * FROM has_category hc
+				WHERE id_category = $id_category";
+			return $conn->query($sql)->num_rows;
+		}
+
+
 
 		/**
 		 * Returns a category given by its id
@@ -443,9 +457,9 @@ if ( ! class_exists( 'Database' ) ) {
 			$conn->query($sql);
 		}
 
-		public static function delete_category($category){
+		public static function delete_category(int $id_category){
 			global $conn;
-			$sql = "DELETE FROM category WHERE label='$category'";
+			$sql = "DELETE FROM category WHERE id=$id_category";
 			$conn->query($sql);
 		}
 

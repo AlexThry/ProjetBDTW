@@ -32,7 +32,6 @@ $is_search      = $category_label !== null || $search_string !== null;
                     <?php endif; ?>
                     <div class="mt-10">
 
-
                         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                             <div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                                 <div class="overflow-x-auto">

@@ -14,6 +14,9 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
 	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- to use if cdn doesn't work -->
+	<!-- <link href="assets/css/tailwindcss.min.css"  rel="stylesheet" /> -->
+
 	<script>
 		tailwind.config = {
 			darkMode: 'class',
@@ -62,20 +65,20 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 	<main>
 		<div class="page-container overflow-hidden">
 
-		<?php $header_class = ($is_admin && is_home_page() && empty($_GET)) ? "left-0 right-0 top-0 z-50" : "sticky top-0 z-40 "; ?>
-		<header class="flex-none w-full mx-auto bg-white fixed border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800 <?php echo $header_class ?>">
+		<?php $header_class = ( $is_admin && is_home_page() && empty( $_GET ) ) ? 'left-0 right-0 top-0 z-50' : 'sticky top-0 z-40 '; ?>
+		<header class="flex-none w-full mx-auto bg-white fixed border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800 <?php echo $header_class; ?>">
 			<nav class="flex items-center justify-between w-full px-3 py-3 mx-auto max-w-8xl lg:px-4">
 				<div class="flex items-center">
 					<div class="flex items-center justify-between">
 						<a href="<?php echo get_home_url(); ?>" class="flex">
 							<h1 class="logo-line text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight dark:text-white">
-								<img src="assets/images/logo.svg" alt="Readbable">
+								<img class="hidden lg:block" src="assets/images/logo.svg" alt="Readbable">
 								<span class="hidden lg:block">Answerable</span>
 							</h1>
 						</a>
 					</div>
 
-					<div class="ml-8 sm:block hidden">
+					<div class="ml-0 lg:ml-8 block">
 						<?php require 'search-bar.php'; ?>
 					</div>
 				</div>
@@ -115,7 +118,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 						Abonnez vous à chaîne YouTube
 						<div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate3d(109.5px, 0px, 0px);"></div>
 					</div>
-					<?php if (get_user()): ?>
+					<?php if ( get_user() ) : ?>
 						<?php endif ?>
 
 						<button id="theme-toggle" data-tooltip-target="theme-tooltip-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
@@ -127,7 +130,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 							Changez de thème
 							<div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate3d(68.5px, 0px, 0px);"></div>
 						</div>
-						<?php if (get_user()) : ?>
+						<?php if ( get_user() ) : ?>
 						<a href="single-question.php?new_question" data-tooltip-target="tooltip-new" class="mr-2 py-2.5 px-5 ml-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
 							Nouvelle question
 						</a>
@@ -137,7 +140,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 						</div>
 						<?php endif ?>
 
-					<?php if($is_admin) : ?>
+					<?php if ( $is_admin ) : ?>
 					<!-- Notifications -->
 					<button type="button" data-dropdown-toggle="notification-dropdown" class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
 						<span class="sr-only">View notifications</span>
@@ -182,8 +185,8 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 					<?php endif; ?>
 					<?php
 						$current_user = get_user();
-						if ( ! $current_user ) :
-					?>
+					if ( ! $current_user ) :
+						?>
 
 					<a href="connection.php" data-tooltip-target="tooltip-connection" class="py-2.5 px-5 ml-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
 						Connexion
@@ -193,7 +196,7 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 						<div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate3d(99px, 0px, 0px);"></div>
 					</div>
 
-					<a href="subscription.php" data-tooltip-target="tooltip-inscription" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+					<a href="subscription.php" data-tooltip-target="tooltip-inscription" class="text-white bg-blue-700 hover:bg-blue-800 hidden lg:block focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
 						Inscription
 					</a>
 					<div id="tooltip-inscription" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(815px, -64px, 0px);">
@@ -206,10 +209,14 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 							$profile_url = $current_user['profile_url'];
 							?>
 
-					<?php $user = get_user();
-					// Check if user is connected
-					if ( ! $user ) die();
-					$is_admin = $user['is_admin']; ?>
+							<?php
+							$user = get_user();
+							// Check if user is connected
+							if ( ! $user ) {
+								die();
+							}
+							$is_admin = $user['is_admin'];
+							?>
 
 					<!-- Profile dropdown -->
 					<div class="relative ml-3">
@@ -245,12 +252,6 @@ $is_admin = get_user() ? get_user()['is_admin'] : false;
 					</div>
 
 					<?php endif; ?>
-
-					<button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-						<span class="sr-only">Ouvrir le menu</span>
-						<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-						<svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-					</button>
 				</div>
 			</nav>
 

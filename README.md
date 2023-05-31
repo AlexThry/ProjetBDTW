@@ -7,33 +7,33 @@
     - ✔️ Changer ses identifiants
     - ✔️ Voir toutes **nos** questions
     - ✔️ Voir la réponse ou le message "Pas de réponse, patientez svp"
-    - ❓ Voir le contenu additionnel de la réponse
-    - Pouvoir cliquer sur un lien pour aller directment sur la page de la question
+    - ✔️ Voir le contenu additionnel de la réponse
+    - ✔️ Pouvoir cliquer sur un lien pour aller directment sur la page de la question
 
 
 - Dans la page d'accueil | **`Ronan`**
-    - ✔️ Voir toutes les questions (avec pagination) (sans pagination)
-    - ✔️Recherche par texte (seulement le texte de la quesiton)
-    - (Recherche par texte (avec le texte des réponses))
-    - ✔️Recherche par catégorie
+    - ✔️ Voir toutes les questions (sans pagination)
+    - ✔️ Recherche par texte (seulement le texte de la question)
+    - ✔️ Recherche par catégorie
     - Tri par nombre de likes
-    - ✔️Tri par date de création
-    - Tri répondu / pas répondu
-    - (Tri validés et invalidés (seulement pour l'admin))
-    - Dans la top bar, affiché un bouton "Poser une question"
+    - ✔️ Tri par date de création
+    - (Tri répondu / pas répondu, pour l'admin)
+    - (Tri validés et invalidés, pour l'admin)
+    - (Recherche par texte (avec le texte des réponses))
+    - (Affichage avec pagination)
+    - (✔️ Dans la top bar, affiché un bouton "Poser une question")
 
 - Dans l'espace admin | **`Hugo Ugo`**
-    - ✔️ [FIX] Afficher la réponse d'une question en MD
-    - ✔️ [CLEAN] Afficher le contenu de la réponse en dessous de la question
-    - ✔️ Faire le form pour ajouter une catégorie
-    - ✔️ Faire le form pour supprimer une catégorie
+    - ✔️ Ajouter une catégorie
+    - ✔️ Supprimer une catégorie
     - ✔️ Voir les questions non validés
     - ✔️ Valider une question
     - Supprimer une question
     - ✔️ Voir les questions non répondues
+    - ✔️ Editer une question non répondues
     - ✔️ Transformer l'accueil en Dashboard
     - ✔️ Répondre à une question
-    - Accéder à la page d'une question
+    - ✔️ Accéder à la page d'une question
     - ✔️ Dans la topbar, afficher un bouton "Notifications"
     - Afficher le nombre de notifications sur ce bouton
     - Afficher les notifications lors de l'appui sur le bouton
@@ -42,9 +42,10 @@
 - Dans la page d'une question | **`Arnaud Alexis`**
     - ✔️ Voir l'intitulé, la date, etc
     - ✔️ Voir le nombre de likes
-    - ajouter un like
+    - ✔️ Ajouter un like
+    - ✔️ Supprimer un like
     - ✔️ Voir la réponse ou un message "Pas répondu, patientez plz"
-    - ✔️ Voir qui a répondu (nom, image de profil, date de la réponse)
+    - ✔️ Voir qui a répondu (nom, image de profil, date de la réponse
     - (Voir si la question à été édité par l'admin)
 
 ## Pistes d'améliorations

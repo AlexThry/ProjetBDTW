@@ -4,7 +4,6 @@ require_once 'functions.php';
 $id_category  = isset( $_POST['id'] ) && !empty( $_POST['id'] ) ? $_POST['id'] : null;
 $is_admin     = get_user() ? get_user()['is_admin'] : false;
 
-var_dump($_POST); die;
 // Check if user is connected as admin
 if( !$is_admin ) {
     header("Location: admin.php");

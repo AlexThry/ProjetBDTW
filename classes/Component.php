@@ -43,7 +43,7 @@ if ( ! class_exists( 'Component' ) ) {
 			?>
 
 			<h2 id="accordion-open-heading-<?= $i_question ?>">
-				<div class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
+				<div class="rounded-t-lg flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" aria-expanded="false">
 					<a href="single-question.php?id=<?= $question_id ?>"><h1 class="question-title w-200"><?= html_entity_decode($question['title']) ?></h1></a>
 					<?php self::display_categories($question_id) ?>
 					<p><?= format_date($question['creation_date']) ?></p>
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Component' ) ) {
 
 			<?php if($answerable) : ?>
 				<div id="accordion-open-body-<?= $i_question ?>" class="hidden" aria-labelledby="accordion-open-heading-<?= $i_question ?>">
-					<div class="markdown-editor-container border border-gray-200 text-gray-1000 dark:text-gray-100 dark:border-gray-700">
+					<div class="markdown-editor-container border border-gray-200 text-gray-1000 dark:text-gray-100 dark:border-gray-700 rounded-b-lg">
 						<form action="add-answer.php" method="post" class="flex-1">
 							<input type="hidden" name="id-question" value=<?= $question_id ?>>
 							<div class="sm:col-span-2">
@@ -143,7 +143,7 @@ if ( ! class_exists( 'Component' ) ) {
 
 			if ( $questions ) : ?>
 				<div id="accordion-open" data-accordion="open">
-					<ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900">
+					<ul role="list">
 						<?php
 						foreach ($questions as $question) {
 							echo "<li class='mb-7'>";
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Component' ) ) {
 		public static function display_user_question( $questions_user ): void {
 			$i_question = 0; ?>
 			<div id="accordion-open" data-accordion="open">
-				<ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900">
+				<ul role="list">
 					<?php
 					foreach ($questions_user as $question) :
 						$answer         = Database::get_question_answer( $question['id'] );

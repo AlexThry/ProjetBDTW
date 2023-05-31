@@ -193,6 +193,20 @@ INSERT INTO `likes` (`id`, `id_question`, `id_user`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Trigger suppression has_category
+--
+
+DROP TRIGGER IF EXISTS `delete_cat`
+DELIMITER //
+CREATE TRIGGER `delete_cat` AFTER DELETE ON `category`
+FOR EACH ROW
+BEGIN
+  DELETE FROM has_category WHERE id_category = OLD.id;
+END //
+DELIMITER ;
+
+
+--
 -- Structure de la table `question`
 --
 

@@ -4,6 +4,23 @@ html {
   scroll-behavior: smooth;
 }
 
+
+.light-theme{
+  display: block;
+}
+
+.dark-theme{
+  display: none;
+}
+
+html.dark .light-theme{
+  display: none;
+}
+
+html.dark .dark-theme{
+  display: block;
+}
+
 body,
 main {
   min-height: 100vh;

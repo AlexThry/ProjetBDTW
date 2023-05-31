@@ -292,7 +292,7 @@ if ( ! class_exists( 'Database' ) ) {
 		 */
 		public static function get_nearby_questions( $id_question ) {
 			global $conn;
-			$sql = "SELECT q2.* FROM is_nearby i_n JOIN question q2 ON q2.id = i_n.id_question2 WHERE i_n.id_question = $id_question";
+			$sql = "SELECT q.* FROM is_nearby i_n JOIN question q ON q.id = i_n.id_question2 WHERE i_n.id_question1 = $id_question";
 			$res = mysqli_query( $conn, $sql );
 
 			$questions = array();

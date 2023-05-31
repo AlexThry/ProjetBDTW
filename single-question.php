@@ -27,8 +27,17 @@ $is_validated    = $question_id !== null ? Database::question_is_validated( $que
 			AlertManager::display_warning( 'Cette question n\'est pas visible pour le moment.' );
 		// Display question
 		} else {
-			require_once 'includes/question.php';
-			require_once 'includes/answer.php';
+			?>
+			<div class='flex flex-row'>
+				<div class="flex-1">
+					<?php
+					require_once 'includes/question.php';
+					require_once 'includes/answer.php';
+					?>
+				</div>
+				<?php require_once 'includes/nearby-questions.php'; ?>
+			</div>
+			<?php
 		}
 		?>
 

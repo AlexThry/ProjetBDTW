@@ -1,8 +1,7 @@
 # Projet BDD
 
 ## TodoList
-
-- **CHANGER BD pour distinguer questions validés / invalidés**
+- [FIX] Add html renderer in single-question.php?edit_answer=true
 - Dans l'espace compte | **`Carlyne Lois`**
     - ✔️ Changer ses identifiants
     - ✔️ Voir toutes **nos** questions
@@ -37,6 +36,7 @@
     - ✔️ Dans la topbar, afficher un bouton "Notifications"
     - Afficher le nombre de notifications sur ce bouton
     - Afficher les notifications lors de l'appui sur le bouton
+    - Changer la couleur d'une catégorie
     - (Dans un onglet paramètre, afficher l'option "Afficher le bouton ajouter une question dans la topbar") (voir Arnaud si tu comprends pas)
 
 - Dans la page d'une question | **`Arnaud Alexis`**

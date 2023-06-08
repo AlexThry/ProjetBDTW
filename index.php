@@ -31,7 +31,6 @@ $is_search      = $category_label !== null || $search_string !== null;
                         
                     <?php endif; ?>
                     <div class="mt-10">
-
                         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                             <div class="mt-10 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                                 <div class="overflow-x-auto">
@@ -47,25 +46,25 @@ $is_search      = $category_label !== null || $search_string !== null;
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $questions = Database::search_questions($category_label, $search_string);
+                                            $questions = Question::search_full($category_label, $search_string);
                                             foreach ($questions as $question) :
-                                                $question_id = $question["id"];
+                                                $question_id = $question->get_id();
                                                 $url = "single-question.php?id=$question_id";
                                             ?>
                                                 <tr class="border-b dark:border-gray-700">
                                                     <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        <a href="<?php echo $url ?>">
-                                                            <?php echo $question["title"] ?>
+                                                        <a href="<?= $url ?>">
+                                                            <?= $question->get_title() ?>
                                                         </a>
                                                     </th>
                                                     <td class="px-4 py-3">
                                                         <span class="flex py-1">
-                                                        <?php Component::display_categories($question_id) ?>
+                                                        <?php Component::display_categories($question->get_categories()) ?>
                                                         </span>
                                                     </td>
-                                                    <td class="px-4 py-3"><?php echo format_date($question["creation_date"]) ?> </td>
-                                                    <td class="px-4 py-3"><?php echo $question["user_name"] ?></td>
-                                                    <td class="px-4 py-3 text-center"><?php echo $question["number_likes"] ?></td>
+                                                    <td class="px-4 py-3"><?= format_date($question->get_creation_date()) ?> </td>
+                                                    <td class="px-4 py-3"><?= $question->get_username() ?></td>
+                                                    <td class="px-4 py-3 text-center"><?= $question->get_likes() ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>

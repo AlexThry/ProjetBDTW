@@ -15,7 +15,6 @@ function decode(str) {
 
 function initMarkdownEditors() {
   const markdownEditors = document.querySelectorAll(".markdown-editor-container");
-  // const markdownEditor = document.getElementById("markdown-editor");
   if (!markdownEditors) {
     return;
   }
@@ -85,8 +84,6 @@ function initMarkdownEditors() {
   //   converter.setFlavor('github');
 
   for(const markdownEditor of markdownEditors) {
-
-    console.log(markdownEditor);
 
     // Search for the renderer preview
     const markdownTextArea = markdownEditor.querySelector("textarea");

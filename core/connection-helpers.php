@@ -92,17 +92,7 @@ function connect_user( $user_name, $password ) {
  * @return void
  */
 function add_user_to_session( array $result ): void {
-	$user = array(
-		'id'         => (int)$result['id'],
-		'user_name'  => $result['user_name'],
-		'first_name' => $result['first_name'],
-		'last_name'  => $result['last_name'],
-		'is_admin'   => (boolean)$result['is_admin'],
-		'email'       => $result['email'],
-		'profile_url'=> $result['profile_url'],
-	);
-
-	$_SESSION['current_user'] = $user;
+	$_SESSION['current_user'] = User::from_sql($result);
 }
 /**
  * Attempts subscription.
@@ -156,10 +146,10 @@ function subscribe_user( $user_name, $password, $confirm_password, $first_name, 
 	if( !$res ) return "Error lors de l'inscription";
 
 	// Get newly created user
-	$res = $conn->query("SELECT * FROM user WHERE id = LAST_INSERT_ID()");
+	$res = mysqli_fetch_assoc($conn->query("SELECT * FROM user WHERE id = LAST_INSERT_ID()"));
 
 	// Connect user
-	add_user_to_session(mysqli_fetch_assoc($res));
+	add_user_to_session($res);
 
 	return true;
 }

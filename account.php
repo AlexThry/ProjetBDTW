@@ -3,13 +3,13 @@ require_once 'functions.php';
 
 $user = get_user();
 // Checks if user is connected
-if ( ! $user  ) {
+if ( $user === null  ) {
 	header( 'Location: connection.php' );
 	exit();
 }
 
 $active_tab    = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
-$is_admin      = $user['is_admin'];
+$is_admin      = $user !== null && $user->is_admin();
 $error_message = isset( $_GET['error'] ) ? $_GET['error'] : null;
 
 require_once 'includes/header.php';
@@ -82,19 +82,19 @@ if( $error_message !== null ) {
 					break;
 				case 'user_questions':
 					// Premier tab: Mes questions --------------------------------------------------->
-					$questions = Database::get_user_questions( get_user()['id'],true );
+                    $questions = $user->get_questions();
 					?>
 					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">
 						<h1 class="inline-block mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" id="content">Mes questions</h1>
 						<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">Retrouvez toutes les questions que vous avez posées ainsi que leurs réponses.</p>
 					</div>
 					<?php
-					echo Component::display_user_question($questions);
+					Component::display_questions($questions, "with-likes");
 					break;
 
 				case 'user_questions_favoris':
 					//Mes favoris --------------------------------------------------->
-					$questions = Database::get_user_questions_favoris( get_user()['id'], true );
+					$questions = $user->get_favorite_questions();
 
 					?>
 					<div class="pb-4 mb-8 border-b border-gray-200 dark:border-gray-800">
@@ -102,7 +102,7 @@ if( $error_message !== null ) {
 						<p class="mb-4 text-lg text-gray-600 dark:text-gray-400">Retrouvez toutes les questions que vous avez aimées ainsi que leur réponse.</p>
 					</div>
 					<?php
-					echo Component::display_user_question($questions);
+					Component::display_questions($questions, "with-likes");
 					break;
 
 				default:

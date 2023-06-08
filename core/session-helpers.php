@@ -1,14 +1,12 @@
 <?php
 
 /**
- * Returns the current user or false if theres none.
+ * Returns the current user or false if there's none.
  *
- * @return bool|User
+ * @return null|User
  */
 function get_user() {
-	if ( ! isset( $_SESSION['current_user'] ) ) {
-		return false;
-	}
+	if ( ! isset( $_SESSION['current_user'] ) ) return null;
 	return $_SESSION['current_user'];
 }
 
@@ -21,27 +19,12 @@ function get_user() {
  */
 function refresh_user(): void {
 	$session_user = get_user();
-	if ( ! $session_user ) {
-		return;
-	}
+	if ( $session_user === null ) return;
 
-	$id   = $session_user['id'];
-	$user = Database::get_user( $id );
-	if ( ! $user ) {
-		throw new Exception( 'User not found' );
-	}
+	$id   = $session_user->get_id();
+	$user = User::get( $id );
 
-	$new_user = array(
-		'id' => $id,
-		'user_name' => $user['user_name'],
-		'first_name' => $user['first_name'],
-		'last_name' => $user['last_name'],
-		'password' => $user['password'],
-		'is_admin' => $user['is_admin'],
-		'profile_url' =>$user['profile_url'],
-		'email' =>$user['email']
-	);
-	
+	if ( ! $user ) throw new Exception( 'User not found' );
 
-	$_SESSION['current_user'] = $new_user;
+	$_SESSION['current_user'] = $user;
 }

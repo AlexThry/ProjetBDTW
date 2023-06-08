@@ -2,7 +2,7 @@
 require_once 'functions.php';
 
 $user      = get_user();
-$is_admin  = $user ? $user['is_admin'] : false;
+$is_admin  = $user ? $user->is_admin() : false;
 
 // Check if user is connected as admin
 if( !$is_admin ) {
@@ -19,12 +19,16 @@ if($content === null || $id_question === null) {
     header("Location: index.php"); exit;
 }
 
+$question = Question::get($id_question);
+if($question === null) {
+    header("Location: index.php"); exit;
+}
+
 // Check if question is already answer
-$is_answered = Database::question_is_answered( $id_question );
-if($is_answered) {
+if($question->is_answered()) {
     header("Location: index.php"); exit;
 }
 
 // All checks done, creating the answer$id_question, $id_admin, $content
-Database::create_answer( $id_question, $user['id'], $content);
+Answer::add($id_question, $user->get_id(), $content);
 header("Location: index.php"); exit;

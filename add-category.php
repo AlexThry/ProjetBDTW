@@ -1,8 +1,8 @@
 <?php
 require_once 'functions.php';
 
-$name_category  = isset( $_POST['name'] ) && !empty( $_POST['name'] ) ? strtoupper($_POST['name']) : null;
-$is_admin       = get_user() ? get_user()['is_admin'] : false;
+$label    = !empty( $_POST['name'] ) ? strtoupper($_POST['name']) : null;
+$is_admin = get_user() !== null ? get_user()->is_admin() : false;
 
 // Check if user is connected as admin
 if( !$is_admin ) {
@@ -11,22 +11,21 @@ if( !$is_admin ) {
 }
 
 // Checks the form inputs
-if( $name_category === null ) {
+if( $label === null ) {
     $msg_error = "Veuillez remplir le nom de la categorie";
     header("Location: index.php&error=".$msg_error);
     exit();
 }
 
-$categories = Database::get_categories();
+$categories = Category::all();
 
 // Check if category already exists
-if( in_array($name_category, $categories) ){
+if( in_array($label, $categories) ){
     $msg_error = "Cette catégorie existe déjà !";
     header("Location: index.php&error=".htmlentities($msg_error));
     exit();
 }
-
-Database::create_category($name_category);
+Category::add($label);
 
 header("Location: index.php");
 exit();

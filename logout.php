@@ -5,9 +5,7 @@
 
 require_once 'functions.php';
 
-if ( get_user() ) {
-	unset( $_SESSION['current_user'] );
-}
+if ( get_user() ) $_SESSION['current_user'] = null;
 
 header( 'Location: ' . get_home_url() );
 exit();

@@ -42,16 +42,6 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
                 </li>
                 </ul>
             </li>
-            <li>
-                <a href="#" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
-                    <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Notifications</span>
-                <span class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800">4</span>
-                </a>
-            </li>
         </ul>
         <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
           <li>
@@ -71,7 +61,7 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
     <?php if ($selected_tab === "all-questions") : ?>
         <h1 class="mb-20 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">Toutes les questions</h1>
         <?php
-            $questions = Database::get_questions();
+            $questions = Question::all();
             Component::display_questions($questions, "without-empty-msg");
             if(empty($questions)) {
                 ?>
@@ -87,7 +77,7 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
         <!-- Displays unvalidated questions -->
         <h2 class="mt-4 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions non validées</h2>
         <?php
-            $unvalidated_questions = Database::get_unvalidated_questions();
+            $unvalidated_questions = Question::search("unvalidated","with-categories");
             Component::display_questions($unvalidated_questions, "validatable", "without-empty-msg");
             if(empty($unvalidated_questions)) {
                 ?>
@@ -99,8 +89,8 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
         <!-- Displays unanswered questions -->
         <h2 class="mt-20 mb-4 text-xl font-bold text-gray-900 dark:text-white">Questions sans réponse</h2>
         <?php
-            $unanswered_questions = Database::get_unanswered_questions();
-            Component::display_questions($unanswered_questions, "answerable");
+            $unanswered_questions = Question::search("unanswered","with-categories","with-likes");
+            Component::display_questions($unanswered_questions, "answerable", "with-likes");
         ?>
 
 
@@ -130,12 +120,12 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                     <?php
-                    $categories = Database::get_categories();
+                    $categories = Category::all();
                     foreach ( $categories as $category ) :
                     ?>
-                        <li data-cat="<?= $category['label']; ?>">
-                            <button data-modal-target="category-modal-<?= $category['id'] ?>" data-modal-toggle="category-modal-<?= $category['id'] ?>" type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >
-                                <?= html_entity_decode($category['label']); ?>
+                        <li data-cat="<?= $category->get_label() ?>">
+                            <button data-modal-target="category-modal-<?= $category->get_id() ?>" data-modal-toggle="category-modal-<?= $category->get_id() ?>" type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >
+                                <?= html_entity_decode($category->get_label()); ?>
                             </button>
                         </li>
                     <?php
@@ -145,8 +135,8 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
             </div>
 
             <?php foreach ( $categories as $category ) :
-                $id = $category['id'];
-                $nb_questions_deletable = Database::get_category_nb_questions($id)
+                $id = $category->get_id();
+                $nb_questions = $category->nb_questions();
             ?>
             <div id="category-modal-<?= $id ?>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-2xl max-h-full">
@@ -159,8 +149,8 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
                             </button>
                         </div>
                         <div class="p-6 space-y-6">
-                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Vous vous apprêtez à supprimer une catégorie. Cela affectera <?= $nb_questions_deletable ?> questions. Une fois supprimée, vous ne pourrez plus revenir en arrière.</p>
-                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Etes-vous sûr de vouloir supprimer "<?= $category['label'] ?>" ?</p>
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Vous vous apprêtez à supprimer une catégorie. Cela affectera <?= $nb_questions ?> questions. Une fois supprimée, vous ne pourrez plus revenir en arrière.</p>
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Etes-vous sûr de vouloir supprimer "<?= $category->get_label() ?>" ?</p>
                         </div>
                         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                             <button type="submit" name="id" value=<?= $id ?> class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Supprimer</button>
@@ -170,7 +160,6 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
                 </div>
             </div>
             <?php endforeach ?>
-
         </form>
     <?php endif; ?>
 </section>

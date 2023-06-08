@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 30 mai 2023 à 20:48
+-- Généré le : jeu. 08 juin 2023 à 10:19
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -77,6 +77,17 @@ INSERT INTO `category` (`id`, `label`) VALUES
 (2, 'PHP'),
 (8, 'BD');
 
+--
+-- Déclencheurs `category`
+--
+DROP TRIGGER IF EXISTS `delete_cat`;
+DELIMITER $$
+CREATE TRIGGER `delete_cat` AFTER DELETE ON `category` FOR EACH ROW BEGIN
+  DELETE FROM has_category WHERE id_category = OLD.id;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -143,68 +154,53 @@ INSERT INTO `is_nearby` (`id_question1`, `id_question2`) VALUES
 
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_question` int(11) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `id_question` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_question`,`id_user`),
   KEY `fk_id_question` (`id_question`),
   KEY `fk_id_user` (`id_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `likes`
 --
 
-INSERT INTO `likes` (`id`, `id_question`, `id_user`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 4),
-(4, 2, 1),
-(5, 2, 3),
-(6, 2, 4),
-(7, 2, 7),
-(8, 3, 6),
-(9, 3, 2),
-(13, 5, 1),
-(14, 5, 2),
-(15, 5, 3),
-(19, 7, 7),
-(20, 7, 1),
-(21, 7, 2),
-(22, 8, 3),
-(23, 8, 4),
-(24, 8, 5),
-(25, 9, 6),
-(26, 9, 7),
-(27, 10, 1),
-(28, 10, 2),
-(29, 10, 3),
-(30, 11, 2),
-(31, 11, 3),
-(32, 11, 1),
-(33, 11, 6),
-(34, 12, 5),
-(35, 12, 3),
-(36, 12, 7),
-(37, 12, 4),
-(48, 12, 1),
-(51, 6, 8);
+INSERT INTO `likes` (`id_question`, `id_user`) VALUES
+(1, 1),
+(1, 2),
+(1, 4),
+(2, 1),
+(2, 3),
+(2, 4),
+(2, 7),
+(3, 2),
+(3, 6),
+(5, 1),
+(5, 2),
+(5, 3),
+(6, 8),
+(7, 1),
+(7, 2),
+(7, 7),
+(8, 3),
+(8, 4),
+(8, 5),
+(9, 6),
+(9, 7),
+(10, 1),
+(10, 2),
+(10, 3),
+(11, 1),
+(11, 2),
+(11, 3),
+(11, 6),
+(12, 1),
+(12, 3),
+(12, 4),
+(12, 5),
+(12, 7);
 
 -- --------------------------------------------------------
-
---
--- Trigger suppression has_category
---
-
-DROP TRIGGER IF EXISTS `delete_cat`
-DELIMITER //
-CREATE TRIGGER `delete_cat` AFTER DELETE ON `category`
-FOR EACH ROW
-BEGIN
-  DELETE FROM has_category WHERE id_category = OLD.id;
-END //
-DELIMITER ;
-
 
 --
 -- Structure de la table `question`

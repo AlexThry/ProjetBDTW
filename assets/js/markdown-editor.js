@@ -1,18 +1,3 @@
-/**
-   * Enable to fix a showdown bug due to html snippets.
-   *
-   * @param string str
-   * @returns
-   */
-function decode(str) {
-  return str
-    // .replaceAll("&lt;", "<")
-    // .replaceAll("&gt;", ">")
-    // .replaceAll("&amp;", "&")
-    // .replaceAll("&quot;", '"')
-    // .replaceAll("&apos;", "'");
-}
-
 function initMarkdownEditors() {
   const markdownEditors = document.querySelectorAll(".markdown-editor-container");
   if (!markdownEditors) {
@@ -115,7 +100,7 @@ function initMarkdownEditors() {
 
     function handleInput() {
       const text = markdownTextArea.value;
-      const html = decode(converter.makeHtml(text));
+      const html = converter.makeHtml(text);
       markdownPreview.innerHTML = html;
       markdownInput.value = html;
     }

@@ -1,10 +1,9 @@
 <?php
 class Question {
-    private $id, $title, $creation_date, $content, $likes, $id_user, $username, $categories;
+    private $id, $title, $creation_date, $content, $likes, $username, $categories;
 
-    function __construct($id, $id_user, $title, $creation_date, $content) {
+    function __construct($id, $title, $creation_date, $content) {
         $this->id            = $id;
-        $this->id_user       = $id_user;
 		$this->title         = $title;
 		$this->creation_date = $creation_date;
 		$this->content       = $content;
@@ -37,7 +36,6 @@ class Question {
     public static function from_sql(array $res, bool $with_categories = false): Question {
         $question = new Question(
             (int)$res['id'],
-            (int)$res['id_user'],
             $res['title'],
             $res['creation_date'],
             $res['content']
@@ -131,8 +129,6 @@ class Question {
      *
      * /!\ Related questions are not bidirectionnal !
      * Eg: q1 is related to q2, but not vice-versa
-     *
-     * @param int $id_question The question's id
      * @return array The related questions
      */
     public function get_nearby_questions(): array {
@@ -260,7 +256,7 @@ class Question {
     public function get_username() {
         if($this->username !== null) return $this->username;
         global $conn;
-        $sql = "SELECT user_name FROM question q JOIN user u ON u.id = id_user WHERE q.id = ".$this->id.";";
+        $sql = "SELECT user_name FROM question q JOIN user u ON u.id = q.id_user WHERE q.id = ".$this->id.";";
         $res = mysqli_fetch_assoc($conn->query( $sql ));
         $this->username = $res['user_name'];
         return $this->username;

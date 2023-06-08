@@ -14,7 +14,7 @@ $id_question = isset($_POST['id-question']) ? htmlentities($_POST['id-question']
 
 // Check inputs
 if($content === null || $id_question === null) {
-    // TODO [UX | hard] : re-open the question (in the accordion) that the admin was trying to answer
+    // TODO : [UX | hard] : re-open the question (in the accordion) that the admin was trying to answer
     // With something like "Location: index.php?opened-question=$id_question"
     header("Location: index.php"); exit;
 }

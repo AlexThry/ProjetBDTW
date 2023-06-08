@@ -31,12 +31,20 @@ else {
             AlertManager::display_warning( "T'es un petit malin toi ;). Désolé tu n'as pas le droit de modifier cette question." );
         } else {
             ?>
-            <form action="?id=<?= $id_question ?>" method="post">
-                <textarea id="answer-editor" required="" name="answer-content" rows="8" class="block p-2.5 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <?= $answer->get_content() ?>
-                </textarea>
-                <input type="submit" value="valider" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer">
-            </form>
+            <div class="markdown-editor-container text-gray-1000 rounded-b-lg">
+                <form action="?id=<?= $id_question ?>" method="post" class="flex-1">
+                    <div class="sm:col-span-2">
+                        <textarea id="answer-editor" name="answer-content" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ma réponse ...">
+                            <?= $answer->get_content() ?>
+                        </textarea>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <div class="html-markdown-renderer block p-2.5 w-full text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500" rows="8"></div>
+                        <input type="hidden" class="html-input" name="html-input">
+                    </div>
+                    <input type="submit" value="valider" class="rounded-md bg-indigo-600 mb-4 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer">
+                </form>
+            </div>
             <?php
         }
     } else {

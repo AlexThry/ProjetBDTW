@@ -1,10 +1,14 @@
 <?php
 /**
- * Contains de subscription page
+ * Contains the subscription page
  */
 
 require_once 'includes/header.php';
 
+$errors = !empty($_SESSION['subscription_errors']) ? $_SESSION['subscription_errors'] : [];
+$previous_values = !empty($_SESSION['previous_values']) ? $_SESSION['previous_values'] : [];
+unset($_SESSION['subscription_errors']);
+unset($_SESSION['previous_values']);
 ?>
 
 <div class="bg-white dark:bg-gray-800 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,16 +18,12 @@ require_once 'includes/header.php';
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 	<form class="space-y-6" action="subscribe.php" method="POST">
-		<?php
-		if ( isset( $_GET['subscription_error'] ) ) {
-			AlertManager::display_error( html_entity_decode( $_GET['subscription_error'] ) );
-		}
-		?>
+		<?php foreach ($errors as $error) AlertManager::display_error($error) ?>
 
 	  <div>
 		<label for="subscription-user_name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom d'utilisateur *</label>
 		<div class="mt-2">
-		  <input <?php display_input_value( 'user_name' ); ?> type="text" name="subscription-user_name" id="subscription-user_name-input-creation" placeholder="Nom d'utilisateur" required autocomplete="off" required class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input <?php display_input_value( 'username', $previous_values ); ?> required type="text" name="subscription-user_name" id="subscription-user_name-input-creation" placeholder="Nom d'utilisateur"  autocomplete="off"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
@@ -32,7 +32,7 @@ require_once 'includes/header.php';
 		  <label for="subscription-password" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Mot de passe *</label>
 		</div>
 		<div class="mt-2">
-		  <input type="password" name="subscription-password" id="subscription-password-input-creation" placeholder="Mot de passe" autocomplete="current-password" required class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input type="password" required name="subscription-password" id="subscription-password-input-creation" placeholder="Mot de passe" autocomplete="current-password"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
@@ -41,28 +41,28 @@ require_once 'includes/header.php';
 		  <label for="subscription-confirm-password" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Confirmer votre mot de passe *</label>
 		</div>
 		<div class="mt-2">
-		  <input type="password" name="subscription-confirm-password" id="subscription-confirm-password-input-creation" placeholder="Mot de passe" autocomplete="current-password" required class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input type="password" required name="subscription-confirm-password" id="subscription-confirm-password-input-creation" placeholder="Mot de passe" autocomplete="current-password"  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
 	  <div>
 		<label for="subscription-first_name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Prénom</label>
 		<div class="mt-2">
-		  <input  <?php display_input_value( 'first_name' ); ?>  type="text" name="subscription-first_name" id="subscription-first_name-input-creation" placeholder="Saisissez votre prénom" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input  <?php display_input_value( 'first_name',  $previous_values ); ?>  type="text" name="subscription-first_name" id="subscription-first_name-input-creation" placeholder="Saisissez votre prénom" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
 	  <div>
 		<label for="subscription-last_name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom</label>
 		<div class="mt-2">
-		  <input  <?php display_input_value( 'last_name' ); ?>  type="text" name="subscription-last_name" id="subscription-last_name-input-creation" placeholder="Saisissez votre nom" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input  <?php display_input_value( 'last_name',  $previous_values ); ?>  type="text" name="subscription-last_name" id="subscription-last_name-input-creation" placeholder="Saisissez votre nom" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
 	  <div>
 		<label for="subscription-mail" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Email</label>
 		<div class="mt-2">
-		  <input  <?php display_input_value( 'mail' ); ?>  type="text" name="subscription-mail" id="subscription-mail-input-creation" placeholder="Saisissez un email" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input  <?php display_input_value( 'mail',  $previous_values ); ?>  type="text" name="subscription-mail" id="subscription-mail-input-creation" placeholder="Saisissez un email" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
@@ -72,8 +72,8 @@ require_once 'includes/header.php';
 	</form>
 
 	<p class="mt-10 text-center text-sm text-gray-500">
-		Vous avez déjà un compte ?
-	  <a href="./connection.php" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 dark:text-primary-500">Connectez-vous</a>
+        Vous avez déjà un compte ?
+        <a href="./connection.php" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 dark:text-primary-500">Connectez-vous</a>
 	</p>
   </div>
 </div>

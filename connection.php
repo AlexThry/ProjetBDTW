@@ -5,6 +5,10 @@
 
 require_once 'includes/header.php';
 
+$errors = !empty($_SESSION['subscription_errors']) ? $_SESSION['subscription_errors'] : [];
+$previous_values = !empty($_SESSION['previous_values']) ? $_SESSION['previous_values'] : [];
+unset($_SESSION['subscription_errors']);
+unset($_SESSION['previous_values']);
 ?>
 
 <div class="bg-white dark:bg-gray-800 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,16 +18,12 @@ require_once 'includes/header.php';
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 	<form class="space-y-6" action="login.php" method="POST">
-		<?php
-		if ( isset( $_GET['connection_error'] ) ) {
-			AlertManager::display_error( html_entity_decode( $_GET['connection_error'] ) );
-		}
-		?>
+        <?php foreach ($errors as $error) AlertManager::display_error($error) ?>
 
 	  <div>
 		<label for="connection-user-name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom d'utilisateur</label>
 		<div class="mt-2">
-		  <input  <?php display_input_value( 'user_name' ); ?>  type="text" name="connection-user-name" id="connection-user-name-input-creation" placeholder="Saisissez un nom d'utilisateur" required autocomplete="off" required class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input  <?php display_input_value( 'username', $previous_values ); ?>  type="text" name="connection-user-name" id="connection-user-name-input-creation" placeholder="Saisissez un nom d'utilisateur" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 
@@ -35,7 +35,7 @@ require_once 'includes/header.php';
 		  </div>
 		</div>
 		<div class="mt-2">
-		  <input type="password" name="connection-password" id="connection-password-input-creation" placeholder="Saisissez un mot de passe" autocomplete="current-connection-password" required class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		  <input type="password" name="connection-password" id="connection-password-input-creation" placeholder="Saisissez un mot de passe" autocomplete="current-connection-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 		</div>
 	  </div>
 

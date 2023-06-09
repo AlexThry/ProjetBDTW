@@ -15,5 +15,5 @@ if ( $user_name === null || $password === null ) {
 $res = connect_user( $user_name, $password );
 
 // This is painful, but we must keep the "=== true", because connect_user returns a bool or a non-empty string
-header($res === true ? "Location: index.php" : "Location: connection.php?connection_error=$res");
+header($res === true ? "Location: index.php" : "Location: connection.php");
 exit;

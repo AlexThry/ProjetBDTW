@@ -36,48 +36,40 @@ function valid_name(string $name ): bool {
 }
 
 /**
- * Attempt connection.
+ * Attempts connection.
  *
- * @param string $user_name Username.
+ * @param string $username Username.
  * @param string $password Password.
- * @return true|string True if success, error message otherwise.
+ * @return true|void True if success, nothing otherwise.
  */
-function connect_user(string $user_name, string $password ) {
+function connect_user(string $username, string $password ) {
 	global $conn;
 
 	// Validate inputs.
 	$errors = array();
-	if ( empty( $user_name ) ) {
-		$errors[] = "Insérez votre nom d'utilisateur";
-	}
-	if ( empty( $password ) ) {
-		$errors[] = 'Insérez votre mot de passe';
-	}
+	if ( empty( $username ) )  $errors[] = "Insérez votre nom d'utilisateur.";
+    else $_SESSION['previous_values']['username'] = $username;
+	if ( empty( $password ) )  $errors[] = "Insérez votre mot de passe.";
 	if ( ! empty( $errors ) ) {
-		foreach ( $errors as $error_message ) {
-			return $error_message;
-		}
+        $_SESSION['subscription_errors'] = $errors; return;
 	}
 
 	// Protect from XSS attack.
 	$query = sprintf(
 		"SELECT * FROM user WHERE user_name='%s' LIMIT 1",
-		$conn->real_escape_string( $user_name )
+		$conn->real_escape_string( $username )
 	);
 
 	$result = $conn->query( $query );
-	if ( ! $result ) {
-		return 'Erreur de connexion (' . $conn->error . ')';
-	}
 
 	$result = mysqli_fetch_assoc( $result );
 	if ( ! $result ) {
-		return "Ce compte n'existe pas.";
+        $_SESSION["subscription_errors"] = ["Ce compte n'existe pas."]; return;
 	}
 
 	$hash_password = md5( $password );
 	if ( $result['password'] !== $hash_password ) {
-		return 'Mot de passe incorrect.';
+        $_SESSION["subscription_errors"] = ["Mot de passe incorrect."]; return;
 	}
 
 	add_user_to_session($result);
@@ -104,37 +96,40 @@ function add_user_to_session( array $result ): void {
  * @param string $last_name Last name.
  * @param string $mail Mail.
  *
- * @return true|string True if subscription was successful, an error message otherwise.
+ * @return true|void True if subscription was successful, void otherwise.
  */
 function subscribe_user(string $username, string $password, string $confirm_password, string $first_name, string $last_name, string $mail ) {
 	global $conn;
 
 	// Validate inputs.
 	$errors = array();
-	if ( empty( $username ) ) $errors[] = "Insérez votre nom d'utilisateur";
-	if ( empty( $password ) ) $errors[] = 'Insérez votre mot de passe';
-	if ( ! empty( $password ) && empty( $confirm_password ) ) $errors[] = 'Confirmez votre mot de passe';
-	if ( ! empty($mail) && ! valid_mail($mail)) $errors[] = "Le mail est incorrect.";
-	if ( ! empty($last_name) && ! valid_name($last_name)) $errors[] = "Le nom ne peut pas contenir de chiffre ou de caractère spécial.";
-	if ( ! empty($first_name) && ! valid_name($first_name)) $errors[] = "Le prénom ne peut pas contenir de chiffre ou de caractère spécial.";
+	if ( empty($username) ) $errors[] = "Insérez votre nom d'utilisateur";
+    else $_SESSION['previous_values']['username'] = $username;
+	if ( empty($password) ) $errors[] = 'Insérez votre mot de passe';
+	if ( !empty($password) && empty( $confirm_password ) ) $errors[] = 'Confirmez votre mot de passe';
+	if ( !empty($mail) && ! valid_mail($mail)) $errors[] = "Le mail est incorrect.";
+    else $_SESSION['previous_values']['mail'] = $mail;
+	if ( !empty($last_name) && ! valid_name($last_name)) $errors[] = "Le nom ne peut pas contenir de chiffre ou de caractère spécial.";
+    else $_SESSION['previous_values']['last_name'] = $last_name;
+	if ( !empty($first_name) && ! valid_name($first_name)) $errors[] = "Le prénom ne peut pas contenir de chiffre ou de caractère spécial.";
+    else $_SESSION['previous_values']['first_name'] = $first_name;
 
-	if ( ! empty( $errors ) ) {
-		foreach ( $errors as $error_message ) {
-			return $error_message;
-		}
-	}
+	if ( !empty( $errors ) ) {
+        $_SESSION['subscription_errors'] = $errors; return;
+    }
 
-	if ( $password !== $confirm_password ) {
-		return 'Les mots de passe ne correspondent pas.';
-	}
+    if ( ! password_is_secure_enough( $password ) ) $errors[] = 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.';
+	if ( $password !== $confirm_password ) $errors[] = 'Les mots de passe ne correspondent pas.';
 
-	if ( ! password_is_secure_enough( $password ) ) {
-		return 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.';
-	}
+    if ( ! empty( $errors ) ) {
+        $_SESSION['subscription_errors'] = $errors; return;
+    }
 
 	// Check if user already exists
 	$res = $conn->query("SELECT id FROM user WHERE user.user_name = \"$username\" LIMIT 1");
-	if(mysqli_num_rows($res)) return "Ce compte existe déjà, insérez un autre nom d'utilisateur.";
+	if(mysqli_num_rows($res)) {
+        $_SESSION['subscription_errors'] = ['Ce compte existe déjà. Changez votre nom d\'utilisateur']; return;
+    }
 
 	$date          = date( 'Y-m-d' );
 	$hash_password = md5( $password );
@@ -143,7 +138,10 @@ function subscribe_user(string $username, string $password, string $confirm_pass
 
 	// Launch query
 	$res = $conn->query($sql);
-	if( !$res ) return "Error lors de l'inscription";
+	if(!$res) {
+        $_SESSION['subscription_errors'] = ['Erreur lors de l\'inscription.'];
+        return;
+    }
 
 	// Get newly created user
 	$res = mysqli_fetch_assoc($conn->query("SELECT * FROM user WHERE id = LAST_INSERT_ID()"));

@@ -18,14 +18,11 @@ function format_date(string $date_value ): string {
 
 /**
  * Displays a value field for html inputs
- * Only if the input is in $_POST or $_GET
+ * Only if the input is in $array ($_POST, $_GET, $_SESSION...)
  */
-function display_input_value( $input ): void {
-	if ( isset( $_POST[ $input ] ) ) {
-		echo "value='" . $_POST[ $input ] . "'";
-	}
-	if ( isset( $_GET[ $input ] ) ) {
-		echo "value='" . $_GET[ $input ] . "'";
+function display_input_value( $input, array $array ): void {
+	if ( !empty($array[$input]) ) {
+		echo "value='" . htmlentities($array[ $input ]) . "'";
 	}
 }
 

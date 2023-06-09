@@ -5,18 +5,14 @@
 
 require_once 'functions.php';
 
-if ( isset( $_POST['subscription-user_name'] ) && isset( $_POST['subscription-password'] ) && isset( $_POST['subscription-confirm-password'] )
-	&& isset( $_POST['subscription-first_name'] ) && isset( $_POST['subscription-last_name'] ) && isset( $_POST['subscription-mail'] ) ) {
-	$res = subscribe_user( htmlentities( $_POST['subscription-user_name'] ), $_POST['subscription-password'], $_POST['subscription-confirm-password'],
-		$_POST['subscription-first_name'], $_POST['subscription-last_name'], $_POST['subscription-mail'] );
-	if ( $res === true ) {
-		header( 'Location: account.php' );
-	} else {
-		header( 'Location: subscription.php?subscription_error=' . $res );
-	}
-	exit();
-}
+$username         = $_POST['subscription-user_name'] ?? null;
+$password         = $_POST['subscription-password'] ?? null;
+$confirm_password = $_POST['subscription-confirm-password'] ?? null;
+$mail             = $_POST['subscription-mail'] ?? null;
+$first_name       = $_POST['subscription-first_name'] ?? null;
+$last_name        = $_POST['subscription-last_name'] ?? null;
 
-
-header( 'Location: subscription.php' );
-exit();
+$res = subscribe_user( $username, $password, $confirm_password, $first_name, $last_name, $mail);
+if ( $res === true ) header( 'Location: account.php' );
+else header( 'Location: subscription.php' );
+exit;

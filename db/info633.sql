@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 08 juin 2023 à 10:19
+-- Généré le : ven. 09 juin 2023 à 14:13
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
 INSERT INTO `answer` (`id`, `content`, `id_user`, `id_question`) VALUES
 (1, 'Exactement.\nPour une association de 1 à 1, il faut choisir un sens et reporter la clé dans l’autre relation. Pour guider votre choix, vous pouvez privilégier la clé la plus simple (nombre, sans caractères)', 8, 2),
 (2, 'Il y a une erreur à la ligne 7, vous avez oublié d\'ajouter un \";\". Faites attention dans le reste du code, vous ne prenez pas en compte le cas où l\'utilisateur n\'a pas encore de compte, pensez à archiver. bip.', 8, 1),
-(3, 'Tu créer pas de table. C\'est une vraie question ou tu me poses une question ? C\'est un piège *sourire gênant*. J\'crois qu\'on se comprends plus... Qu\'est ce que tu fait ?', 8, 12),
+(3, ' Tu cr&eacute;er pas de table. C\'est une vraie question ou tu me poses une question ? C\'est un pi&egrave;ge \\\\\\\\*sourire g&ecirc;nant\\\\\\\\*. J\'crois qu\'on se comprends plus... Qu\'est ce que tu fait ?', 8, 12),
 (4, 'La différence entre une jointure et un produit cartésien réside dans le résultat obtenu.\n\nDans un produit cartésien, toutes les combinaisons possibles entre les enregistrements de deux tables sont retournées, sans tenir compte d\'aucune condition. Le produit cartésien est généralement noté par le symbole ×.\n\nEn revanche, une jointure est une opération qui combine les enregistrements de deux tables en fonction d\'une condition spécifique. La condition de jointure est généralement basée sur des valeurs communes dans les colonnes des tables. Le résultat de la jointure est un sous-ensemble des enregistrements des tables d\'origine qui satisfont la condition de jointure.', 9, 11),
 (5, 'Les jointures LEFT JOIN et RIGHT JOIN servent à combiner les enregistrements de deux tables en fonction d\'une condition de jointure spécifiée, tout en incluant tous les enregistrements de l\'une des tables, même s\'ils ne correspondent à aucun enregistrement dans l\'autre table.\r\n\r\nDans un LEFT JOIN, tous les enregistrements de la table de gauche (la première table spécifiée dans la requête) sont inclus dans le résultat, qu\'ils correspondent ou non aux enregistrements de la table de droite (la deuxième table spécifiée). Si aucun enregistrement ne correspond dans la table de droite, les colonnes correspondantes contiendront des valeurs nulles.\r\n\r\nDans un RIGHT JOIN, c\'est l\'inverse : tous les enregistrements de la table de droite sont inclus, qu\'ils correspondent ou non aux enregistrements de la table de gauche.', 9, 10),
 (6, 'Il est préférable d\'utiliser une requête SELECT imbriquée (subquery) lorsque vous avez besoin d\'effectuer une opération basée sur les résultats d\'une requête interne avant de les utiliser dans la requête externe. Cela peut être utile lorsque vous devez filtrer, agréger ou manipuler les données avant de les utiliser dans la requête principale. Les sous-requêtes sont généralement utilisées pour effectuer des opérations plus complexes et fournir des résultats intermédiaires.\n\nEn revanche, il est préférable d\'utiliser une jointure (JOIN) lorsque vous souhaitez combiner les données de plusieurs tables en fonction d\'une condition de jointure. Les jointures sont utilisées pour obtenir des informations provenant de différentes tables en les liant sur des colonnes communes. Cela permet de récupérer des enregistrements correspondants des tables liées, en utilisant une condition spécifiée, et de les combiner dans un résultat unique.', 9, 9),
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `label` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `label` (`label`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `category`
@@ -119,6 +119,7 @@ INSERT INTO `has_category` (`id_question`, `id_category`) VALUES
 (9, 8),
 (10, 8),
 (11, 8),
+(12, 6),
 (12, 8);
 
 -- --------------------------------------------------------
@@ -178,7 +179,6 @@ INSERT INTO `likes` (`id_question`, `id_user`) VALUES
 (5, 1),
 (5, 2),
 (5, 3),
-(6, 8),
 (7, 1),
 (7, 2),
 (7, 7),
@@ -228,13 +228,13 @@ INSERT INTO `question` (`id`, `title`, `creation_date`, `content`, `id_user`, `i
 (3, 'Nommage des tables', '2023-01-30 00:00:00', 'Est ce qu\'il existe des conventions de nommages des tables / attributs dans le milieu professionnel de la base de donnés ?', 5, 9),
 (4, 'Table et relation', '2023-01-30 00:00:00', '&lt;p&gt;Ceci est un test &lt;code&gt;test&lt;/code&gt;&lt;br /&gt;\r\n&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAAA6klEQVR4nGL8//8/AyUAIICYKNINBAABxILMYWRkZDCUlQU7iY2LHUPxr28/wfT5x48ZYS4HCCAUA0CasWmEAZgc1BJGEBsggEjyQvoEYwwxgABCMQDZdnTFIL65pSGGOoAAwuoCcXVusGIQDQMzC85idRVAAGEYALKpfVEkmA2isTkbGQAEEAu6AMimDeo3wJor45YzvLz5Fa8BAAGE1QsgTSePnyeoGQQAAgjFAFg8w1yCDGBeAdHI6gACiBE5KRvJyeFNB8gWnXv0CJwOAAIIxQByUiJAADFSmpkAAojizAQQQBQbABBgAOzmUc1BDvzZAAAAAElFTkSuQmCC&quot; style=&quot;width: 10em; heigth:45px;&quot;&gt;&lt;/img&gt;&lt;/p&gt;', 3, NULL),
 (5, 'Nombre de relation', '2023-01-30 00:00:00', 'est-il possible d\'avoir deux ou plusieurs relations entre deux mêmes entités ?', 6, 9),
-(6, 'tuple et n-tuple', '2023-01-31 00:00:00', 'Que signifie \"tuple\" et \"n-uplet\" d\'un modèle ?', 7, NULL),
+(6, 'tuple et n-tuple', '2023-01-31 00:00:00', '					Que signifie &quot;tuple&quot; et &quot;n-uplet&quot; d\'un mod&egrave;le ?				', 7, NULL),
 (7, 'Merise et modèle entité association', '2023-01-01 00:00:00', 'Quelles est la différence entre le modèle E/A et le modèle Merise ?\r\n', 4, 8),
 (8, 'Groupe by et Order by', '2023-02-14 00:00:00', 'Quelle est la différence entre GROUP BY et ORDER BY ?', 1, 8),
 (9, 'Join et select imbriqué', '2023-02-22 00:00:00', 'Bonjour, \r\n\r\nJe me demandais dans quelle situation il est préférable d\'utiliser un SELECT imbriquée et dans quelle situation il est préférable d\'utiliser un JOIN ?\r\n\r\nCordialement,\r\n\r\nUgo TAFARO', 3, 9),
 (10, 'Left et right join en SQL', '2023-02-22 00:00:00', 'Bonjour, \r\n\r\nJe souhaiterais savoir à quoi servent les left et right join puisqu\'ils sélectionnent l\'intégralité d\'une seule table (comme un SELECT * FROM table).\r\n\r\nCordialement', 6, 8),
 (11, 'Jointure et produit cartésien', '2023-02-22 00:00:00', 'Bonjour,\r\n\r\nj\'aimerais connaître la différence entre une jointure et un produit cartésien\r\n\r\nmerci,', 5, 9),
-(12, 'Usage des vues', '2023-02-27 00:00:00', 'Quels sont les désavantages d\'utiliser une vue au lieu d\'une table ?', 2, 8);
+(12, 'Usage des vues', '2023-02-27 00:00:00', '&lt;p&gt;Quels sont les d&eacute;savantages d\'utiliser une vue au lieu d\'une table ?    hiii&lt;/p&gt;', 2, 8);
 
 -- --------------------------------------------------------
 
@@ -245,31 +245,32 @@ INSERT INTO `question` (`id`, `title`, `creation_date`, `content`, `id_user`, `i
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
-  `is_admin` tinyint(1) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `user_name` varchar(25) NOT NULL,
-  `profile_url` text NOT NULL,
+  `profile_url` text,
   `password` varchar(256) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_username` (`user_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `is_admin`, `user_name`, `profile_url`, `password`, `email`) VALUES
-(1, 'hugo', 'beaubrun', 0, 'beaubruh', '', '63a9f0ea7bb98050796b649e85481845', NULL),
-(2, 'ronan', 'terras', 0, 'ronang', '', '63a9f0ea7bb98050796b649e85481845', NULL),
-(3, 'carlyne', 'barrachin', 0, 'carlyne', '', '63a9f0ea7bb98050796b649e85481845', NULL),
-(4, 'Lois', 'Blin', 0, 'lois', 'https://img.freepik.com/vecteurs-premium/profil-avatar-illustration-coloree-2_549209-82.jpg?w=2000', '389a20c65b0987b03475f7d79c3ff974', 'blinlois@gmail.com'),
-(5, 'alexis', 'thierry', 0, 'alexis', '', '63a9f0ea7bb98050796b649e85481845', NULL),
-(6, 'arnaud', 'pfundstein', 0, 'arnaud', '', '63a9f0ea7bb98050796b649e85481845', NULL),
-(7, 'ugo', 'tafaro', 0, 'ugo', '', '63a9f0ea7bb98050796b649e85481845', 'utafaro@gmail.com'),
-(8, 'lionel', 'valet', 1, 'lionel', '', '63a9f0ea7bb98050796b649e85481845', NULL),
-(9, 'ilham', 'alloui', 1, 'ilham', '', '63a9f0ea7bb98050796b649e85481845', NULL);
+INSERT INTO `user` (`id`, `creation_date`, `first_name`, `last_name`, `is_admin`, `user_name`, `profile_url`, `password`, `email`) VALUES
+(1, '2023-06-01 00:00:00', 'hugo', 'beaubrun', 0, 'beaubruh', '', '63a9f0ea7bb98050796b649e85481845', NULL),
+(2, '2023-06-01 00:00:00', 'ronan', 'terras', 0, 'ronang', '', '63a9f0ea7bb98050796b649e85481845', NULL),
+(3, '2023-06-01 00:00:00', 'carlyne', 'barrachin', 0, 'carlyne', '', '63a9f0ea7bb98050796b649e85481845', NULL),
+(4, '2023-06-01 00:00:00', 'Lois', 'Blin', 0, 'lois', 'https://img.freepik.com/vecteurs-premium/profil-avatar-illustration-coloree-2_549209-82.jpg?w=2000', '389a20c65b0987b03475f7d79c3ff974', 'blinlois@gmail.com'),
+(5, '2023-06-01 00:00:00', 'alexis', 'thierry', 0, 'alexis', '', '63a9f0ea7bb98050796b649e85481845', NULL),
+(6, '2023-06-01 00:00:00', 'arnaud', 'pfundstein', 0, 'arnaud', '', '63a9f0ea7bb98050796b649e85481845', NULL),
+(7, '2023-06-01 00:00:00', 'ugo', 'tafaro', 0, 'ugo', '', '63a9f0ea7bb98050796b649e85481845', 'utafaro@gmail.com'),
+(8, '2023-06-01 00:00:00', 'lionel', 'valet', 1, 'lionel', '', '63a9f0ea7bb98050796b649e85481845', NULL),
+(9, '2023-06-01 00:00:00', 'ilham', 'alloui', 1, 'ilham', '', '63a9f0ea7bb98050796b649e85481845', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

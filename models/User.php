@@ -115,21 +115,6 @@ class User {
         return $questions;
     }
 
-
-    /**
-     * Returns the answers made by the user
-     * @return array The user answers
-     */
-    public function get_answers(): array {
-        global $conn;
-        $sql = "SELECT * FROM answer WHERE id_user = ".$this->id;
-        $res = mysqli_query( $conn, $sql );
-
-        $answers = array();
-        foreach( $res as $row ) $answers = Answer::from_sql($row);
-        return $answers;
-    }
-
     public function get_id() { return $this->id; }
 
     public function is_admin() { return $this->is_admin; }

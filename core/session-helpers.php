@@ -5,7 +5,8 @@
  *
  * @return null|User
  */
-function get_user() {
+function get_user(): ?User
+{
 	if ( ! isset( $_SESSION['current_user'] ) ) return null;
 	return $_SESSION['current_user'];
 }

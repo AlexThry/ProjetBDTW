@@ -34,7 +34,7 @@ if ( $title !== null && $content !== null) {
 	$question->update($title, $content, $categories_ids);
 }
 
-// On get la nouvelle version de la question
+// On obtient la nouvelle version de la question
 $question = Question::get( $question_id );
 
 // Like modification
@@ -52,7 +52,7 @@ if ( key_exists( 'edit', $_GET ) ) :
 		<h1 class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">Modifier la question</h1>
 		<form method="post" action="?id=<?= $question_id ?>" class="mb-10">
 			<label for="question_title" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Nom de la question</label>
-			<input type="text" name="question_title" id="question_title" autocomplete="question_title" value="<?= html_entity_decode( $question->get_title() ) ?>" class="mb-4 block w-full rounded-md py-1.5 bg-gray-50 border-gray-300 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="janesmith">
+			<input type="text" name="question_title" id="question_title" autocomplete="question_title" value="<?= html_entity_decode( $question->get_title() ) ?>" class="mb-4 block w-full rounded-md py-1.5 bg-gray-50 border-gray-300 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Mon titre">
 			<label for="content" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Contenu</label>
 
 			<div class="markdown-editor-container">

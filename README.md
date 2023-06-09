@@ -2,6 +2,7 @@
 
 ## TodoList
 - [FIX] Add html renderer in single-question.php?edit_answer=true
+- [FIX] Colonne creation_date missing in User table
 - Dans l'espace compte | **`Carlyne Lois`**
     - ✔️ Changer ses identifiants
     - ✔️ Voir toutes **nos** questions

@@ -127,7 +127,7 @@ class Question {
     /**
      * Returns the questions related to a given question
      *
-     * /!\ Related questions are not bidirectionnal !
+     * /!\ Related questions are not bidirectional !
      * Eg: q1 is related to q2, but not vice-versa
      * @return array The related questions
      */
@@ -139,13 +139,6 @@ class Question {
         $questions = array();
         foreach( $res as $row ) $questions[] = Question::from_sql($row);
         return $questions;
-    }
-
-
-    public static function exists(int $id) : bool {
-        global $conn;
-        $sql = "SELECT * FROM question WHERE id = $id";
-        return $conn->query($sql)->num_rows > 0;
     }
 
     public function update( $title, $content, $id_categories ) {

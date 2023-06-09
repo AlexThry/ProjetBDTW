@@ -38,7 +38,7 @@ if ( $title !== null && $content !== null) {
 
 <?php if ($user === null): AlertManager::display_warning('Vous devez être connecté pour poser une question'); ?>
 <?php else:  ?>
-	<?php if ( $is_admin ) : AlertManager::display_info("Vous êtes connecté en tant qu'administrateur. Etes-vous sur de vouloir poser une question ?"); endif ?>
+	<?php if ( $is_admin ) : AlertManager::display_info("Vous êtes connecté en tant qu'administrateur. Êtes-vous sur de vouloir poser une question ?"); endif ?>
 
     <form action="#" method="post" class="flex-1 mt-8">
         <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">Poser une question</h2>

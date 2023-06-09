@@ -18,10 +18,6 @@ final class Database {
 
         $conn = new mysqli( 'localhost', DB_USER_NAME, DB_PASSWORD );
 
-        if ( ! $conn ) {
-            echo 'Erreur de connexion à la bdd';
-        }
-
         $conn->query( 'USE info633' );
         $conn->query( 'SET NAMES utf8' );
     }

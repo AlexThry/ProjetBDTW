@@ -8,9 +8,9 @@ if ( $user === null  ) {
 	exit();
 }
 
-$active_tab    = isset( $_GET['tab'] ) ? $_GET['tab'] : 'user_data';
+$active_tab    = $_GET['tab'] ?? 'user_data';
 $is_admin      = $user !== null && $user->is_admin();
-$error_message = isset( $_GET['error'] ) ? $_GET['error'] : null;
+$error_message = $_GET['error'] ?? null;
 
 require_once 'includes/header.php';
 
@@ -32,9 +32,6 @@ if( $error_message !== null ) {
 								'label'    => 'Mes données',
 								'svg_path' => '<path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>',
 							],
-							// Carlyne, si tu lis ça, tu n'avais pas besoin de tester $is_admin avant
-							// Déjà, tu as juste besoin d'être connecté pour voir ces boutons (et pas besoin d'être admin)
-							// Ensuite, on teste déjà si l'utilisateur est connecté au début de la page
 							'user_questions' => [
 								'label'    => 'Mes questions',
 								'svg_path' => '<path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>',

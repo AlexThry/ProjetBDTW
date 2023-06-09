@@ -12,7 +12,7 @@ if( !$is_admin ) {
 
 // Checks the form inputs
 if( $label === null ) {
-    $msg_error = "Veuillez remplir le nom de la categorie";
+    $msg_error = "Veuillez remplir le nom de la catégorie";
     header("Location: index.php&error=".$msg_error);
     exit();
 }

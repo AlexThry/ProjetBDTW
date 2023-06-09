@@ -17,7 +17,7 @@ if ( ! class_exists( 'AlertManager' ) ) {
 		 * @param string $message Message.
 		 * @return void
 		 */
-		public static function display_success( $message ): void {
+		public static function display_success(string $message ): void {
 			global $alert_index;
 			?>
 
@@ -44,7 +44,7 @@ if ( ! class_exists( 'AlertManager' ) ) {
 		 * @param string $message Message.
 		 * @return void
 		 */
-		public static function display_info( $message ): void {
+		public static function display_info(string $message ): void {
 			global $alert_index;
 			?>
 
@@ -71,7 +71,7 @@ if ( ! class_exists( 'AlertManager' ) ) {
 		 * @param string $message Message.
 		 * @return void
 		 */
-		public static function display_warning( $message ): void {
+		public static function display_warning(string $message ): void {
 			global $alert_index;
 			?>
 
@@ -98,7 +98,7 @@ if ( ! class_exists( 'AlertManager' ) ) {
 		 * @param string $message Message.
 		 * @return void
 		 */
-		public static function display_error( $message ): void {
+		public static function display_error(string $message ): void {
 			global $alert_index;
 
 			?>

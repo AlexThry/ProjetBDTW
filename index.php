@@ -2,8 +2,8 @@
 
 require_once 'includes/header.php';
 
-$category_label = isset( $_GET['category'] ) && !empty( $_GET['category']) ? $_GET['category'] : null;
-$search_string  = isset( $_GET['search'] ) && !empty( $_GET['search']) ? $_GET['search'] : null;
+$category_label = !empty( $_GET['category']) ? $_GET['category'] : null;
+$search_string  = !empty( $_GET['search']) ? $_GET['search'] : null;
 $is_search      = $category_label !== null || $search_string !== null;
 ?>
 
@@ -77,8 +77,6 @@ $is_search      = $category_label !== null || $search_string !== null;
             </div>
         </section>
     <?php endif; ?>
-</div>
-
 </div>
 
 <?php

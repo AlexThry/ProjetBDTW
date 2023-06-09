@@ -19,14 +19,14 @@ if($new_password !== null && $confirm_password !== null && $new_password !== $co
 }
 
 if($new_password !== null && !password_is_secure_enough($new_password)) {
-    $errors[] = 'Votre mot de passe n\'est pas assez sécurisé.<br /><br />
+    $errors[] = "Votre mot de passe n'est pas assez sécurisé.<br /><br />
         Il doit comporter :<br /><br />
         <ul>
             <li>Au moins 8 caractères.</li>
             <li>Au moins 1 lettre minuscule.</li>
             <li>Au moins 1 lettre majuscule.</li>
             <li>Au moins 1 chiffre.</li>
-        </ul>';
+        </ul>";
 }
 
 if(empty($errors) && !empty($_POST)) {

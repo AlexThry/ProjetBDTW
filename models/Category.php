@@ -71,6 +71,6 @@ class Category {
         $sql = "SELECT * FROM has_category hc WHERE id_category = $this->id";
         return $conn->query($sql)->num_rows;
     }
-    public function get_id() { return $this->id; }
-    public function get_label() { return ucfirst($this->label); }
+    public function get_id(): int { return $this->id; }
+    public function get_label(): string { return ucfirst($this->label); }
 }

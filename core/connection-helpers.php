@@ -11,7 +11,7 @@
  * @param string $password Password to check.
  * @return boolean
  */
-function password_is_secure_enough( $password ): bool {
+function password_is_secure_enough(string $password ): bool {
 	return preg_match( '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $password );
 }
 
@@ -21,7 +21,7 @@ function password_is_secure_enough( $password ): bool {
  * @param string $mail Mail to check.
  * @return boolean
  */
-function valid_mail( $mail ): bool {
+function valid_mail(string $mail ): bool {
 	return preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $mail);
 }
 
@@ -31,7 +31,7 @@ function valid_mail( $mail ): bool {
  * @param string $name name to check.
  * @return boolean
  */
-function valid_name( $name ): bool {
+function valid_name(string $name ): bool {
 	return preg_match('/^[a-zA-ZÀ-ÖØ-öø-ſ]+([ \'-][a-zA-ZÀ-ÖØ-öø-ſ]+)*$/', $name);
 }
 
@@ -42,7 +42,7 @@ function valid_name( $name ): bool {
  * @param string $password Password.
  * @return true|string True if success, error message otherwise.
  */
-function connect_user( $user_name, $password ) {
+function connect_user(string $user_name, string $password ) {
 	global $conn;
 
 	// Validate inputs.
@@ -97,7 +97,7 @@ function add_user_to_session( array $result ): void {
 /**
  * Attempts subscription.
  *
- * @param string $user_name Username.
+ * @param string $username Username.
  * @param string $password Password.
  * @param string $confirm_password Confirm password.
  * @param string $first_name First name.
@@ -106,12 +106,12 @@ function add_user_to_session( array $result ): void {
  *
  * @return true|string True if subscription was successful, an error message otherwise.
  */
-function subscribe_user( $user_name, $password, $confirm_password, $first_name, $last_name, $mail ) {
+function subscribe_user(string $username, string $password, string $confirm_password, string $first_name, string $last_name, string $mail ) {
 	global $conn;
 
 	// Validate inputs.
 	$errors = array();
-	if ( empty( $user_name ) ) $errors[] = "Insérez votre nom d'utilisateur";
+	if ( empty( $username ) ) $errors[] = "Insérez votre nom d'utilisateur";
 	if ( empty( $password ) ) $errors[] = 'Insérez votre mot de passe';
 	if ( ! empty( $password ) && empty( $confirm_password ) ) $errors[] = 'Confirmez votre mot de passe';
 	if ( ! empty($mail) && ! valid_mail($mail)) $errors[] = "Le mail est incorrect.";
@@ -139,7 +139,7 @@ function subscribe_user( $user_name, $password, $confirm_password, $first_name, 
 	$date          = date( 'Y-m-d' );
 	$hash_password = md5( $password );
 	$sql           = "INSERT INTO user (user_name, password, creation_date, first_name, last_name, email)
-		VALUES ('" . $user_name . "','" . $hash_password . "','" . $date . "','" . $first_name . "','" . $last_name . "','" . $mail . "')";
+		VALUES ('" . $username . "','" . $hash_password . "','" . $date . "','" . $first_name . "','" . $last_name . "','" . $mail . "')";
 
 	// Launch query
 	$res = $conn->query($sql);

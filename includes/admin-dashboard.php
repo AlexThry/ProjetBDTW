@@ -5,7 +5,7 @@ if( !$is_admin ) {
     exit();
 }
 
-$selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
+$selected_tab = $_GET['tab'] ?? null;
 ?>
 
 <aside class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidenav" id="drawer-navigation">
@@ -150,7 +150,7 @@ $selected_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
                         </div>
                         <div class="p-6 space-y-6">
                             <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Vous vous apprêtez à supprimer une catégorie. Cela affectera <?= $nb_questions ?> questions. Une fois supprimée, vous ne pourrez plus revenir en arrière.</p>
-                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Etes-vous sûr de vouloir supprimer "<?= $category->get_label() ?>" ?</p>
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Êtes-vous sûr de vouloir supprimer "<?= $category->get_label() ?>" ?</p>
                         </div>
                         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                             <button type="submit" name="id" value=<?= $id ?> class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Supprimer</button>

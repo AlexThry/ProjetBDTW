@@ -5,16 +5,15 @@ require_once 'classes/Answerable.php';
 /**
  * Format date to show number of mins/hours/days/months/days since the date.
  *
- * @param string $date Date to format.
+ * @param string $date_value Date to format.
  * @return string
+ * @throws Exception if the date has an invalid format
  */
-function format_date( $date_value ): string {
+function format_date(string $date_value ): string {
 	setlocale( LC_TIME, 'fr_FR.UTF-8' ); // Set the locale to French
 
 	$date           = new DateTime( $date_value );
-	$formatted_date = $date->format( 'j M, Y' );
-
-	return $formatted_date;
+    return $date->format( 'j M, Y' );
 }
 
 /**
@@ -36,7 +35,8 @@ function display_input_value( $input ): void {
  * @param integer $length Length of the string to generate.
  * @return string Random string.
  */
-function generate_random_string( $length = 10 ) {
+function generate_random_string(int $length = 10 ): string
+{
 	return substr( str_shuffle( str_repeat( $x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil( $length / strlen( $x ) ) ) ), 1, $length );
 }
 
@@ -46,7 +46,7 @@ function generate_random_string( $length = 10 ) {
  * @param array $array Array to filter.
  * @return array Filtered array.
  */
-function remove_falsy_values( $array ): array {
+function remove_falsy_values(array $array ): array {
 	foreach ( $array as $key => $value ) {
 		if ( ! $value ) {
 			unset( $array[ $key ] );
